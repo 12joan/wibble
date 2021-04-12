@@ -1,4 +1,5 @@
 import React from 'react'
+import RoomChannel from 'channels/room_channel'
 import Sidebar from 'components/Sidebar'
 import RollLogHeader from 'components/RollLogHeader'
 import RollLog from 'components/RollLog'
@@ -12,16 +13,27 @@ class Application extends React.Component {
       performRoll: this.performRoll.bind(this),
     }
 
+    this.roomChannel = RoomChannel.subscribe({
+      roomId: props.roomId,
+      onReceived: this.receivedRoll.bind(this),
+    })
+
     this.state = {
       rolls: [],
     }
   }
 
-  performRoll(die) {
+  performRoll(rollSpec) {
+    this.roomChannel.send({
+      rollSpec,
+    })
+  }
+
+  receivedRoll(rollResult) {
     this.setState({
       rolls: [
         ...this.state.rolls,
-        die,
+        rollResult.rollSpec,
       ]
     })
   }
