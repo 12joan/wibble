@@ -1,15 +1,12 @@
 import React from 'react'
+import RollLogHeader from 'components/RollLogHeader'
 import RollLog from 'components/RollLog'
 import RollLogFooter from 'components/RollLogFooter'
 
 const Application = props => (
   <div className="vh-100 d-flex flex-column">
-    <div className="border-bottom p-3">
-      top bar
-    </div>
-
+    <RollLogHeader />
     <RollLog roomId={props.roomId} />
-
     <RollLogFooter />
   </div>
 )
