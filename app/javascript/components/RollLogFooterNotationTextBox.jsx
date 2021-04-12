@@ -4,7 +4,16 @@ import { ThreeDotsVertical, ArrowUpSquareFill } from 'react-bootstrap-icons'
 const handleSubmit = (event, performRoll) => {
   const { target } = event
   event.preventDefault()
-  performRoll(target.querySelector('input[type=text]').value)
+
+  const rawNotation = target.querySelector('input[type=text]').value
+  const [, name] = rawNotation.match(/"(.*)"/) || ["no match", null]
+  const notation = rawNotation.replaceAll(/".*"/g, "").trim()
+
+  performRoll({
+    name,
+    notation,
+  })
+
   target.reset()
 }
 

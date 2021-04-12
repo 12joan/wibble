@@ -4,8 +4,11 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    Rails.logger.error stream_name.inspect
-    ActionCable.server.broadcast stream_name, data
+    roll = DiceRoller.perform_roll(data['roll'])
+
+    ActionCable.server.broadcast stream_name, {
+      roll: roll,
+    }
   end
 
   def unsubscribed

@@ -19,21 +19,21 @@ class Application extends React.Component {
     })
 
     this.state = {
-      rolls: [],
+      rollData: [],
     }
   }
 
-  performRoll(rollSpec) {
+  performRoll(roll) {
     this.roomChannel.send({
-      rollSpec,
+      roll,
     })
   }
 
-  receivedRoll(rollResult) {
+  receivedRoll(data) {
     this.setState({
-      rolls: [
-        ...this.state.rolls,
-        rollResult.rollSpec,
+      rollData: [
+        ...this.state.rollData,
+        data,
       ]
     })
   }
@@ -45,7 +45,7 @@ class Application extends React.Component {
 
         <div className="col-md-8 vh-100 d-flex flex-column">
           <RollLogHeader eventDelegate={this.eventDelegate} />
-          <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rolls={this.state.rolls} />
+          <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
           <RollLogFooter eventDelegate={this.eventDelegate} />
         </div>
       </div>

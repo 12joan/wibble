@@ -9,7 +9,12 @@ const RollLogFooter = props => (
           <div key={die} className="col d-grid">
             <button
               className="btn btn-sm btn-dark"
-              onClick={() => props.eventDelegate.performRoll(die)}>
+              onClick={() => {
+                props.eventDelegate.performRoll({
+                  name: null,
+                  notation: `1${die}`,
+                })
+              }}>
               {die}
             </button>
           </div>

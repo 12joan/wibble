@@ -11,12 +11,12 @@ const RollLog = props => (
       { /* <h2 className="text-secondary fs-5">Alice</h2> */ }
 
       {
-        props.rolls.map((roll, i) =>
+        props.rollData.map((data, i) =>
           <div key={i} className="card card-body mt-3">
-            <h4>{roll} (31)</h4>
+            <h4>{data.roll.name === null ? data.roll.result.value : `${data.roll.name} (${data.roll.result.value})`}</h4>
 
             <div className="text-muted">
-              8d6 (30) + 1
+              {data.roll.result.text}
             </div>
           </div>
         )
