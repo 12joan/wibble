@@ -1,5 +1,6 @@
 import React from 'react'
 import RollLog from 'components/RollLog'
+import RollLogFooter from 'components/RollLogFooter'
 
 const Application = props => (
   <div className="vh-100 d-flex flex-column">
@@ -9,9 +10,7 @@ const Application = props => (
 
     <RollLog roomId={props.roomId} />
 
-    <div className="border-top p-3">
-      bottom bar
-    </div>
+    <RollLogFooter />
   </div>
 )
 
