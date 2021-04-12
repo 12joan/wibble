@@ -1,10 +1,18 @@
 import React from 'react'
 import { ThreeDotsVertical, ArrowUpSquareFill } from 'react-bootstrap-icons'
 
+const handleSubmit = (event, performRoll) => {
+  const { target } = event
+  event.preventDefault()
+  performRoll(target.querySelector('input[type=text]').value)
+  target.reset()
+}
+
 const RollLogFooterNotationTextBox = props => (
-  <div className="border rounded d-flex">
+  <form className="border rounded d-flex" onSubmit={e => handleSubmit(e, props.eventDelegate.performRoll)}>
     <div className="align-self-stretch border-end my-2 px-2 dropup">
       <button
+        type="button"
         className="three-dots-dropup-button"
         data-bs-toggle="dropdown"
         aria-expanded="false">
@@ -23,11 +31,11 @@ const RollLogFooterNotationTextBox = props => (
       placeholder="Dice notation" />
 
     <div className="align-self-stretch my-2 px-2">
-      <button className="send-button">
+      <button type="submit" className="send-button">
         <ArrowUpSquareFill size="1.5em" />
       </button>
     </div>
-  </div>
+  </form>
 )
 
 export default RollLogFooterNotationTextBox

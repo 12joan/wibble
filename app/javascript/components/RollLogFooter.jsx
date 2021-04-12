@@ -7,7 +7,9 @@ const RollLogFooter = props => (
       {
         ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(die => (
           <div key={die} className="col d-grid">
-            <button className="btn btn-sm btn-dark">
+            <button
+              className="btn btn-sm btn-dark"
+              onClick={() => props.eventDelegate.performRoll(die)}>
               {die}
             </button>
           </div>
@@ -15,7 +17,7 @@ const RollLogFooter = props => (
       }
     </div>
 
-    <RollLogFooterNotationTextBox />
+    <RollLogFooterNotationTextBox eventDelegate={props.eventDelegate} />
   </div>
 )
 

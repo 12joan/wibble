@@ -8,21 +8,19 @@ const RollLog = props => (
         <p className="lead">Room ID <span className="font-monospace">{props.roomId}</span></p>
       </div>
 
-      <h2 className="text-secondary fs-5">Alice</h2>
+      { /* <h2 className="text-secondary fs-5">Alice</h2> */ }
 
-      <div className="card card-body mt-3">
-        <div className="text-muted">
-          1d20 (12) + 3
-        </div>
-      </div>
+      {
+        props.rolls.map((roll, i) =>
+          <div key={i} className="card card-body mt-3">
+            <h4>{roll} (31)</h4>
 
-      <div className="card card-body mt-3">
-        <h4>Fireball (31)</h4>
-
-        <div className="text-muted">
-          8d6 (30) + 1
-        </div>
-      </div>
+            <div className="text-muted">
+              8d6 (30) + 1
+            </div>
+          </div>
+        )
+      }
     </div>
   </div>
 )
