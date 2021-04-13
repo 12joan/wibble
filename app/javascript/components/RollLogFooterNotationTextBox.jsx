@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThreeDotsVertical, ArrowUpSquareFill } from 'react-bootstrap-icons'
+import RollMenu from 'components/RollMenu'
 
 const handleSubmit = (event, performRoll) => {
   const { target } = event
@@ -18,20 +19,19 @@ const handleSubmit = (event, performRoll) => {
 }
 
 const RollLogFooterNotationTextBox = props => (
-  <form className="border rounded d-flex" onSubmit={e => handleSubmit(e, props.eventDelegate.performRoll)}>
+  <form id="hopethisworks" className="border rounded d-flex" onSubmit={e => handleSubmit(e, props.eventDelegate.performRoll)}>
     <div className="align-self-stretch border-end my-2 px-2 dropup">
       <button
         type="button"
         className="three-dots-dropup-button"
         data-bs-toggle="dropdown"
+        data-bs-reference="parent"
+        data-bs-offset="0,8"
         aria-expanded="false">
-        <ThreeDotsVertical />
+        <ThreeDotsVertical className="bi" />
       </button>
 
-      <ul className="dropdown-menu">
-        <li><span className="dropdown-header">Don't click the link below</span></li>
-        <li><a className="dropdown-item" href="#">Hello world!</a></li>
-      </ul>
+      <RollMenu eventDelegate={props.eventDelegate} width="calc(768px - 300px - 2em)" />
     </div>
 
     <input
@@ -41,7 +41,7 @@ const RollLogFooterNotationTextBox = props => (
 
     <div className="align-self-stretch my-2 px-2">
       <button type="submit" className="send-button">
-        <ArrowUpSquareFill size="1.5em" />
+        <ArrowUpSquareFill className="bi" size="1.5em" />
       </button>
     </div>
   </form>

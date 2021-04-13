@@ -16,6 +16,10 @@
 
 @import "bootstrap/scss/bootstrap";
 
+.bi {
+  vertical-align: -.125em;
+}
+
 .three-dots-dropup-button {
   @extend .btn;
   @extend .border-0;

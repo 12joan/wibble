@@ -12,7 +12,7 @@ const RollLogHeader = props => (
       </div>
 
       <div className="col-auto">
-        <Burger size="1.5em" />
+        <Burger className="bi" size="1.5em" />
       </div>
     </div>
   </div>
