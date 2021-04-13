@@ -40,10 +40,10 @@ class Application extends React.Component {
 
   render() {
     return (
-      <div className="h-100 row g-0">
+      <div className="d-flex h-100 text-break">
         <Sidebar eventDelegate={this.eventDelegate} />
 
-        <div className="col-md-8 h-100 d-flex flex-column">
+        <div className="flex-grow-1 h-100 d-flex flex-column">
           <RollLogHeader eventDelegate={this.eventDelegate} />
           <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
           <RollLogFooter eventDelegate={this.eventDelegate} />
