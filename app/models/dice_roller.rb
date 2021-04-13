@@ -16,16 +16,18 @@ module DiceRoller
   private
 
   def self.parse_notation(notation)
-    s = StringScanner.new(notation.delete(" \t"))
+    s = StringScanner.new(notation)
 
     parts = []
 
     until s.eos?
       case
-      when part = s.scan(/\+?\d*d\d+/)
+      when part = s.scan(/(\+ *)?\d*d\d+/)
         parts << parse_die_part(part)
-      when part = s.scan(/[+-]?\d+/)
+      when part = s.scan(/([+-] *)?\d+/)
         parts << parse_modifier_part(part)
+      else
+        s.scan(/[^ ]* */)
       end
     end
 
@@ -38,7 +40,7 @@ module DiceRoller
   end
 
   def self.parse_modifier_part(notation)
-    Part::Modifier.new(notation.to_i)
+    Part::Modifier.new(notation.delete(' ').to_i)
   end
 
   class Notation

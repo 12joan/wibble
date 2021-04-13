@@ -238,6 +238,35 @@ class DiceRollerTest < ActiveSupport::TestCase
     )
   end
 
+  test 'roll 1d20 - 2 please' do
+    n = rand(1..20)
+
+    assert_equal(
+      {
+        name: nil,
+        notation: 'roll 1d20 - 2 please',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: true,
+              value: n,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: -2,
+            },
+          ],
+          text: "1d20 (#{n}) - 2",
+          value: n - 2,
+        },
+      },
+      roll('roll 1d20 - 2 please', random: [n])
+    )
+  end
+
   private
 
   def roll(notation, random:)
