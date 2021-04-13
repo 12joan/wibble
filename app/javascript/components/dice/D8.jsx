@@ -4,24 +4,30 @@ function SvgD8(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={46.925}
-      height={53.256}
+      width={60}
+      height={60}
       {...props}
     >
       <path
-        d="M23.963 3.5l20.462 11.814v23.628L23.963 50.757 3.5 38.942V15.314L23.963 3.5z"
+        d="M30.228 3.5L3.5 30.228l26.728 26.728 26.728-26.728L30.228 3.5z"
         fill="#404040"
       />
       <path
-        d="M23.963 3.5l20.462 11.814v23.628L23.963 50.757 3.5 38.942V15.314L23.963 3.5z"
+        d="M30.228 3.5L3.5 30.228l26.728 26.728 26.728-26.728L30.228 3.5z"
         stroke="#404040"
-        strokeWidth={5.333}
+        strokeWidth={5.33}
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
-      <text transform="translate(23.463 30.472)">
-        <tspan x={0} y={3.945} textAnchor="middle" fontSize={20} fill="#FFF">
+      <text transform="translate(29.728 29.728)">
+        <tspan
+          x={0}
+          y={6.868}
+          textAnchor="middle"
+          fontSize={20}
+          fill="#FFF"
+        >
           {props.value}
         </tspan>
       </text>
