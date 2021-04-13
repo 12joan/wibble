@@ -9,7 +9,7 @@ module DiceRoller
     {
       name: requested_roll['name'],
       notation: unparsed_notation,
-      result: notation.result!(rng: rng),
+      result: notation.result(rng: rng),
     }
   end
 
@@ -19,6 +19,7 @@ module DiceRoller
     s = StringScanner.new(notation)
 
     parts = []
+    advantage_type = :normal
 
     until s.eos?
       case
@@ -27,11 +28,16 @@ module DiceRoller
       when part = s.scan(/([+-] *)?\d+/)
         parts << parse_modifier_part(part)
       else
-        s.scan(/[^ ]* */)
+        case s.scan(/[^ ]* */)
+        when /dis/
+          advantage_type = :disadvantage
+        when /adv/
+          advantage_type = :advantage
+        end
       end
     end
 
-    Notation.new(parts)
+    Notation.new(parts: parts, advantage_type: advantage_type)
   end
 
   def self.parse_die_part(notation)
@@ -44,28 +50,33 @@ module DiceRoller
   end
 
   class Notation
-    attr_reader :parts
+    attr_reader :parts, :advantage_type
 
-    def initialize(parts)
+    def initialize(parts:, advantage_type:)
       @parts = parts
+      @advantage_type = advantage_type
     end
 
-    def result!(rng:)
-      roll_dice!(rng: rng)
+    def result(rng:)
+      part_results = parts.map { |part| part.result(rng: rng, advantage_type: advantage_type) }
+
+      advantage_tag = {
+        normal: '',
+        advantage: ' [advantage]',
+        disadvantage: ' [disadvantage]'
+      }.fetch(advantage_type)
 
       {
-        parts: parts.flat_map(&:result),
-        text: parts.map.with_index { |part, i| part.text(with_sign: i > 0) }.join(' '),
-        value: parts.map(&:value).sum,
+        parts: part_results.flat_map(&:data),
+        text: part_results.map.with_index do |result, i|
+          result.text.(with_sign: i > 0)
+        end.join(' ') + advantage_tag,
+        value: part_results.map(&:value).sum,
       }
     end
-
-    private
-
-    def roll_dice!(rng:)
-      parts.filter { |p| p.is_a?(Part::Dice) }.map { |p| p.roll!(rng: rng) }
-    end
   end
+
+  PartResult = Struct.new(:value, :text, :data, keyword_init: true)
 
   class Part
     class Dice < Part
@@ -74,60 +85,101 @@ module DiceRoller
         @sides = sides
       end
 
-      def roll!(rng:)
-        @die_values = @count.times.map { rng.rand(1..@sides) }
-      end
-
-      def value
-        @die_values.sum
-      end
-
-      def text(with_sign: false)
-        sign = with_sign ? '+ ' : ''
-        "#{sign}#{@count}d#{@sides} (#{value})"
-      end
-
-      def result
-        @die_values.map do |value|
-          {
-            type: 'die',
-            dieType: 'd' + @sides.to_s,
-            used: true,
-            value: value,
-          }
+      def result(rng:, advantage_type: :normal)
+        if advantage_type != :normal && @count == 1 && @sides == 20
+          dis_advantage_result(rng: rng, advantage_type: advantage_type)
+        else
+          normal_result(rng: rng)
         end
+      end
+
+      private
+
+      def normal_result(rng:)
+        die_values = @count.times.map { rng.rand(1..@sides) }
+
+        value = die_values.sum
+
+        PartResult.new(
+          value: value,
+
+          text: -> (with_sign: false) do
+            sign = with_sign ? '+ ' : ''
+            "#{sign}#{@count}d#{@sides} (#{value})"
+          end,
+
+          data: die_values.map do |value|
+            {
+              type: 'die',
+              dieType: 'd' + @sides.to_s,
+              used: true,
+              value: value,
+            }
+          end,
+        )
+      end
+
+      def dis_advantage_result(rng:, advantage_type:)
+        die_values = 2.times.map { rng.rand(1..@sides) }
+
+        value =
+         case advantage_type
+         when :advantage
+           die_values.max
+         when :disadvantage
+           die_values.min
+         end
+
+        value_index = die_values.index(value)
+
+        PartResult.new(
+          value: value,
+
+          text: -> (with_sign: false) do
+            sign = with_sign ? '+ ' : ''
+            "#{sign}#{@count}d#{@sides} (#{die_values.join(', ')})"
+          end,
+
+          data: die_values.map.with_index do |value, i|
+            {
+              type: 'die',
+              dieType: 'd' + @sides.to_s,
+              used: value_index == i,
+              value: value,
+            }
+          end,
+        )
       end
     end
 
     class Modifier < Part
-      attr_reader :value
-
       def initialize(value)
         @value = value
       end
 
-      def text(with_sign: false)
-        sign =
-          case
-          when value.negative?
-            '- '
-          when with_sign
-            '+ '
-          else
-            ''
-          end
+      def result(rng:, advantage_type: :normal)
+        PartResult.new(
+          value: @value,
 
-        sign + value.abs.to_s
-      end
+          text: -> (with_sign: false) do
+            case
+            when @value.negative?
+              '- '
+            when with_sign
+              '+ '
+            else
+              ''
+            end + @value.abs.to_s
+          end,
 
-      def result
-        [
-          {
-            type: 'modifier',
-            used: true,
-            value: value,
-          }
-        ]
+          data: [
+            {
+              type: 'modifier',
+              used: true,
+              value: @value,
+            }
+          ],
+        )
       end
     end
   end

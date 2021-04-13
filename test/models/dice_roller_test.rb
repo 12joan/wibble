@@ -267,6 +267,78 @@ class DiceRollerTest < ActiveSupport::TestCase
     )
   end
 
+  test '1d20 - 2 with advantage' do
+    n1 = 14
+    n2 = 9
+
+    assert_equal(
+      {
+        name: nil,
+        notation: '1d20 - 2 with advantage',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: true,
+              value: n1,
+            },
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: false,
+              value: n2,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: -2,
+            },
+          ],
+          text: "1d20 (#{n1}, #{n2}) - 2 [advantage]",
+          value: n1 - 2,
+        },
+      },
+      roll('1d20 - 2 with advantage', random: [n1, n2])
+    )
+  end
+
+  test '1d20 - 2 with disadvantage' do
+    n1 = 14
+    n2 = 9
+
+    assert_equal(
+      {
+        name: nil,
+        notation: '1d20 - 2 with disadvantage',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: false,
+              value: n1,
+            },
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: true,
+              value: n2,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: -2,
+            },
+          ],
+          text: "1d20 (#{n1}, #{n2}) - 2 [disadvantage]",
+          value: n2 - 2,
+        },
+      },
+      roll('1d20 - 2 with disadvantage', random: [n1, n2])
+    )
+  end
+
   private
 
   def roll(notation, random:)
