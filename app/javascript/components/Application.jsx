@@ -43,7 +43,7 @@ class Application extends React.Component {
       <div className="d-flex h-100 text-break">
         <Sidebar eventDelegate={this.eventDelegate} />
 
-        <div className="flex-grow-1 h-100 d-flex flex-column">
+        <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
           <RollLogHeader eventDelegate={this.eventDelegate} />
           <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
           <RollLogFooter eventDelegate={this.eventDelegate} />

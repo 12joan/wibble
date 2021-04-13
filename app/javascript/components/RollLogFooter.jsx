@@ -3,7 +3,7 @@ import RollLogFooterNotationTextBox from 'components/RollLogFooterNotationTextBo
 
 const RollLogFooter = props => (
   <div className="border-top p-3">
-    <div className="row gx-2 mb-2 flex-nowrap overflow-scroll">
+    <div className="row gx-2 mb-2 flex-nowrap text-nowrap overflow-scroll">
       {
         ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(die => (
           <div key={die} className="col d-grid">
