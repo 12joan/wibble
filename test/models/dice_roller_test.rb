@@ -92,6 +92,152 @@ class DiceRollerTest < ActiveSupport::TestCase
     )
   end
 
+  test '1d8 + 2d6' do
+    n1 = rand(1..8)
+    n2 = rand(1..6)
+    n3 = rand(1..6)
+
+    assert_equal(
+      {
+        name: nil,
+        notation: '1d8 + 2d6',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd8',
+              used: true,
+              value: n1,
+            },
+            {
+              type: 'die',
+              dieType: 'd6',
+              used: true,
+              value: n2,
+            },
+            {
+              type: 'die',
+              dieType: 'd6',
+              used: true,
+              value: n3,
+            },
+          ],
+          text: "1d8 (#{n1}) + 2d6 (#{n2 + n3})",
+          value: n1 + n2 + n3,
+        },
+      },
+      roll('1d8 + 2d6', random: [n1, n2, n3])
+    )
+  end
+
+  test '1d8 + 2d6 + 5' do
+    n1 = rand(1..8)
+    n2 = rand(1..6)
+    n3 = rand(1..6)
+
+    assert_equal(
+      {
+        name: nil,
+        notation: '1d8 + 2d6 + 5',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd8',
+              used: true,
+              value: n1,
+            },
+            {
+              type: 'die',
+              dieType: 'd6',
+              used: true,
+              value: n2,
+            },
+            {
+              type: 'die',
+              dieType: 'd6',
+              used: true,
+              value: n3,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: 5,
+            },
+          ],
+          text: "1d8 (#{n1}) + 2d6 (#{n2 + n3}) + 5",
+          value: n1 + n2 + n3 + 5,
+        },
+      },
+      roll('1d8 + 2d6 + 5', random: [n1, n2, n3])
+    )
+  end
+
+  test '1d20 - 2' do
+    n = rand(1..20)
+
+    assert_equal(
+      {
+        name: nil,
+        notation: '1d20 - 2',
+        result: {
+          parts: [
+            {
+              type: 'die',
+              dieType: 'd20',
+              used: true,
+              value: n,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: -2,
+            },
+          ],
+          text: "1d20 (#{n}) - 2",
+          value: n - 2,
+        },
+      },
+      roll('1d20 - 2', random: [n])
+    )
+  end
+
+  test '5 - 2 + 1 + 8' do
+    assert_equal(
+      {
+        name: nil,
+        notation: '5 - 2 + 1 + 8',
+        result: {
+          parts: [
+            {
+              type: 'modifier',
+              used: true,
+              value: 5,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: -2,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: 1,
+            },
+            {
+              type: 'modifier',
+              used: true,
+              value: 8,
+            },
+          ],
+          text: '5 - 2 + 1 + 8',
+          value: 12,
+        },
+      },
+      roll('5 - 2 + 1 + 8', random: [])
+    )
+  end
+
   private
 
   def roll(notation, random:)
