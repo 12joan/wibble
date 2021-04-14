@@ -6,9 +6,11 @@ const handleSubmit = (event, performRoll) => {
   const { target } = event
   event.preventDefault()
 
+  const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
+
   const rawNotation = target.querySelector('input[type=text]').value
-  const [, name] = rawNotation.match(/"(.*)"/) || ["no match", null]
-  const notation = rawNotation.replaceAll(/".*"/g, "").trim()
+  const [, name] = rawNotation.match(nameRegex) || ["no match", null]
+  const notation = rawNotation.replace(nameRegex, "").trim()
 
   performRoll({
     name,
