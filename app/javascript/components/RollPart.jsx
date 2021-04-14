@@ -33,27 +33,23 @@ const dieProps = part => {
 const RollPart = props => {
   const { part } = props
 
-  switch (part.type) {
-    case 'die':
-      const DieComponent = { d4: D4, d6: D6, d8: D8, d10: D10, d12: D12, d20: D20, d100: D100 }[part.dieType] || D20
+  return (
+    <div className={`${part.used ? '' : 'opacity-50'} me-2 mb-2`}>
+      {
+        {
+          die: () => {
+            const DieComponent = { d4: D4, d6: D6, d8: D8, d10: D10, d12: D12, d20: D20, d100: D100 }[part.dieType] || D20
+            return <DieComponent {...dieProps(part)} />
+          },
 
-      return (
-        <div className={part.used ? '' : 'opacity-50'}>
-          <DieComponent {...dieProps(part)} className="me-2 mb-2" />
-        </div>
-      )
-
-      break
-
-    case 'modifier':
-      const sign = part.value >= 0 ? '+ ' : '- '
-
-      return (
-        <span className="fs-3">{sign + Math.abs(part.value)}</span>
-      )
-
-      break
-  }
+          modifier: () => {
+            const sign = part.value >= 0 ? '+ ' : '- '
+            return <span className="fs-3">{sign + Math.abs(part.value)}</span>
+          },
+        }[part.type]()
+      }
+    </div>
+  )
 }
 
 export default RollPart

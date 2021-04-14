@@ -31,7 +31,7 @@ const RollLog = props => (
 
               {
                 data.roll.name === null && (
-                  <span className="fs-2 text-nowrap ms-2">({data.roll.result.value})</span>
+                  <span className="fs-2 text-nowrap">({data.roll.result.value})</span>
                 )
               }
             </div>
