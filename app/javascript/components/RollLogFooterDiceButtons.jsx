@@ -23,7 +23,7 @@ const DieButton = props => {
           performDiceRoll(1, props.dieType, '', props.eventDelegate.performRoll)
           setTimeout(() => debounceClick = false, 50)
         }
-      }
+      },
     },
   )
 
@@ -32,13 +32,21 @@ const DieButton = props => {
       <div className="btn-group dropup">
         <button
           type="button"
-          className="btn btn-sm btn-dark user-select-none"
+          className="btn btn-sm btn-dark"
           onClick={event => event.stopPropagation()}
           onContextMenu={event => {
             bindLongPress.onTouchEnd(event)
             event.preventDefault()
           }}
-          {...bindLongPress}>
+          {...bindLongPress}
+          onTouchStart={event => {
+            bindLongPress.onTouchStart(event)
+            document.body.classList.add('user-select-none')
+          }}
+          onTouchEnd={event=> {
+            bindLongPress.onTouchEnd(event)
+            document.body.classList.remove('user-select-none')
+          }}>
           {props.dieType}
         </button>
 
