@@ -32,7 +32,7 @@ const DieButton = props => {
       <div className="btn-group dropup">
         <button
           type="button"
-          className="btn btn-sm btn-dark"
+          className="btn btn-sm btn-dark user-select-none"
           onClick={event => event.stopPropagation()}
           onContextMenu={event => {
             bindLongPress.onTouchEnd(event)
