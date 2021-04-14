@@ -1,4 +1,5 @@
 import React from 'react'
+import { userName as defaultUserName } from '../constants'
 import RoomChannel from 'channels/room_channel'
 import Sidebar from 'components/Sidebar'
 import RollLogHeader from 'components/RollLogHeader'
@@ -15,6 +16,8 @@ class Application extends React.Component {
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
       showRollModal: () => this.rollModalRef.current.show(),
+      getUserPreferneces: () => this.state.userPreferneces,
+      setUserPreference: this.setUserPreference.bind(this),
     }
 
     this.roomChannel = RoomChannel.subscribe({
@@ -24,6 +27,9 @@ class Application extends React.Component {
 
     this.state = {
       rollData: [],
+      userPreferneces: {
+        name: defaultUserName,
+      },
     }
   }
 
@@ -39,6 +45,15 @@ class Application extends React.Component {
         ...this.state.rollData,
         data,
       ]
+    })
+  }
+
+  setUserPreference(key, value) {
+    this.setState({
+      userPreferneces: {
+        ...this.state.userPreferneces,
+        [key]: value,
+      },
     })
   }
 
