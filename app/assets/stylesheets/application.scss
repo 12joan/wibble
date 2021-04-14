@@ -24,6 +24,13 @@
   opacity: 50%;
 }
 
+.user-select-none {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .three-dots-dropup-button {
   @extend .btn;
   @extend .border-0;
