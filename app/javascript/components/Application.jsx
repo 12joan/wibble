@@ -10,8 +10,11 @@ class Application extends React.Component {
   constructor(props) {
     super(props)
 
+    this.rollModalRef = React.createRef()
+
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
+      showRollModal: () => this.rollModalRef.current.show(),
     }
 
     this.roomChannel = RoomChannel.subscribe({
@@ -52,7 +55,7 @@ class Application extends React.Component {
           </div>
         </div>
 
-        <RollModal eventDelegate={this.eventDelegate} />
+        <RollModal ref={this.rollModalRef} eventDelegate={this.eventDelegate} />
       </>
     )
   }

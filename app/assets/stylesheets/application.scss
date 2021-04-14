@@ -31,6 +31,10 @@
   user-select: none;
 }
 
+.btn-link {
+  @extend .p-0;
+}
+
 .three-dots-dropup-button {
   @extend .btn;
   @extend .border-0;

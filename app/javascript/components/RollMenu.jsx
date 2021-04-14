@@ -64,8 +64,7 @@ const RollMenu = props => (
     <Row
       icon={<BoxArrowUpRight className="bi" />}
       text="Custom dice roll"
-      data-bs-toggle="modal"
-      data-bs-target="#roll-modal" />
+      onClick={props.eventDelegate.showRollModal} />
   </ul>
 )
 
