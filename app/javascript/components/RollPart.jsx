@@ -39,7 +39,11 @@ const RollPart = props => {
         {
           die: () => {
             const DieComponent = { d4: D4, d6: D6, d8: D8, d10: D10, d12: D12, d20: D20, d100: D100 }[part.dieType] || D20
-            return <DieComponent {...dieProps(part)} />
+            return (
+              <div aria-label={`${part.dieType}${part.used ? '' : ', not used'}, rolled ${part.value}`}>
+                <DieComponent {...dieProps(part)} aria-hidden="true" />
+              </div>
+            )
           },
 
           modifier: () => {

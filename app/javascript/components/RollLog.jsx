@@ -2,8 +2,12 @@ import React from 'react'
 import RollPart from 'components/RollPart'
 
 const RollLog = props => (
-  <div className="flex-grow-1 bg-light p-3 overflow-scroll d-flex flex-column-reverse">
+  <div className="flex-grow-1 bg-light p-3 overflow-scroll d-flex flex-column-reverse" aria-label="Roll log">
     <div>
+      <div className="visually-hidden-focusable" id="top-of-roll-log">
+        This is the top of the roll log. <a href="#bottom-of-roll-log">Skip to most recent</a>
+      </div>
+
       <div className="text-center text-secondary mt-3">
         <h3>Thanks for joining</h3>
         <p className="lead">Room ID <span className="font-monospace">{props.roomId}</span></p>
@@ -13,14 +17,14 @@ const RollLog = props => (
 
       {
         props.rollData.map((data, i) =>
-          <div key={i} className="card card-body mt-2">
+          <div key={i} className="card card-body mt-2" aria-label={ `Dice roll ${data.roll.name || ''} ${data.roll.result.value}` } tabIndex="0">
             {
               data.roll.name !== null && (
                 <h4 className="mb-2">{`${data.roll.name} (${data.roll.result.value})`}</h4>
               )
             }
 
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between" aria-label={`Individual die images. Roll result is ${data.roll.result.value}`}>
               <div className="d-flex flex-wrap align-items-center">
                 {
                   data.roll.result.parts.map((part, i) => (
@@ -31,7 +35,7 @@ const RollLog = props => (
 
               {
                 data.roll.name === null && (
-                  <span className="fs-2 text-nowrap">({data.roll.result.value})</span>
+                  <span className="fs-2 text-nowrap" aria-label={ `Roll result ${data.roll.result.value}` }>({data.roll.result.value})</span>
                 )
               }
             </div>
@@ -42,6 +46,10 @@ const RollLog = props => (
           </div>
         )
       }
+
+      <div className="visually-hidden-focusable" id="bottom-of-roll-log">
+        This is the bottom of the roll log. <a href="#top-of-roll-log">Skip to oldest</a>
+      </div>
     </div>
   </div>
 )
