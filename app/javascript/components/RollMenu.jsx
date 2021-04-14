@@ -2,13 +2,15 @@ import React from 'react'
 import { ArrowCounterclockwise, HeartFill, PencilSquare, BoxArrowUpRight } from 'react-bootstrap-icons'
 
 const Row = props => {
+  const { icon, text, subtext, editButton, ...otherProps } = props
+
   return (
     <li>
-      <button type="button" className="dropdown-item d-flex" onClick={props.onClick}>
-        <span className="mx-1">{props.icon}</span>
-        <span className="mx-1 flex-grow-1 text-wrap">{props.text}</span>
-        <span className="mx-1 text-muted">{props.subtext}</span>
-        <span className="mx-1">{props.editButton}</span>
+      <button type="button" className="dropdown-item d-flex" {...otherProps}>
+        <span className="mx-1">{icon}</span>
+        <span className="mx-1 flex-grow-1 text-wrap">{text}</span>
+        <span className="mx-1 text-muted">{subtext}</span>
+        <span className="mx-1">{editButton}</span>
       </button>
     </li>
   )
@@ -17,7 +19,7 @@ const Row = props => {
 Row.defaultProps = {
   subtext: '',
   editButton: <></>,
-  onclick: () => {},
+  onClick: () => {},
 }
 
 const RollMenu = props => (
@@ -62,7 +64,8 @@ const RollMenu = props => (
     <Row
       icon={<BoxArrowUpRight className="bi" />}
       text="Custom dice roll"
-      onClick={() => props.eventDelegate.performRoll({ name: null, notation: '1d4' })} />
+      data-bs-toggle="modal"
+      data-bs-target="#roll-modal" />
   </ul>
 )
 

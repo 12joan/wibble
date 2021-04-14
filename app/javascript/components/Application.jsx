@@ -4,6 +4,7 @@ import Sidebar from 'components/Sidebar'
 import RollLogHeader from 'components/RollLogHeader'
 import RollLog from 'components/RollLog'
 import RollLogFooter from 'components/RollLogFooter'
+import RollModal from 'components/RollModal'
 
 class Application extends React.Component {
   constructor(props) {
@@ -40,15 +41,19 @@ class Application extends React.Component {
 
   render() {
     return (
-      <div className="d-flex h-100 text-break">
-        <Sidebar eventDelegate={this.eventDelegate} />
+      <>
+        <div className="d-flex h-100 text-break">
+          <Sidebar eventDelegate={this.eventDelegate} />
 
-        <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
-          <RollLogHeader eventDelegate={this.eventDelegate} />
-          <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
-          <RollLogFooter eventDelegate={this.eventDelegate} />
+          <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
+            <RollLogHeader eventDelegate={this.eventDelegate} />
+            <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
+            <RollLogFooter eventDelegate={this.eventDelegate} />
+          </div>
         </div>
-      </div>
+
+        <RollModal eventDelegate={this.eventDelegate} />
+      </>
     )
   }
 }
