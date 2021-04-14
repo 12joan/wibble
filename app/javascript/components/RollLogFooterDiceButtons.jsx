@@ -1,10 +1,10 @@
 import React from 'react'
 import { useLongPress } from 'use-long-press'
 
-const performDiceRoll = (count, dieType, performRoll) => (
+const performDiceRoll = (count, dieType, append, performRoll) => (
   performRoll({
     name: null,
-    notation: `${count}${dieType}`,
+    notation: `${count}${dieType}${append}`,
   })
 )
 
@@ -20,7 +20,7 @@ const DieButton = props => {
       onCancel: () => {
         if (!debounceClick) {
           debounceClick = true
-          performDiceRoll(1, props.dieType, props.eventDelegate.performRoll)
+          performDiceRoll(1, props.dieType, '', props.eventDelegate.performRoll)
           setTimeout(() => debounceClick = false, 50)
         }
       }
@@ -57,11 +57,31 @@ const DieButton = props => {
               <li key={n}>
                 <button
                   className="dropdown-item"
-                  onClick={() => performDiceRoll(n, props.dieType, props.eventDelegate.performRoll)}>
+                  onClick={() => performDiceRoll(n, props.dieType, '', props.eventDelegate.performRoll)}>
                   {n}{props.dieType}
                 </button>
               </li>
             ))
+          }
+
+          {
+            props.dieType === 'd20' && (
+              <>
+                <li><hr className="dropdown-divider" /></li>
+
+                {
+                  ['Advantage', 'Disadvantage'].map(special => (
+                    <li key={special}>
+                      <button
+                        className="dropdown-item"
+                        onClick={() => performDiceRoll(1, props.dieType, ' ' + special, props.eventDelegate.performRoll)}>
+                        {special}
+                      </button>
+                    </li>
+                  ))
+                }
+              </>
+            )
           }
         </ul>
       </div>

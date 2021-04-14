@@ -29,9 +29,9 @@ module DiceRoller
         parts << parse_modifier_part(part)
       else
         case s.scan(/[^ ]* */)
-        when /dis/
+        when /dis/i
           advantage_type = :disadvantage
-        when /adv/
+        when /adv/i
           advantage_type = :advantage
         end
       end

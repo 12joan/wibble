@@ -267,14 +267,14 @@ class DiceRollerTest < ActiveSupport::TestCase
     )
   end
 
-  test '1d20 - 2 with advantage' do
+  test '1d20 - 2 with Advantage' do
     n1 = 14
     n2 = 9
 
     assert_equal(
       {
         name: nil,
-        notation: '1d20 - 2 with advantage',
+        notation: '1d20 - 2 with Advantage',
         result: {
           parts: [
             {
@@ -299,7 +299,7 @@ class DiceRollerTest < ActiveSupport::TestCase
           value: n1 - 2,
         },
       },
-      roll('1d20 - 2 with advantage', random: [n1, n2])
+      roll('1d20 - 2 with Advantage', random: [n1, n2])
     )
   end
 
