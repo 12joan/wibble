@@ -7,6 +7,7 @@ class RoomChannel < ApplicationCable::Channel
     roll = DiceRoller.perform_roll(data['roll'])
 
     ActionCable.server.broadcast stream_name, {
+      user: data['user'],
       roll: roll,
     }
   end

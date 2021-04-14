@@ -40,7 +40,7 @@ class RollLogHeaderPostingAs extends React.Component {
   }
 
   getName() {
-    return this.props.eventDelegate.getUserPreferneces().name
+    return this.props.eventDelegate.getUserPreferences().name
   }
 
   setName(value) {

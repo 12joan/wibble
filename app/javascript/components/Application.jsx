@@ -16,7 +16,7 @@ class Application extends React.Component {
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
       showRollModal: () => this.rollModalRef.current.show(),
-      getUserPreferneces: () => this.state.userPreferneces,
+      getUserPreferences: () => this.state.userPreferences,
       setUserPreference: this.setUserPreference.bind(this),
     }
 
@@ -27,7 +27,7 @@ class Application extends React.Component {
 
     this.state = {
       rollData: [],
-      userPreferneces: {
+      userPreferences: {
         name: defaultUserName,
       },
     }
@@ -35,6 +35,10 @@ class Application extends React.Component {
 
   performRoll(roll) {
     this.roomChannel.send({
+      user: {
+        name: this.state.userPreferences.name,
+      },
+
       roll,
     })
   }
@@ -50,8 +54,8 @@ class Application extends React.Component {
 
   setUserPreference(key, value) {
     this.setState({
-      userPreferneces: {
-        ...this.state.userPreferneces,
+      userPreferences: {
+        ...this.state.userPreferences,
         [key]: value,
       },
     })
