@@ -19,7 +19,7 @@ const handleSubmit = (event, performRoll) => {
 }
 
 const RollLogFooterNotationTextBox = props => (
-  <form id="hopethisworks" className="border rounded d-flex" onSubmit={e => handleSubmit(e, props.eventDelegate.performRoll)}>
+  <form className="border rounded d-flex" onSubmit={e => handleSubmit(e, props.eventDelegate.performRoll)}>
     <div className="align-self-stretch border-end my-2 px-2 dropup">
       <button
         type="button"
