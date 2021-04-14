@@ -14,15 +14,25 @@ const RollLog = props => (
       {
         props.rollData.map((data, i) =>
           <div key={i} className="card card-body mt-2">
-            <h4 className="mb-2">
-              {data.roll.name === null ? data.roll.result.value : `${data.roll.name} (${data.roll.result.value})`}
-            </h4>
+            {
+              data.roll.name !== null && (
+                <h4 className="mb-2">{`${data.roll.name} (${data.roll.result.value})`}</h4>
+              )
+            }
 
-            <div className="d-flex flex-wrap align-items-center">
+            <div className="d-flex justify-content-between">
+              <div className="d-flex flex-wrap align-items-center">
+                {
+                  data.roll.result.parts.map((part, i) => (
+                    <RollPart key={i} part={part} />
+                  ))
+                }
+              </div>
+
               {
-                data.roll.result.parts.map((part, i) => (
-                  <RollPart key={i} part={part} />
-                ))
+                data.roll.name === null && (
+                  <span className="fs-2 text-nowrap ms-2">({data.roll.result.value})</span>
+                )
               }
             </div>
 
