@@ -31,6 +31,18 @@ class RollModal extends React.Component {
     })
   }
 
+  handleDiceCountBlur(event) {
+    this.setState({
+      diceCount: Number.parseInt(event.target.value) || 1,
+    })
+  }
+
+  handleRollModifierBlur(event) {
+    this.setState({
+      rollModifier: formatModifier(this.parseModifier(event.target.value)),
+    })
+  }
+
   parseModifier(modifier) {
     return Number.parseFloat(modifier.replaceAll(/\s+/g, '')) || 0
   }
@@ -63,7 +75,7 @@ class RollModal extends React.Component {
               </div>
 
               <div className="mb-3 row g-2 align-items-center">
-                <div className="col">
+                <div className="col-3">
                   <StepperInput
                     type="text"
                     className="form-control text-center"
@@ -71,24 +83,25 @@ class RollModal extends React.Component {
                     valuePredicate={value => value > 0}
                     name="diceCount"
                     value={this.state.diceCount}
-                    onChange={this.handleInputChange.bind(this)} />
+                    onChange={this.handleInputChange.bind(this)}
+                    onBlur={this.handleDiceCountBlur.bind(this)} />
                 </div>
 
-                <div className="col">
+                <div className="col-6">
                   <select
                     className="form-select text-center"
                     name="dieType"
                     value={this.state.dieType}
                     onChange={this.handleInputChange.bind(this)}>
                     {
-                      ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100'].map(dieType => (
+                      ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd20 (adv.)', 'd20 (dis.)', 'd100'].map(dieType => (
                         <option key={dieType} value={dieType}>{dieType}</option>
                       ))
                     }
                   </select>
                 </div>
 
-                <div className="col">
+                <div className="col-3">
                   <StepperInput
                     type="text"
                     className="form-control text-center"
@@ -97,7 +110,8 @@ class RollModal extends React.Component {
                     postprocessValue={formatModifier}
                     name="rollModifier"
                     value={this.state.rollModifier}
-                    onChange={this.handleInputChange.bind(this)} />
+                    onChange={this.handleInputChange.bind(this)}
+                    onBlur={this.handleRollModifierBlur.bind(this)} />
                 </div>
               </div>
 
