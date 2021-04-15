@@ -29,11 +29,19 @@ class Application extends React.Component {
       rollData: [],
       userPreferences: {
         name: defaultUserName,
+        recentRolls: [],
       },
     }
   }
 
-  performRoll(roll) {
+  performRoll(roll, showInRecents = true) {
+    if (showInRecents) {
+      this.setUserPreference('recentRolls', [
+        ...this.state.userPreferences.recentRolls,
+        roll,
+      ])
+    }
+
     this.roomChannel.send({
       ts: Date.now(),
 

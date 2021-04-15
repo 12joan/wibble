@@ -22,32 +22,33 @@ Row.defaultProps = {
   onClick: () => {},
 }
 
-const RollMenu = props => (
-  <ul className={`dropdown-menu ${props.className}`} style={{ width: props.width, maxWidth: '100vw' }}>
-    {
-      [
-        ['2d6 + 1d4 + 3'],
-        ['1d100'],
-        ['Fireball', '(8d6)'],
-        ['1d20 with advantage'],
-        ['1d20 + 1'],
-      ].map(([text, subtext], i) => (
-        <Row
-          key={i}
-          icon={<ArrowCounterclockwise className="bi text-secondary" />}
-          text={text}
-          subtext={subtext}
-          onClick={() => props.eventDelegate.performRoll({ name: null, notation: '1d4' })} />
-      ))
-    }
+const RollMenu = props => {
+  const { recentRolls } = props.eventDelegate.getUserPreferences()
 
-    <li><hr className="dropdown-divider" /></li>
+  return (
+    <ul className={`dropdown-menu ${props.className}`} style={{ width: props.width, maxWidth: '100vw' }}>
+      {
+        recentRolls.map((roll, i) => (
+          <Row
+            key={i}
+            icon={<ArrowCounterclockwise className="bi text-secondary" />}
+            text={roll.name === null ? roll.notation : roll.name}
+            subtext={roll.name === null ? '' : `(${roll.notation})`}
+            onClick={() => props.eventDelegate.performRoll(roll, false)} />
+        ))
+      }
 
-    {
-      [
+      {
+        recentRolls.length > 0 && (
+          <li><hr className="dropdown-divider" /></li>
+        )
+      }
+
+      {
+        [
         ['Dexterity save', '(1d20 + 5)'],
-        ['Longsword attack', '(1d20 - 1)'],
-        ['Longsword damage', '(1d8)'],
+          ['Longsword attack', '(1d20 - 1)'],
+          ['Longsword damage', '(1d8)'],
       ].map(([text, subtext], i) => (
         <Row
           key={i}
@@ -57,16 +58,17 @@ const RollMenu = props => (
           editButton={<PencilSquare className="bi text-primary" />}
           onClick={() => props.eventDelegate.performRoll({ name: null, notation: '1d4' })} />
       ))
-    }
+      }
 
-    <li><hr className="dropdown-divider" /></li>
+      <li><hr className="dropdown-divider" /></li>
 
-    <Row
-      icon={<BoxArrowUpRight className="bi" />}
-      text="Custom dice roll"
-      onClick={props.eventDelegate.showRollModal} />
-  </ul>
-)
+      <Row
+        icon={<BoxArrowUpRight className="bi" />}
+        text="Custom dice roll"
+        onClick={props.eventDelegate.showRollModal} />
+    </ul>
+  )
+}
 
 RollMenu.defaultProps = {
   className: '',
