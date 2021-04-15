@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'bootstrap/js/dist/modal'
-import { PlusCircleFill } from 'react-bootstrap-icons'
+import { PlusCircleFill, HeartFill } from 'react-bootstrap-icons'
 import formatModifier from 'lib/formatModifier'
 import StepperInput from 'components/StepperInput'
 
@@ -16,17 +16,9 @@ class RollModal extends React.Component {
       rollModifier: '',
       showRollName: false,
       rollName: '',
+      favourited: false,
+      indexInFavouriteRollsArray: undefined,
     }
-  }
-
-  componentDidMount() {
-    this.reset()
-
-    this.bootstrapModal = new Modal(this.modalRef.current, {})
-  }
-
-  show() {
-    this.bootstrapModal.show()
   }
 
   reset() {
@@ -36,25 +28,89 @@ class RollModal extends React.Component {
       rollModifier: '',
       showRollName: false,
       rollName: '',
+      favourited: false,
+      indexInFavouriteRollsArray: undefined,
     })
+  }
+
+  componentDidMount() {
+    this.bootstrapModal = new Modal(this.modalRef.current, {})
+    this.reset()
+  }
+
+  show(rollData = null) {
+    this.reset()
+
+    if (rollData !== null) {
+      this.setState(rollData.modalState)
+    }
+
+    this.bootstrapModal.show()
   }
 
   handleInputChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
+    }, () => {
+      this.tryUpdateFavourite()
     })
   }
 
   handleDiceCountBlur(event) {
     this.setState({
       diceCount: Number.parseInt(event.target.value) || 1,
+    }, () => {
+      this.tryUpdateFavourite()
     })
   }
 
   handleRollModifierBlur(event) {
     this.setState({
       rollModifier: formatModifier(this.parseModifier(event.target.value)),
+    }, () => {
+      this.tryUpdateFavourite()
     })
+  }
+
+  handleFavouriteCheckChange(event) {
+    const favourited = event.target.checked
+
+    this.setState({
+      favourited,
+    }, () => {
+      if (favourited) {
+        this.becomeFavourite()
+      } else {
+        this.unfavourite()
+      }
+    })
+  }
+
+  becomeFavourite() {
+    this.setState({
+      indexInFavouriteRollsArray: this.props.eventDelegate.getUserPreferences().favouriteRolls.length,
+    }, () => {
+      this.props.eventDelegate.addFavouriteRoll(this.rollData())
+    })
+  }
+
+  unfavourite() {
+    this.props.eventDelegate.removeFavouriteRoll(this.state.indexInFavouriteRollsArray)
+
+    this.setState({
+      indexInFavouriteRollsArray: undefined,
+    })
+  }
+
+  tryUpdateFavourite() {
+    const { favourited, indexInFavouriteRollsArray } = this.state
+
+    if (favourited && indexInFavouriteRollsArray !== undefined) {
+      this.props.eventDelegate.updateFavouriteRoll(
+        indexInFavouriteRollsArray,
+        this.rollData(),
+      )
+    }
   }
 
   parseModifier(modifier) {
@@ -69,13 +125,21 @@ class RollModal extends React.Component {
     return `${this.state.diceCount}${this.state.dieType}${modifier}`
   }
 
-  performRoll() {
+  rollData() {
     const { rollName } = this.state
 
-    this.props.eventDelegate.performRoll({
-      name: /[^\s]+/.test(rollName) ? rollName : null,
-      notation: this.notation(),
-    })
+    return {
+      modalState: this.state,
+
+      roll: {
+        name: /[^\s]+/.test(rollName) ? rollName : null,
+        notation: this.notation(),
+      },
+    }
+  }
+
+  performRoll() {
+    this.props.eventDelegate.performRoll(this.rollData().roll)
   }
 
   render() {
@@ -88,7 +152,6 @@ class RollModal extends React.Component {
                 event.preventDefault()
                 this.performRoll()
                 this.bootstrapModal.hide()
-                setTimeout(this.reset.bind(this), 100)
               }}>
                 <div className="mb-3">
                   {
@@ -165,8 +228,23 @@ class RollModal extends React.Component {
                   </div>
                 </div>
 
-                <div className="d-grid">
-                  <button type="submit" className="btn btn-dark">
+                <div className="d-flex flex-nowrap mx-n1">
+                  <div className="mx-1">
+                    <input
+                      type="checkbox"
+                      className="btn-check"
+                      id="favourite-check"
+                      autoComplete="off"
+                      name="favourited"
+                      checked={this.state.favourited}
+                      onChange={this.handleFavouriteCheckChange.bind(this)} />
+
+                    <label className="btn btn-outline-success" htmlFor="favourite-check">
+                      <HeartFill />
+                    </label>
+                  </div>
+
+                  <button type="submit" className="mx-1 flex-grow-1 btn btn-dark">
                     Roll {this.notation()}
                   </button>
                 </div>

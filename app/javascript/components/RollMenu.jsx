@@ -6,12 +6,12 @@ const Row = props => {
 
   return (
     <li>
-      <button type="button" className="dropdown-item d-flex" {...otherProps}>
+      <div className="dropdown-item d-flex" role="button" {...otherProps}>
         <span className="mx-1">{icon}</span>
         <span className="mx-1 flex-grow-1 text-wrap">{text}</span>
         <span className="mx-1 text-muted">{subtext}</span>
         <span className="mx-1">{editButton}</span>
-      </button>
+      </div>
     </li>
   )
 }
@@ -22,19 +22,30 @@ Row.defaultProps = {
   onClick: () => {},
 }
 
+const RollRow = props => {
+  const { roll, eventDelegate, ...otherProps } = props
+
+  return (
+    <Row
+      text={roll.name === null ? roll.notation : roll.name}
+      subtext={roll.name === null ? '' : `(${roll.notation})`}
+      onClick={() => eventDelegate.performRoll(roll, false)}
+      {...otherProps} />
+  )
+}
+
 const RollMenu = props => {
-  const { recentRolls } = props.eventDelegate.getUserPreferences()
+  const { recentRolls, favouriteRolls } = props.eventDelegate.getUserPreferences()
 
   return (
     <ul className={`dropdown-menu ${props.className}`} style={{ width: props.width, maxWidth: '100vw' }}>
       {
         recentRolls.map((roll, i) => (
-          <Row
+          <RollRow
             key={i}
-            icon={<ArrowCounterclockwise className="bi text-secondary" />}
-            text={roll.name === null ? roll.notation : roll.name}
-            subtext={roll.name === null ? '' : `(${roll.notation})`}
-            onClick={() => props.eventDelegate.performRoll(roll, false)} />
+            roll={roll}
+            eventDelegate={props.eventDelegate}
+            icon={<ArrowCounterclockwise className="bi text-secondary" />} />
         ))
       }
 
@@ -45,22 +56,31 @@ const RollMenu = props => {
       }
 
       {
-        [
-        ['Dexterity save', '(1d20 + 5)'],
-          ['Longsword attack', '(1d20 - 1)'],
-          ['Longsword damage', '(1d8)'],
-      ].map(([text, subtext], i) => (
-        <Row
-          key={i}
-          icon={<HeartFill className="bi text-success" />}
-          text={text}
-          subtext={subtext}
-          editButton={<PencilSquare className="bi text-primary" />}
-          onClick={() => props.eventDelegate.performRoll({ name: null, notation: '1d4' })} />
-      ))
+        favouriteRolls.map((rollData, i) => (
+          <RollRow
+            key={i}
+            roll={rollData.roll}
+            eventDelegate={props.eventDelegate}
+            icon={<HeartFill className="bi text-success" />}
+            editButton={
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={event => {
+                  event.stopPropagation()
+                  props.eventDelegate.showRollModal(rollData)
+                }}>
+                <PencilSquare className="bi" />
+              </button>
+            } />
+        ))
       }
 
-      <li><hr className="dropdown-divider" /></li>
+      {
+        favouriteRolls.length > 0 && (
+          <li><hr className="dropdown-divider" /></li>
+        )
+      }
 
       <Row
         icon={<BoxArrowUpRight className="bi" />}

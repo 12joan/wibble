@@ -16,9 +16,12 @@ class Application extends React.Component {
 
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
-      showRollModal: () => this.rollModalRef.current.show(),
+      showRollModal: this.showRollModal.bind(this),
       getUserPreferences: () => this.state.userPreferences,
       setUserPreference: this.setUserPreference.bind(this),
+      addFavouriteRoll: this.addFavouriteRoll.bind(this),
+      removeFavouriteRoll: this.removeFavouriteRoll.bind(this),
+      updateFavouriteRoll: this.updateFavouriteRoll.bind(this),
     }
 
     this.roomChannel = RoomChannel.subscribe({
@@ -31,6 +34,7 @@ class Application extends React.Component {
       userPreferences: {
         name: defaultUserName,
         recentRolls: [],
+        favouriteRolls: [],
       },
     }
   }
@@ -40,7 +44,10 @@ class Application extends React.Component {
       .then(data => {
         if (data !== null) {
           this.setState({
-            userPreferences: JSON.parse(data),
+            userPreferences: {
+              ...this.state.userPreferences,
+              ...JSON.parse(data),
+            }
           })
         }
       })
@@ -75,6 +82,10 @@ class Application extends React.Component {
     })
   }
 
+  showRollModal(rollData = null) {
+    this.rollModalRef.current.show(rollData)
+  }
+
   setUserPreference(key, value) {
     this.setState({
       userPreferences: {
@@ -85,6 +96,32 @@ class Application extends React.Component {
       Storage.setItem('user-preferences', JSON.stringify(this.state.userPreferences))
         .catch(console.error)
     })
+  }
+
+  addFavouriteRoll(rollData) {
+    this.setUserPreference('favouriteRolls', [
+      ...this.state.userPreferences.favouriteRolls,
+      rollData,
+    ])
+  }
+
+  removeFavouriteRoll(index) {
+    const { favouriteRolls } = this.state.userPreferences
+
+    this.setUserPreference('favouriteRolls', [
+      ...favouriteRolls.slice(0, index),
+      ...favouriteRolls.slice(index + 1),
+    ])
+  }
+
+  updateFavouriteRoll(index, rollData) {
+    const { favouriteRolls } = this.state.userPreferences
+
+    this.setUserPreference('favouriteRolls', [
+      ...favouriteRolls.slice(0, index),
+      rollData,
+      ...favouriteRolls.slice(index + 1),
+    ])
   }
 
   render() {
