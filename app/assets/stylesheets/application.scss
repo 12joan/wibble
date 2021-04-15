@@ -35,6 +35,12 @@
   @extend .p-0;
 }
 
+.form-select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
 .three-dots-dropup-button {
   @extend .btn;
   @extend .border-0;
