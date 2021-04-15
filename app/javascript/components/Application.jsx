@@ -1,5 +1,6 @@
 import React from 'react'
-import { userName as defaultUserName } from '../constants'
+import { userName as defaultUserName } from 'lib/constants'
+import Storage from 'lib/storage'
 import RoomChannel from 'channels/room_channel'
 import Sidebar from 'components/Sidebar'
 import RollLogHeader from 'components/RollLogHeader'
@@ -32,6 +33,18 @@ class Application extends React.Component {
         recentRolls: [],
       },
     }
+  }
+
+  componentDidMount() {
+    Storage.getItem('user-preferences')
+      .then(data => {
+        if (data !== null) {
+          this.setState({
+            userPreferences: JSON.parse(data),
+          })
+        }
+      })
+      .catch(console.error)
   }
 
   performRoll(roll, showInRecents = true) {
@@ -68,6 +81,9 @@ class Application extends React.Component {
         ...this.state.userPreferences,
         [key]: value,
       },
+    }, () => {
+      Storage.setItem('user-preferences', JSON.stringify(this.state.userPreferences))
+        .catch(console.error)
     })
   }
 

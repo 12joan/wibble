@@ -1,6 +1,6 @@
 import React from 'react'
 import { PencilSquare } from 'react-bootstrap-icons'
-import { userName as defaultUserName } from '../constants'
+import { userName as defaultUserName } from 'lib/constants'
 
 class RollLogHeaderPostingAs extends React.Component {
   constructor(props) {

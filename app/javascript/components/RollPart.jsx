@@ -1,5 +1,5 @@
 import React from 'react'
-import formatModifier from 'formatModifier'
+import formatModifier from 'lib/formatModifier'
 
 import D4 from 'components/dice/D4'
 import D6 from 'components/dice/D6'

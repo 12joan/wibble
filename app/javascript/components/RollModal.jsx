@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'bootstrap/js/dist/modal'
 import { PlusCircleFill } from 'react-bootstrap-icons'
-import formatModifier from 'formatModifier'
+import formatModifier from 'lib/formatModifier'
 import StepperInput from 'components/StepperInput'
 
 class RollModal extends React.Component {
