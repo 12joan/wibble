@@ -35,6 +35,8 @@ class Application extends React.Component {
 
   performRoll(roll) {
     this.roomChannel.send({
+      ts: Date.now(),
+
       user: {
         name: this.state.userPreferences.name,
       },
@@ -48,7 +50,7 @@ class Application extends React.Component {
       rollData: [
         ...this.state.rollData,
         data,
-      ]
+      ].sort((d1, d2) => d1.ts - d2.ts),
     })
   }
 

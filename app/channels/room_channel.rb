@@ -6,10 +6,9 @@ class RoomChannel < ApplicationCable::Channel
   def receive(data)
     roll = DiceRoller.perform_roll(data['roll'])
 
-    ActionCable.server.broadcast stream_name, {
-      user: data['user'],
+    ActionCable.server.broadcast stream_name, data.merge(
       roll: roll,
-    }
+    )
   end
 
   def unsubscribed

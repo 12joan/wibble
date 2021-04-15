@@ -6,16 +6,25 @@ const handleSubmit = (event, performRoll) => {
   const { target } = event
   event.preventDefault()
 
-  const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
+  const rolls = target.querySelector('input[type=text]').value.split(/;/)
 
-  const rawNotation = target.querySelector('input[type=text]').value
-  const [, name] = rawNotation.match(nameRegex) || ["no match", null]
-  const notation = rawNotation.replace(nameRegex, "").trim()
+  const performRolls = ([rawNotation, ...otherRolls]) => {
+    const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
 
-  performRoll({
-    name,
-    notation,
-  })
+    const [, name] = rawNotation.match(nameRegex) || ["no match", null]
+    const notation = rawNotation.replace(nameRegex, "").trim()
+
+    performRoll({
+      name,
+      notation,
+    })
+
+    if (otherRolls.length > 0) {
+      setTimeout(() => performRolls(otherRolls), 100)
+    }
+  }
+
+  performRolls(rolls)
 
   target.reset()
 }
