@@ -11,21 +11,21 @@ const performDiceRoll = (count, dieType, append, performRoll) => (
 let debounceClick = false
 
 const DieButton = props => {
-  const openDropupForButton = btn => btn.parentNode.querySelector('.dropdown-toggle').click()
+  // const openDropupForButton = btn => btn.parentNode.querySelector('.dropdown-toggle').click()
 
-  const bindLongPress = useLongPress(
-    event => openDropupForButton(event.target),
-    {
-      captureEvent: true,
-      onCancel: () => {
-        if (!debounceClick) {
-          debounceClick = true
-          performDiceRoll(1, props.dieType, '', props.eventDelegate.performRoll)
-          setTimeout(() => debounceClick = false, 50)
-        }
-      },
-    },
-  )
+  // const bindLongPress = useLongPress(
+  //   event => openDropupForButton(event.target),
+  //   {
+  //     captureEvent: true,
+  //     onCancel: () => {
+  //       if (!debounceClick) {
+  //         debounceClick = true
+  //         performDiceRoll(1, props.dieType, '', props.eventDelegate.performRoll)
+  //         setTimeout(() => debounceClick = false, 50)
+  //       }
+  //     },
+  //   },
+  // )
 
   return (
     <div className="col d-grid">
@@ -33,20 +33,22 @@ const DieButton = props => {
         <button
           type="button"
           className="btn btn-sm btn-dark"
-          onClick={event => event.stopPropagation()}
-          onContextMenu={event => {
-            bindLongPress.onTouchEnd(event)
-            event.preventDefault()
-          }}
-          {...bindLongPress}
-          onTouchStart={event => {
-            bindLongPress.onTouchStart(event)
-            document.body.classList.add('user-select-none')
-          }}
-          onTouchEnd={event=> {
-            bindLongPress.onTouchEnd(event)
-            document.body.classList.remove('user-select-none')
-          }}>
+          onClick={() => performDiceRoll(1, props.dieType, '', props.eventDelegate.performRoll)}
+          // onClick={event => event.stopPropagation()}
+          // onContextMenu={event => {
+          //   bindLongPress.onTouchEnd(event)
+          //   event.preventDefault()
+          // }}
+          // {...bindLongPress}
+          // onTouchStart={event => {
+          //   bindLongPress.onTouchStart(event)
+          //   document.body.classList.add('user-select-none')
+          // }}
+          // onTouchEnd={event=> {
+          //   bindLongPress.onTouchEnd(event)
+          //   document.body.classList.remove('user-select-none')
+          // }}>
+          >
           {props.dieType}
         </button>
 
