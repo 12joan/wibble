@@ -35,6 +35,7 @@ class Application extends React.Component {
         name: defaultUserName,
         recentRolls: [],
         favouriteRolls: [],
+        upArrowHistory: [],
       },
     }
   }
@@ -86,7 +87,7 @@ class Application extends React.Component {
     this.rollModalRef.current.show(rollData)
   }
 
-  setUserPreference(key, value) {
+  setUserPreference(key, value, callback = () => {}) {
     this.setState({
       userPreferences: {
         ...this.state.userPreferences,
@@ -95,6 +96,7 @@ class Application extends React.Component {
     }, () => {
       Storage.setItem('user-preferences', JSON.stringify(this.state.userPreferences))
         .catch(console.error)
+        .then(() => callback())
     })
   }
 
