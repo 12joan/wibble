@@ -1,5 +1,6 @@
 import React from 'react'
 import { userName as defaultUserName } from 'lib/constants'
+import { bindHotkeys } from 'lib/hotkeys'
 import Storage from 'lib/storage'
 import RoomChannel from 'channels/room_channel'
 import Sidebar from 'components/Sidebar'
@@ -53,6 +54,8 @@ class Application extends React.Component {
         }
       })
       .catch(console.error)
+
+    bindHotkeys(document.body, this.eventDelegate)
   }
 
   performRoll(roll, showInRecents = true) {
