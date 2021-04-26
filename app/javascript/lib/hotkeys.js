@@ -18,6 +18,14 @@ const evaluateBuffer = eventDelegate => {
     '100': () => performDiceRoll('1d100', eventDelegate.performRoll),
     'a': () => performDiceRoll('1d20 (adv)', eventDelegate.performRoll),
     'd': () => performDiceRoll('1d20 (dis)', eventDelegate.performRoll),
+    'c': () => eventDelegate.showRollModal(),
+    '/': event => {
+      event.preventDefault()
+
+      const input = document.querySelector('#notation-input')
+      input.focus()
+      input.select()
+    },
   }
 
   let possibleCompletions = false
@@ -41,12 +49,12 @@ const evaluateBuffer = eventDelegate => {
   }
 }
 
-const handleBufferChanged = (newestKey, eventDelegate, recursive = true) => {
+const handleBufferChanged = (event, eventDelegate, recursive = true) => {
   const { match, ...matchData } = evaluateBuffer(eventDelegate)
 
   switch (match) {
     case 'full':
-      matchData.action()
+      matchData.action(event)
       buffer = ''
       break
 
@@ -55,10 +63,10 @@ const handleBufferChanged = (newestKey, eventDelegate, recursive = true) => {
       break
 
     case 'none':
-      buffer = newestKey
+      buffer = event.key
 
       if (recursive) {
-        handleBufferChanged(newestKey, eventDelegate, false)
+        handleBufferChanged(event, eventDelegate, false)
       }
 
       break
@@ -69,7 +77,7 @@ const bindHotkeys = (element, eventDelegate) => (
   element.addEventListener('keydown', event => {
     const { key, target } = event
 
-    if (target.matches('input')) {
+    if (target.matches('input, select')) {
       return
     }
 
@@ -80,7 +88,7 @@ const bindHotkeys = (element, eventDelegate) => (
 
     buffer += key
 
-    handleBufferChanged(key, eventDelegate)
+    handleBufferChanged(event, eventDelegate)
   })
 )
 

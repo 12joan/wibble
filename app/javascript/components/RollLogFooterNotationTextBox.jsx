@@ -16,8 +16,14 @@ class RollLogFooterNotationTextBox extends React.Component {
   }
 
   componentDidMount() {
-    this.inputRef.current.addEventListener('keydown', event => {
+    const input = this.inputRef.current
+
+    input.addEventListener('keydown', event => {
       switch (event.key) {
+        case 'Escape':
+          input.blur()
+          break
+
         case 'ArrowUp':
           this.changePointer(1)
           event.preventDefault()
@@ -132,6 +138,7 @@ class RollLogFooterNotationTextBox extends React.Component {
 
         <input
           ref={this.inputRef}
+          id="notation-input"
           type="text"
           className="form-control form-control-lg border-0 bg-transparent rounded-0"
           placeholder="Dice notation" />
