@@ -15,6 +15,19 @@ class Application extends React.Component {
 
     this.rollModalRef = React.createRef()
 
+    this.state = {
+      rollData: [],
+      userPreferences: {
+        name: defaultUserName,
+        recentRolls: [],
+        favouriteRolls: [],
+        upArrowHistory: [],
+      },
+      connected: false,
+      connectedOnce: false,
+      windowUnloading: false,
+    }
+
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
       showRollModal: this.showRollModal.bind(this),
@@ -28,17 +41,9 @@ class Application extends React.Component {
     this.roomChannel = RoomChannel.subscribe({
       roomId: props.roomId,
       onReceived: this.receivedRoll.bind(this),
+      onConnect: () => this.setState({ connected: true, connectedOnce: true }),
+      onDisconnect: () => this.setState({ connected: false }),
     })
-
-    this.state = {
-      rollData: [],
-      userPreferences: {
-        name: defaultUserName,
-        recentRolls: [],
-        favouriteRolls: [],
-        upArrowHistory: [],
-      },
-    }
   }
 
   componentDidMount() {
@@ -56,6 +61,8 @@ class Application extends React.Component {
       .catch(console.error)
 
     bindHotkeys(document.body, this.eventDelegate)
+
+    window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))
   }
 
   performRoll(roll, showInRecents = true) {
@@ -137,7 +144,24 @@ class Application extends React.Component {
 
           <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
             <RollLogHeader eventDelegate={this.eventDelegate} />
+
+            <div aria-live="assertive" role="alert">
+              {
+                (!this.state.connectedOnce || this.state.connected || this.state.windowUnloading)
+                  ? (
+                    <span className="visually-hidden">Connected</span>
+                  )
+                  : (
+                    <div className="bg-danger text-white border-bottom p-3">
+                      <span className="d-inline-block">Lost connection to server.&nbsp;</span>
+                      <span className="d-inline-block">Trying to reconnect&hellip; <span className="spinner-border spinner-border-sm"></span></span>
+                    </div>
+                  )
+              }
+            </div>
+
             <RollLog eventDelegate={this.eventDelegate} roomId={this.props.roomId} rollData={this.state.rollData} />
+
             <RollLogFooter eventDelegate={this.eventDelegate} />
           </div>
         </div>
