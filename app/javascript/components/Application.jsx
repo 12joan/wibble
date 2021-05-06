@@ -143,7 +143,7 @@ class Application extends React.Component {
           <Sidebar eventDelegate={this.eventDelegate} />
 
           <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
-            <RollLogHeader eventDelegate={this.eventDelegate} />
+            <RollLogHeader eventDelegate={this.eventDelegate} roomId={this.props.roomId} />
 
             <div aria-live="assertive" role="alert">
               {

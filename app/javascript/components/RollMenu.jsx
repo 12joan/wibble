@@ -1,32 +1,12 @@
 import React from 'react'
 import { ArrowCounterclockwise, HeartFill, PencilSquare, BoxArrowUpRight } from 'react-bootstrap-icons'
-
-const Row = props => {
-  const { icon, text, subtext, editButton, ...otherProps } = props
-
-  return (
-    <li>
-      <div className="dropdown-item d-flex" role="button" {...otherProps}>
-        <span className="mx-1">{icon}</span>
-        <span className="mx-1 flex-grow-1 text-wrap">{text}</span>
-        <span className="mx-1 text-muted">{subtext}</span>
-        <span className="mx-1">{editButton}</span>
-      </div>
-    </li>
-  )
-}
-
-Row.defaultProps = {
-  subtext: '',
-  editButton: <></>,
-  onClick: () => {},
-}
+import DropdownRow from 'components/DropdownRow'
 
 const RollRow = props => {
   const { roll, eventDelegate, ...otherProps } = props
 
   return (
-    <Row
+    <DropdownRow
       text={roll.name === null ? roll.notation : roll.name}
       subtext={roll.name === null ? '' : `(${roll.notation})`}
       onClick={() => eventDelegate.performRoll(roll, false)}
@@ -82,7 +62,7 @@ const RollMenu = props => {
         )
       }
 
-      <Row
+      <DropdownRow
         icon={<BoxArrowUpRight className="bi" />}
         text="Custom dice roll"
         onClick={props.eventDelegate.showRollModal} />
