@@ -47,6 +47,43 @@ $enable-negative-margins: true;
   @extend .bg-light;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .shimmer {
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0) 0%, $blue-200 20%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 100%);
+    background-repeat: no-repeat;
+
+    animation: shimmer 1.5s linear forwards;
+
+    .card {
+      animation: flashBlue 1.5s linear;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100vw 0;
+  }
+
+  100% {
+    background-position: 100vw 0;
+  }
+}
+
+@keyframes flashBlue {
+  30% {
+    background: white;
+  }
+
+  50% {
+    background: #f6faff;
+  }
+
+  70% {
+    background-position: white;
+  }
+}
+
 .dropdown-button {
   @extend .btn;
   @extend .border-0;
