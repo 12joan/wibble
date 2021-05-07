@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'home_page' %>
+
 <div class="min-vh-100 container py-3 d-flex justify-content-center align-items-center">
   <div>
     <% if notice.present? %>
@@ -9,14 +11,6 @@
     <h1>Dice roller</h1>
     <p class="lead">A single-purpose dice roller for online tabletop games.</p>
 
-    <div class="mt-3">
-      <label for="room-id" class="form-label">Join an existing room</label>
-      <input id="room-id" type="text" class="form-control" placeholder="Room ID">
-    </div>
-
-    <div class="mt-3">
-      <label for="new-room" class="form-label">Or create a new one</label>
-      <%= link_to 'New room', room_index_path, method: :post, class: 'btn btn-dark d-block' %>
-    </div>
+    <div id="join-game"></div>
   </div>
 </div>

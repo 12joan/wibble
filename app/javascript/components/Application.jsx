@@ -60,6 +60,18 @@ class Application extends React.Component {
       })
       .catch(console.error)
 
+    Storage.getItem('recently-joined-rooms')
+      .then(recentlyJoinedRooms => {
+        Storage.setItem(
+          'recently-joined-rooms',
+          JSON.stringify({
+            ...JSON.parse(recentlyJoinedRooms || '{}'),
+            [this.props.roomId]: new Date().toISOString(),
+          }),
+        )
+      })
+      .catch(console.error)
+
     bindHotkeys(document.body, this.eventDelegate)
 
     window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))

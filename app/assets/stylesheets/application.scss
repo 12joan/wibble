@@ -43,6 +43,10 @@ $enable-negative-margins: true;
   -webkit-appearance: none;
 }
 
+.card-action:hover {
+  @extend .bg-light;
+}
+
 .dropdown-button {
   @extend .btn;
   @extend .border-0;
