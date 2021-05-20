@@ -8,12 +8,14 @@ import RollLogHeader from 'components/RollLogHeader'
 import RollLog from 'components/RollLog'
 import RollLogFooter from 'components/RollLogFooter'
 import RollModal from 'components/RollModal'
+import PreferencesModal from 'components/PreferencesModal'
 
 class Application extends React.Component {
   constructor(props) {
     super(props)
 
     this.rollModalRef = React.createRef()
+    this.preferencesModalRef = React.createRef()
 
     this.state = {
       rollData: [],
@@ -22,6 +24,10 @@ class Application extends React.Component {
         recentRolls: [],
         favouriteRolls: [],
         upArrowHistory: [],
+        prefersRollAnimation: true,
+        testOption1: false,
+        testOption2: false,
+        testOption3: true,
       },
       connected: false,
       connectedOnce: false,
@@ -31,7 +37,8 @@ class Application extends React.Component {
     this.eventDelegate = {
       performRoll: this.performRoll.bind(this),
       showRollModal: this.showRollModal.bind(this),
-      getUserPreferences: () => this.state.userPreferences,
+      showPreferencesModal: this.showPreferencesModal.bind(this),
+      getUserPreference: this.getUserPreference.bind(this),
       setUserPreference: this.setUserPreference.bind(this),
       addFavouriteRoll: this.addFavouriteRoll.bind(this),
       removeFavouriteRoll: this.removeFavouriteRoll.bind(this),
@@ -80,7 +87,7 @@ class Application extends React.Component {
   performRoll(roll, showInRecents = true) {
     if (showInRecents) {
       this.setUserPreference('recentRolls', [
-        ...this.state.userPreferences.recentRolls,
+        ...this.getUserPreference('recentRolls'),
         roll,
       ])
     }
@@ -89,7 +96,7 @@ class Application extends React.Component {
       ts: Date.now(),
 
       user: {
-        name: this.state.userPreferences.name,
+        name: this.getUserPreference('name'),
       },
 
       roll,
@@ -109,6 +116,14 @@ class Application extends React.Component {
     this.rollModalRef.current.show(rollData)
   }
 
+  showPreferencesModal() {
+    this.preferencesModalRef.current.show()
+  }
+
+  getUserPreference(key) {
+    return this.state.userPreferences[key]
+  }
+
   setUserPreference(key, value, callback = () => {}) {
     this.setState({
       userPreferences: {
@@ -124,13 +139,13 @@ class Application extends React.Component {
 
   addFavouriteRoll(rollData) {
     this.setUserPreference('favouriteRolls', [
-      ...this.state.userPreferences.favouriteRolls,
+      ...this.getUserPreference('favouriteRolls'),
       rollData,
     ])
   }
 
   removeFavouriteRoll(index) {
-    const { favouriteRolls } = this.state.userPreferences
+    const favouriteRolls = this.getUserPreference('favouriteRolls')
 
     this.setUserPreference('favouriteRolls', [
       ...favouriteRolls.slice(0, index),
@@ -139,7 +154,7 @@ class Application extends React.Component {
   }
 
   updateFavouriteRoll(index, rollData) {
-    const { favouriteRolls } = this.state.userPreferences
+    const favouriteRolls = this.getUserPreference('favouriteRolls')
 
     this.setUserPreference('favouriteRolls', [
       ...favouriteRolls.slice(0, index),
@@ -179,6 +194,7 @@ class Application extends React.Component {
         </div>
 
         <RollModal ref={this.rollModalRef} eventDelegate={this.eventDelegate} />
+        <PreferencesModal ref={this.preferencesModalRef} eventDelegate={this.eventDelegate} />
       </>
     )
   }

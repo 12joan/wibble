@@ -43,6 +43,17 @@ $enable-negative-margins: true;
   -webkit-appearance: none;
 }
 
+.btn-white {
+  @extend .btn-light;
+
+  background-color: white;
+  border: 1px solid $gray-400 !important;
+
+  &:hover, &:focus {
+    background-color: $gray-200;
+  }
+}
+
 .card-action:hover {
   @extend .bg-light;
 }

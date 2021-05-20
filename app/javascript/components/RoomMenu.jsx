@@ -16,7 +16,7 @@ const RoomMenu = props => (
     <DropdownRow
       icon={<GearFill className="bi" />}
       text="User preferences"
-      onClick={() => alert('Not implemented yet 😢')} />
+      onClick={props.eventDelegate.showPreferencesModal} />
 
     <li><hr className="dropdown-divider" /></li>
 

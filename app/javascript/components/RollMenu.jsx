@@ -15,7 +15,8 @@ const RollRow = props => {
 }
 
 const RollMenu = props => {
-  const { recentRolls, favouriteRolls } = props.eventDelegate.getUserPreferences()
+  const recentRolls = props.eventDelegate.getUserPreference('recentRolls')
+  const favouriteRolls = props.eventDelegate.getUserPreference('favouriteRolls')
 
   return (
     <ul className={`dropdown-menu ${props.className}`} style={{ width: props.width, maxWidth: '100vw' }}>

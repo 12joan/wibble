@@ -16,6 +16,8 @@ class RollLog extends React.Component {
   }
 
   render() {
+    const prefersRollAnimation = this.props.eventDelegate.getUserPreference('prefersRollAnimation')
+
     let previousName = undefined
 
     return (
@@ -47,7 +49,7 @@ class RollLog extends React.Component {
                   }
 
                   <div className="mt-2">
-                    <div className="shimmer p-1 m-n1 rounded">
+                    <div className={`${prefersRollAnimation ? 'shimmer' : ''} p-1 m-n1 rounded`}>
                       <div className="card card-body" aria-label={ `Dice roll ${data.roll.name || ''} ${data.roll.result.value}` } tabIndex="0">
                         {
                           data.roll.name !== null && (

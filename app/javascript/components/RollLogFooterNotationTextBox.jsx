@@ -64,7 +64,7 @@ class RollLogFooterNotationTextBox extends React.Component {
   }
 
   globalHistory() {
-    return this.props.eventDelegate.getUserPreferences().upArrowHistory
+    return this.props.eventDelegate.getUserPreference('upArrowHistory')
   }
 
   addHistoryEntry(value, callback = () => {}) {

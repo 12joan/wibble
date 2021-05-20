@@ -88,7 +88,7 @@ class RollModal extends React.Component {
 
   becomeFavourite() {
     this.setState({
-      indexInFavouriteRollsArray: this.props.eventDelegate.getUserPreferences().favouriteRolls.length,
+      indexInFavouriteRollsArray: this.props.eventDelegate.getUserPreference('favouriteRolls').length,
     }, () => {
       this.props.eventDelegate.addFavouriteRoll(this.rollData())
     })
