@@ -25,6 +25,8 @@ class Application extends React.Component {
         favouriteRolls: [],
         upArrowHistory: [],
         prefersRollAnimation: true,
+        prefersGraphicalDiceButtons: false,
+        graphicalDiceButtonSize: 4,
         testOption1: false,
         testOption2: false,
         testOption3: true,

@@ -14,6 +14,26 @@ const PreferencesCheckbox = props => (
   </div>
 )
 
+const PreferencesSlider = props => {
+  const value = props.eventDelegate.getUserPreference(props.name)
+
+  return (
+    <div className={props.className}>
+      <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label} ({value})</label>
+
+      <input
+        className="form-range" 
+        id={`preferences-${props.name}`}
+        type="range"
+        value={value}
+        min={props.min}
+        max={props.max}
+        step={props.step}
+        onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)} />
+    </div>
+  )
+}
+
 class PreferencesModal extends React.Component {
   constructor(props) {
     super(props)
@@ -32,7 +52,7 @@ class PreferencesModal extends React.Component {
   render() {
     return (
       <div ref={this.modalRef} className="modal fade" id="preferences-modal" tabIndex="-1" aria-label="User preferences" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-body container-fluid">
               <div className="row justify-content-between align-items-center">
@@ -56,6 +76,24 @@ class PreferencesModal extends React.Component {
                 eventDelegate={this.props.eventDelegate}
                 name="prefersRollAnimation"
                 label="Show animation for new dice rolls" />
+
+              <PreferencesCheckbox
+                eventDelegate={this.props.eventDelegate}
+                name="prefersGraphicalDiceButtons"
+                label="Show dice buttons as icons instead of text" />
+
+              {
+                this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons') && (
+                  <PreferencesSlider
+                    eventDelegate={this.props.eventDelegate}
+                    name="graphicalDiceButtonSize"
+                    className="mt-3"
+                    label="Dice button size"
+                    min={1}
+                    max={10}
+                    step={0.1} />
+                )
+              }
 
               <h5 className="mt-3">Useless options</h5>
 
