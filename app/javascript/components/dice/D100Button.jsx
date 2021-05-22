@@ -17,7 +17,7 @@ function SvgD100Button(props) {
 
         <path
           d="M22.736 39.195L10.27 25.317l12.466-13.879 37.397 13.879z"
-          stroke="#404040"
+          className="stroke-dice-button-outline"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -31,7 +31,7 @@ function SvgD100Button(props) {
 
         <path
           d="M16.351 44.737L2.5 29.317l13.851-15.421 41.552 15.421z"
-          stroke="#404040"
+          className="stroke-dice-button-outline"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -22,7 +22,7 @@ const PreferencesSlider = props => {
       <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label} ({value})</label>
 
       <input
-        className="form-range" 
+        className="form-range"
         id={`preferences-${props.name}`}
         type="range"
         value={value}
@@ -30,6 +30,29 @@ const PreferencesSlider = props => {
         max={props.max}
         step={props.step}
         onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)} />
+    </div>
+  )
+}
+
+const PreferencesText = props => {
+  const value = props.eventDelegate.getUserPreference(props.name)
+
+  return (
+    <div className={props.className}>
+      <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label}</label>
+
+      <input
+        className="form-control"
+        id={`preferences-${props.name}`}
+        type="text"
+        value={value}
+        placeholder={props.placeholder}
+        onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)}
+        onBlur={event => {
+          if (!event.target.value.match(/[^\s]/)) {
+            props.eventDelegate.setUserPreference(props.name, props.defaultIfEmpty)
+          }
+        }} />
     </div>
   )
 }
@@ -50,6 +73,8 @@ class PreferencesModal extends React.Component {
   }
 
   render() {
+    const prefersGraphicalDiceButtons = this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons')
+
     return (
       <div ref={this.modalRef} className="modal fade" id="preferences-modal" tabIndex="-1" aria-label="User preferences" aria-hidden="true">
         <div className="modal-dialog">
@@ -83,7 +108,7 @@ class PreferencesModal extends React.Component {
                 label="Show dice buttons as icons instead of text" />
 
               {
-                this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons') && (
+                prefersGraphicalDiceButtons && (
                   <PreferencesSlider
                     eventDelegate={this.props.eventDelegate}
                     name="graphicalDiceButtonSize"
@@ -111,6 +136,92 @@ class PreferencesModal extends React.Component {
                       ))
                     }
                   </div>
+                </div>
+              </fieldset>
+
+              <fieldset className="mt-3">
+                <legend className="fs-6">Dice theme</legend>
+
+                <div className="card card-body">
+                  <div className="row g-2">
+                    {
+                      Object.entries({
+                        'Dark': {
+                          primary: '#404040',
+                          secondary: '#ffffff',
+                          buttonOutline: '#404040',
+                        },
+
+                        'Light': {
+                          primary: '#eeeeee',
+                          secondary: '#404040',
+                          buttonOutline: '#404040',
+                        },
+
+                        'Metalic': {
+                          primary: '#bbbbbb',
+                          secondary: '#404040',
+                          buttonOutline: '#404040',
+                        },
+
+                        'Red': {
+                          primary: '#aa0000',
+                          secondary: '#ffffff',
+                          buttonOutline: '#aa0000',
+                        },
+
+                        'Green': {
+                          primary: '#449944',
+                          secondary: '#ffffff',
+                          buttonOutline: '#449944',
+                        },
+
+                        'Blue': {
+                          primary: '#004499',
+                          secondary: '#ffffff',
+                          buttonOutline: '#004499',
+                        },
+                      }).map(([themeName, themeData]) => (
+                        <div className="col-12 col-sm-6 col-md-4 d-grid">
+                          <button
+                            key={themeName}
+                            type="button"
+                            className="btn btn-white"
+                            onClick={() => this.props.eventDelegate.setUserPreference('diceTheme', themeData)}>
+                            {themeName}
+                          </button>
+                        </div>
+                      ))
+                    }
+                  </div>
+
+                  <PreferencesText
+                    eventDelegate={this.props.eventDelegate}
+                    name="diceTheme[primary]"
+                    className="mt-3"
+                    label="Fill colour"
+                    placeholder="#404040"
+                    defaultIfEmpty="#404040" />
+
+                  <PreferencesText
+                    eventDelegate={this.props.eventDelegate}
+                    name="diceTheme[secondary]"
+                    className="mt-3"
+                    label="Text colour"
+                    placeholder="#ffffff"
+                    defaultIfEmpty="#ffffff" />
+
+                  {
+                    prefersGraphicalDiceButtons && (
+                      <PreferencesText
+                        eventDelegate={this.props.eventDelegate}
+                        name="diceTheme[buttonOutline]"
+                        className="mt-3"
+                        label="Button outline colour"
+                        placeholder="#404040"
+                        defaultIfEmpty="#404040" />
+                    )
+                  }
                 </div>
               </fieldset>
             </div>

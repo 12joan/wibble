@@ -18,6 +18,12 @@ $enable-negative-margins: true;
 
 @import "bootstrap/scss/bootstrap";
 
+:root {
+  --dice-primary: #404040;
+  --dice-secondary: #ffffff;
+  --dice-button-outline: #4040404;
+}
+
 .bi {
   vertical-align: -.125em;
 }
@@ -145,17 +151,41 @@ $enable-negative-margins: true;
 
     .graphical-die-button-label {
       position: absolute;
-      color: #404040;
+      color: var(--dice-button-outline);
     }
   }
 
   &:hover, &:focus {
     .graphical-die-button {
-      color: #404040;
+      color: var(--dice-primary);
 
       .graphical-die-button-label {
-        color: white;
+        color: var(--dice-secondary);
       }
     }
   }
+}
+
+.fill-dice-primary {
+  fill: var(--dice-primary);
+}
+
+.fill-dice-secondary {
+  fill: var(--dice-secondary);
+}
+
+.fill-dice-button-outline {
+  fill: var(--dice-button-outline);
+}
+
+.stroke-dice-primary {
+  stroke: var(--dice-primary);
+}
+
+.stroke-dice-secondary {
+  stroke: var(--dice-secondary);
+}
+
+.stroke-dice-button-outline {
+  stroke: var(--dice-button-outline);
 }

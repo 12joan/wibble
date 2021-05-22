@@ -8,17 +8,17 @@ function SvgD6(props) {
       height={43.799}
       {...props}
     >
-      <path d="M3.5 3.5h37.798v37.799H3.5V3.5z" fill="#404040" />
+      <path d="M3.5 3.5h37.798v37.799H3.5V3.5z" className="fill-dice-primary" />
       <path
         d="M3.5 3.5h37.798v37.799H3.5V3.5z"
-        stroke="#404040"
+        className="stroke-dice-primary"
         strokeWidth={5.333}
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
       <text transform="translate(21.899 25.745)">
-        <tspan x={0} y={3.945} textAnchor="middle" fontSize={20} fill="#FFF">
+        <tspan x={0} y={3.945} textAnchor="middle" fontSize={20} className="fill-dice-secondary">
           {props.value}
         </tspan>
       </text>

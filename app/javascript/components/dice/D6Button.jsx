@@ -14,7 +14,7 @@ function SvgD6Button(props) {
 
         <path
           d="M15.142 15.143h28.349v28.349H15.142V15.143z"
-          stroke="#404040"
+          className="stroke-dice-button-outline"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

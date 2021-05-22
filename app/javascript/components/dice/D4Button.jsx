@@ -12,7 +12,7 @@ function SvgD4Button(props) {
       >
         <path
           d="M30.511 38.336h-7.08v-1.592q.45-.83 1.006-1.763.557-.932 1.289-2.07.733-1.138 1.685-2.544.952-1.406 2.202-3.193h2.598v9.619h1.992v1.543h-1.992v2.929h-1.7zm-5.341-1.543h5.341v-8.154h-.029q-.996 1.425-1.797 2.597-.801 1.172-1.44 2.154-.64.981-1.148 1.806-.507.825-.927 1.558z"
-          fill="#404040"
+          className="fill-dice-primary"
         />
 
         <path
@@ -22,7 +22,7 @@ function SvgD4Button(props) {
 
         <path
           d="M10.676 45.461l9.32-16.144 9.321-16.144 9.32 16.144 9.321 16.144H29.317z"
-          stroke="#404040"
+          className="stroke-dice-button-outline"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -37,6 +37,11 @@ class Application extends React.Component {
           d12: true,
           d100: true,
         },
+        diceTheme: {
+          primary: '#404040',
+          secondary: '#ffffff',
+          buttonOutline: '#404040',
+        },
       },
       connected: false,
       connectedOnce: false,
@@ -91,6 +96,14 @@ class Application extends React.Component {
     bindHotkeys(document.body, this.eventDelegate)
 
     window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { primary, secondary, buttonOutline } = this.getUserPreference('diceTheme')
+
+    document.body.style.setProperty('--dice-primary', primary)
+    document.body.style.setProperty('--dice-secondary', secondary)
+    document.body.style.setProperty('--dice-button-outline', buttonOutline)
   }
 
   performRoll(roll, showInRecents = true) {

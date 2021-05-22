@@ -10,18 +10,18 @@ function SvgD4(props) {
     >
       <path
         d="M3.5 46.549l12.428-21.525L28.355 3.5l12.427 21.524L53.21 46.549H28.355z"
-        fill="#404040"
+        className="fill-dice-primary"
       />
       <path
         d="M3.5 46.549l12.428-21.525L28.355 3.5l12.427 21.524L53.21 46.549H28.355z"
-        stroke="#404040"
+        className="stroke-dice-primary"
         strokeWidth={5.333}
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
       <text transform="translate(27.855 32.009)">
-        <tspan x={0} y={4.961} textAnchor="middle" fontSize={20} fill="#FFF">
+        <tspan x={0} y={4.961} textAnchor="middle" fontSize={20} className="fill-dice-secondary">
           {props.value}
         </tspan>
       </text>

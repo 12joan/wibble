@@ -10,11 +10,11 @@ function SvgD8(props) {
     >
       <path
         d="M30.228 3.5L3.5 30.228l26.728 26.728 26.728-26.728L30.228 3.5z"
-        fill="#404040"
+        className="fill-dice-primary"
       />
       <path
         d="M30.228 3.5L3.5 30.228l26.728 26.728 26.728-26.728L30.228 3.5z"
-        stroke="#404040"
+        className="stroke-dice-primary"
         strokeWidth={5.33}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -26,7 +26,7 @@ function SvgD8(props) {
           y={6.868}
           textAnchor="middle"
           fontSize={20}
-          fill="#FFF"
+          className="fill-dice-secondary"
         >
           {props.value}
         </tspan>
