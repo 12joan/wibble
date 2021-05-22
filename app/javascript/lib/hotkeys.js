@@ -19,6 +19,7 @@ const evaluateBuffer = eventDelegate => {
     'a': () => performDiceRoll('1d20 (adv)', eventDelegate.performRoll),
     'd': () => performDiceRoll('1d20 (dis)', eventDelegate.performRoll),
     'c': () => eventDelegate.showRollModal(),
+    'p': () => eventDelegate.showPreferencesModal(),
     '/': event => {
       event.preventDefault()
 

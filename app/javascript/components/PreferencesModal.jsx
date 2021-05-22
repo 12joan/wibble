@@ -70,7 +70,7 @@ class PreferencesModal extends React.Component {
                 </div>
               </div>
 
-              <h5 className="mt-3">Useful options</h5>
+              <div className="mt-3" />
 
               <PreferencesCheckbox
                 eventDelegate={this.props.eventDelegate}
@@ -95,22 +95,24 @@ class PreferencesModal extends React.Component {
                 )
               }
 
-              <h5 className="mt-3">Useless options</h5>
+              <fieldset className="mt-3">
+                <legend className="fs-6">Show and hide dice buttons</legend>
 
-              <PreferencesCheckbox
-                eventDelegate={this.props.eventDelegate}
-                name="testOption1"
-                label="This is an option" />
-
-              <PreferencesCheckbox
-                eventDelegate={this.props.eventDelegate}
-                name="testOption2"
-                label="This is also an option" />
-
-              <PreferencesCheckbox
-                eventDelegate={this.props.eventDelegate}
-                name="testOption3"
-                label="This, however, is an option" />
+                <div className="card card-body">
+                  <div className="row mx-0 gx-5">
+                    {
+                      ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(dieType => (
+                        <PreferencesCheckbox
+                          key={dieType}
+                          eventDelegate={this.props.eventDelegate}
+                          name={`showDiceButtons[${dieType}]`}
+                          className="col-6 col-sm-4 col-lg-3 form-switch"
+                          label={dieType} />
+                      ))
+                    }
+                  </div>
+                </div>
+              </fieldset>
             </div>
           </div>
         </div>

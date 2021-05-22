@@ -43,6 +43,12 @@ $enable-negative-margins: true;
   -webkit-appearance: none;
 }
 
+.form-check-input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
 .btn-white {
   @extend .btn-light;
 

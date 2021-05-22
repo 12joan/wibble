@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import { userName as defaultUserName } from 'lib/constants'
 import { bindHotkeys } from 'lib/hotkeys'
 import Storage from 'lib/storage'
@@ -27,9 +28,15 @@ class Application extends React.Component {
         prefersRollAnimation: true,
         prefersGraphicalDiceButtons: false,
         graphicalDiceButtonSize: 4,
-        testOption1: false,
-        testOption2: false,
-        testOption3: true,
+        showDiceButtons: {
+          d20: true,
+          d4: true,
+          d6: true,
+          d8: true,
+          d10: true,
+          d12: true,
+          d100: true,
+        },
       },
       connected: false,
       connectedOnce: false,
@@ -122,17 +129,36 @@ class Application extends React.Component {
     this.preferencesModalRef.current.show()
   }
 
+  digUserPreference(userPreferences, key, callback) {
+    let keys = key.split(/\]\[|\[|\]/).filter(x => x.length > 0)
+    const finalKey = keys.pop()
+
+    return callback(
+      keys.reduce((obj, key) => obj[key], userPreferences),
+      finalKey,
+    )
+  }
+
   getUserPreference(key) {
-    return this.state.userPreferences[key]
+    return this.digUserPreference(
+      this.state.userPreferences,
+      key,
+      (obj, finalKey) => obj[finalKey]
+    )
   }
 
   setUserPreference(key, value, callback = () => {}) {
-    this.setState({
-      userPreferences: {
-        ...this.state.userPreferences,
-        [key]: value,
-      },
-    }, () => {
+    let newUserPreferences = _.cloneDeep(this.state.userPreferences)
+
+    this.digUserPreference(
+      newUserPreferences,
+      key,
+      (obj, finalKey) => {
+        obj[finalKey] = value
+      }
+    )
+
+    this.setState({ userPreferences: newUserPreferences }, () => {
       Storage.setItem('user-preferences', JSON.stringify(this.state.userPreferences))
         .catch(console.error)
         .then(() => callback())

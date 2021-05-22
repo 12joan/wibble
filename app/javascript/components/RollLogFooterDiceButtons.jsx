@@ -144,9 +144,11 @@ const DieButton = props => {
 const RollLogFooterDiceButtons = props => (
   <div className="row g-2 mb-2 flex-wrap text-nowrap flex-wrap-reverse">
     {
-      ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(dieType => (
-        <DieButton key={dieType} eventDelegate={props.eventDelegate} dieType={dieType} />
-      ))
+      ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100']
+        .filter(dieType => props.eventDelegate.getUserPreference('showDiceButtons')[dieType])
+        .map(dieType => (
+          <DieButton key={dieType} eventDelegate={props.eventDelegate} dieType={dieType} />
+        ))
     }
   </div>
 )
