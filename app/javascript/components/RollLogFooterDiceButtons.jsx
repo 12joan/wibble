@@ -113,6 +113,7 @@ const DieButton = props => {
             type="button"
             className="btn p-0"
             style={{ fontSize: `${graphicalDiceButtonSize}rem` }}
+            aria-label={props.dieType}
             {...buttonProps}>
             <DieComponent />
           </button>
