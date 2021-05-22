@@ -85,6 +85,7 @@ const DieButton = props => {
   const DieComponent = { d4: D4, d6: D6, d8: D8, d10: D10, d12: D12, d20: D20, d100: D100 }[props.dieType]
 
   const prefersGraphicalDiceButtons = props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons')
+  const showGrahicalDiceButtonsAsOutlines = props.eventDelegate.getUserPreference('showGrahicalDiceButtonsAsOutlines')
   const graphicalDiceButtonSize = props.eventDelegate.getUserPreference('graphicalDiceButtonSize')
 
   const buttonProps = {
@@ -111,7 +112,7 @@ const DieButton = props => {
         <div className="btn-group dropup">
           <button
             type="button"
-            className="btn p-0"
+            className={`btn p-0 ${showGrahicalDiceButtonsAsOutlines ? 'graphical-die-button-outline' : ''} `}
             style={{ fontSize: `${graphicalDiceButtonSize}rem` }}
             aria-label={props.dieType}
             {...buttonProps}>

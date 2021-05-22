@@ -27,6 +27,7 @@ class Application extends React.Component {
         upArrowHistory: [],
         prefersRollAnimation: true,
         prefersGraphicalDiceButtons: false,
+        showGrahicalDiceButtonsAsOutlines: true,
         graphicalDiceButtonSize: 4,
         showDiceButtons: {
           d20: true,

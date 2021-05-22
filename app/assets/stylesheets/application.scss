@@ -155,7 +155,7 @@ $enable-negative-margins: true;
     }
   }
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:not(.graphical-die-button-outline) {
     .graphical-die-button {
       color: var(--dice-primary);
 

@@ -109,14 +109,21 @@ class PreferencesModal extends React.Component {
 
               {
                 prefersGraphicalDiceButtons && (
-                  <PreferencesSlider
-                    eventDelegate={this.props.eventDelegate}
-                    name="graphicalDiceButtonSize"
-                    className="mt-3"
-                    label="Dice button size"
-                    min={1}
-                    max={10}
-                    step={0.1} />
+                  <>
+                    <PreferencesCheckbox
+                      eventDelegate={this.props.eventDelegate}
+                      name="showGrahicalDiceButtonsAsOutlines"
+                      label="Show dice button icons as outlines" />
+
+                    <PreferencesSlider
+                      eventDelegate={this.props.eventDelegate}
+                      name="graphicalDiceButtonSize"
+                      className="mt-3"
+                      label="Dice button size"
+                      min={1}
+                      max={10}
+                      step={0.1} />
+                  </>
                 )
               }
 
