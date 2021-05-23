@@ -34,28 +34,42 @@ const PreferencesSlider = props => {
   )
 }
 
-const PreferencesText = props => {
-  const value = props.eventDelegate.getUserPreference(props.name)
+const PreferencesText = props => (
+  <div className={props.className}>
+    <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label}</label>
 
-  return (
-    <div className={props.className}>
-      <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label}</label>
+    <input
+      className="form-control"
+      id={`preferences-${props.name}`}
+      type="text"
+      value={props.eventDelegate.getUserPreference(props.name)}
+      placeholder={props.placeholder}
+      onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)}
+      onBlur={event => {
+        if (!event.target.value.match(/[^\s]/)) {
+          props.eventDelegate.setUserPreference(props.name, props.defaultIfEmpty)
+        }
+      }} />
+  </div>
+)
 
-      <input
-        className="form-control"
-        id={`preferences-${props.name}`}
-        type="text"
-        value={value}
-        placeholder={props.placeholder}
-        onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)}
-        onBlur={event => {
-          if (!event.target.value.match(/[^\s]/)) {
-            props.eventDelegate.setUserPreference(props.name, props.defaultIfEmpty)
-          }
-        }} />
-    </div>
-  )
-}
+const PreferencesSelect = props => (
+  <div className={props.className}>
+    <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label}</label>
+
+    <select
+      className="form-select"
+      id={`preferences-${props.name}`}
+      value={props.eventDelegate.getUserPreference(props.name)}
+      onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)}>
+      {
+        Object.entries(props.options).map(([label, value]) => (
+          <option key={value} value={value}>{label}</option>
+        ))
+      }
+    </select>
+  </div>
+)
 
 class PreferencesModal extends React.Component {
   constructor(props) {
@@ -95,16 +109,26 @@ class PreferencesModal extends React.Component {
                 </div>
               </div>
 
-              <div className="mt-3" />
-
               <PreferencesCheckbox
                 eventDelegate={this.props.eventDelegate}
                 name="prefersRollAnimation"
+                className="mt-3"
                 label="Show animation for new dice rolls" />
+
+              <PreferencesSelect
+                eventDelegate={this.props.eventDelegate}
+                name="rollResultDirection"
+                className="mt-3"
+                label="Roll result position"
+                options={{
+                  'Left': 'normal',
+                  'Right': 'reversed',
+                }} />
 
               <PreferencesCheckbox
                 eventDelegate={this.props.eventDelegate}
                 name="prefersGraphicalDiceButtons"
+                className="mt-3"
                 label="Show dice buttons as icons instead of text" />
 
               {

@@ -35,7 +35,7 @@ const RollPart = props => {
   const { part } = props
 
   return (
-    <div className={`${part.used ? '' : 'opacity-50'} me-2 mb-2`}>
+    <div className={`${part.used ? '' : 'opacity-50'} mx-1 mb-2`}>
       {
         {
           die: () => {

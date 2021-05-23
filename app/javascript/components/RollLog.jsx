@@ -1,5 +1,5 @@
 import React from 'react'
-import RollPart from 'components/RollPart'
+import Roll from 'components/Roll'
 
 class RollLog extends React.Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class RollLog extends React.Component {
   }
 
   render() {
-    const prefersRollAnimation = this.props.eventDelegate.getUserPreference('prefersRollAnimation')
 
     let previousName = undefined
 
@@ -48,37 +47,7 @@ class RollLog extends React.Component {
                     )
                   }
 
-                  <div className="mt-2">
-                    <div className={`${prefersRollAnimation ? 'shimmer' : ''} p-1 m-n1 rounded`}>
-                      <div className="card card-body" aria-label={ `Dice roll ${data.roll.name || ''} ${data.roll.result.value}` } tabIndex="0">
-                        {
-                          data.roll.name !== null && (
-                            <h4 className="mb-2">{`${data.roll.name} (${data.roll.result.value})`}</h4>
-                          )
-                        }
-
-                        <div className="d-flex justify-content-between my-2" aria-label={`Individual die images. Roll result is ${data.roll.result.value}`}>
-                          <div className="d-flex flex-wrap align-items-center">
-                            {
-                              data.roll.result.parts.map((part, i) => (
-                                <RollPart key={i} part={part} />
-                              ))
-                            }
-                          </div>
-
-                          {
-                            data.roll.name === null && (
-                              <span className="fs-2 text-nowrap" aria-label={ `Roll result ${data.roll.result.value}` }>({data.roll.result.value})</span>
-                            )
-                          }
-                        </div>
-
-                        <div className="text-muted">
-                          {data.roll.result.text}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Roll eventDelegate={this.props.eventDelegate} {...data.roll} />
                 </div>
               )
             })
