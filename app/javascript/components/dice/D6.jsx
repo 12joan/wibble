@@ -4,8 +4,8 @@ function SvgD6(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={43.798}
-      height={43.799}
+      width={47.798}
+      height={47.799}
       {...props}
     >
       <path d="M3.5 3.5h37.798v37.799H3.5V3.5z" className="fill-dice-primary" />

@@ -4,8 +4,8 @@ function SvgD10(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={79.871}
-      height={47.121}
+      width={83.871}
+      height={51.121}
       {...props}
     >
       <path
