@@ -18,7 +18,7 @@ const PreferencesSlider = props => {
   const value = props.eventDelegate.getUserPreference(props.name)
 
   return (
-    <div className={props.className}>
+    <div className={`${props.className || ''} mb-n1`}>
       <label className="form-label" htmlFor={`preferences-${props.name}`}>{props.label} ({value})</label>
 
       <input
@@ -61,7 +61,9 @@ const PreferencesSelect = props => (
       className="form-select"
       id={`preferences-${props.name}`}
       value={props.eventDelegate.getUserPreference(props.name)}
-      onChange={event => props.eventDelegate.setUserPreference(props.name, event.target.value)}>
+      onChange={event => {
+        props.eventDelegate.setUserPreference(props.name, props.mapValues(event.target.value))
+      }}>
       {
         Object.entries(props.options).map(([label, value]) => (
           <option key={value} value={value}>{label}</option>
@@ -70,6 +72,10 @@ const PreferencesSelect = props => (
     </select>
   </div>
 )
+
+PreferencesSelect.defaultProps = {
+  mapValues: x => x,
+}
 
 class PreferencesModal extends React.Component {
   constructor(props) {
@@ -94,26 +100,22 @@ class PreferencesModal extends React.Component {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-body container-fluid">
-              <div className="row justify-content-between align-items-center">
+              <div className="row justify-content-between align-items-center mb-n3">
                 <div className="col-auto">
-                  <h2 className="m-0">User preferences</h2>
+                  <h2 className="mb-3">User preferences</h2>
                 </div>
 
-                <div className="col-auto">
+                <div className="col-auto ms-auto">
                   <button
                     type="button"
-                    className="btn btn-white"
+                    className="btn btn-white mb-3"
                     onClick={() => this.bootstrapModal.hide()}>
                     Close
                   </button>
                 </div>
               </div>
 
-              <PreferencesCheckbox
-                eventDelegate={this.props.eventDelegate}
-                name="prefersRollAnimation"
-                className="mt-3"
-                label="Show animation for new dice rolls" />
+              <h4 className="mt-4 mb-0">Roll log</h4>
 
               <PreferencesSelect
                 eventDelegate={this.props.eventDelegate}
@@ -124,51 +126,6 @@ class PreferencesModal extends React.Component {
                   'Left': 'normal',
                   'Right': 'reversed',
                 }} />
-
-              <PreferencesCheckbox
-                eventDelegate={this.props.eventDelegate}
-                name="prefersGraphicalDiceButtons"
-                className="mt-3"
-                label="Show dice buttons as icons instead of text" />
-
-              {
-                prefersGraphicalDiceButtons && (
-                  <>
-                    <PreferencesCheckbox
-                      eventDelegate={this.props.eventDelegate}
-                      name="showGrahicalDiceButtonsAsOutlines"
-                      label="Show dice button icons as outlines" />
-
-                    <PreferencesSlider
-                      eventDelegate={this.props.eventDelegate}
-                      name="graphicalDiceButtonSize"
-                      className="mt-3"
-                      label="Dice button size"
-                      min={1}
-                      max={10}
-                      step={0.1} />
-                  </>
-                )
-              }
-
-              <fieldset className="mt-3">
-                <legend className="fs-6">Show and hide dice buttons</legend>
-
-                <div className="card card-body">
-                  <div className="row mx-0 gx-5">
-                    {
-                      ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(dieType => (
-                        <PreferencesCheckbox
-                          key={dieType}
-                          eventDelegate={this.props.eventDelegate}
-                          name={`showDiceButtons[${dieType}]`}
-                          className="col-6 col-sm-4 col-lg-3 form-switch"
-                          label={dieType} />
-                      ))
-                    }
-                  </div>
-                </div>
-              </fieldset>
 
               <fieldset className="mt-3">
                 <legend className="fs-6">Dice theme</legend>
@@ -252,6 +209,65 @@ class PreferencesModal extends React.Component {
                         defaultIfEmpty="#404040" />
                     )
                   }
+                </div>
+              </fieldset>
+
+              <PreferencesCheckbox
+                eventDelegate={this.props.eventDelegate}
+                name="prefersRollAnimation"
+                className="mt-3"
+                label="Show animation for new dice rolls" />
+
+              <h4 className="mt-4 mb-0">Dice buttons</h4>
+
+              <PreferencesSelect
+                eventDelegate={this.props.eventDelegate}
+                name="prefersGraphicalDiceButtons"
+                className="mt-3"
+                label="Dice button appearance"
+                options={{
+                  'Text labels': false,
+                  'Graphical labels': true,
+                }}
+                mapValues={x => x === 'true'} />
+
+              {
+                prefersGraphicalDiceButtons && (
+                  <>
+                    <PreferencesSlider
+                      eventDelegate={this.props.eventDelegate}
+                      name="graphicalDiceButtonSize"
+                      className="mt-3"
+                      label="Dice button size"
+                      min={1}
+                      max={10}
+                      step={0.1} />
+
+                    <PreferencesCheckbox
+                      eventDelegate={this.props.eventDelegate}
+                      name="showGrahicalDiceButtonsAsOutlines"
+                      className="mt-3"
+                      label="Show dice button icons as outlines" />
+                  </>
+                )
+              }
+
+              <fieldset className="mt-3">
+                <legend className="fs-6">Show and hide dice buttons</legend>
+
+                <div className="card card-body">
+                  <div className="row mx-0 gx-5">
+                    {
+                      ['d20', 'd4', 'd6', 'd8', 'd10', 'd12', 'd100'].map(dieType => (
+                        <PreferencesCheckbox
+                          key={dieType}
+                          eventDelegate={this.props.eventDelegate}
+                          name={`showDiceButtons[${dieType}]`}
+                          className="col-6 col-sm-4 col-lg-3 form-switch"
+                          label={dieType} />
+                      ))
+                    }
+                  </div>
                 </div>
               </fieldset>
             </div>
