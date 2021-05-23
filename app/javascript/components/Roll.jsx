@@ -9,7 +9,7 @@ const Roll = props => {
     (
       <span
         key="result"
-        className={`m${directionReversed ? 's' : 'e'}-3 text-nowrap lh-1`}
+        className={`text-nowrap m${directionReversed ? 's' : 'e'}-3 mb-2 lh-1`}
         style={{ fontSize: '2rem' }}
         aria-label={ `Roll result ${props.result.value}` }>
         {props.result.value}
@@ -39,7 +39,7 @@ const Roll = props => {
             )
           }
 
-          <div className="d-flex justify-content-between mb-2" aria-label="Dice breakdown and result">
+          <div className="d-flex justify-content-between" aria-label="Dice breakdown and result">
             {
               directionReversed
                 ? resultAndDiceBreakdown.reverse()
