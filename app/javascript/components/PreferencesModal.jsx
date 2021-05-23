@@ -189,9 +189,8 @@ class PreferencesModal extends React.Component {
                           buttonOutline: '#004499',
                         },
                       }).map(([themeName, themeData]) => (
-                        <div className="col-12 col-sm-6 col-md-4 d-grid">
+                        <div key={themeName} className="col-12 col-sm-6 col-md-4 d-grid">
                           <button
-                            key={themeName}
                             type="button"
                             className="btn btn-white"
                             onClick={() => this.props.eventDelegate.setUserPreference('diceTheme', themeData)}>
