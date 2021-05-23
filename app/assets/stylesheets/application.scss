@@ -43,15 +43,14 @@ $enable-negative-margins: true;
   @extend .p-0;
 }
 
-.form-select {
+.form-select, .form-check-input, .form-range {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 }
 
-.form-check-input {
-  appearance: none;
-  -moz-appearance: none;
+// Some extra vendor prefixes just for Safari
+.form-range::-webkit-slider-thumb {
   -webkit-appearance: none;
 }
 
