@@ -115,15 +115,27 @@ class Application extends React.Component {
       ])
     }
 
-    this.roomChannel.send({
-      ts: Date.now(),
+    fetch(
+      `/room/${encodeURIComponent(this.props.roomId)}/roll`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: JSON.stringify({
+            ts: Date.now(),
 
-      user: {
-        name: this.getUserPreference('name'),
+            user: {
+              name: this.getUserPreference('name'),
+            },
+
+            roll,
+          }),
+        }),
       },
-
-      roll,
-    })
+    )
+      .catch(console.error)
   }
 
   receivedRoll(data) {

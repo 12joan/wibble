@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   root 'application#home'
 
-  resources :room, only: [:create, :show]
+  resources :room, only: [:create, :show] do
+    resources :roll, only: [:create]
+  end
 end
