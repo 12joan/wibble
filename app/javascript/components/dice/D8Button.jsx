@@ -11,12 +11,12 @@ function SvgD8Button(props) {
         {...props}
       >
         <path
-          d="M29.429 11.596l15.347 8.861v17.721l-15.347 8.861-15.347-8.861V20.457l15.347-8.861z"
+          d="M29.317 9.271L9.271 29.317l20.046 20.046 20.046-20.046L29.317 9.271z"
           fill="currentColor"
         />
 
         <path
-          d="M29.429 11.596l15.347 8.861v17.721l-15.347 8.861-15.347-8.861V20.457l15.347-8.861z"
+          d="M29.317 9.271L9.271 29.317l20.046 20.046 20.046-20.046L29.317 9.271z"
           className="stroke-dice-button-outline"
           strokeWidth={2}
           strokeLinecap="round"
