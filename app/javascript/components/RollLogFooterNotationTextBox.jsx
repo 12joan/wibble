@@ -1,7 +1,7 @@
 import React from 'react'
-import { ThreeDotsVertical, ArrowUpSquareFill } from 'react-bootstrap-icons'
+import { ThreeDotsVertical } from 'react-bootstrap-icons'
+import ArrowUp from 'components/ArrowUp'
 import RollMenu from 'components/RollMenu'
-
 
 class RollLogFooterNotationTextBox extends React.Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class RollLogFooterNotationTextBox extends React.Component {
     this.inputRef = React.createRef()
 
     this.state = {
+      inputValue: '',
       historyPointer: 0,
       localHistory: [],
     }
@@ -41,13 +42,11 @@ class RollLogFooterNotationTextBox extends React.Component {
     const previousPointer = prevState.historyPointer
     const newPointer = this.state.historyPointer
 
-    const input = this.inputRef.current
-
     if (previousPointer !== newPointer) {
       this.setState({
         localHistory: [
           ...this.state.localHistory.slice(0, previousPointer),
-          input.value,
+          this.state.inputValue,
           ...this.state.localHistory.slice(previousPointer + 1),
         ],
       })
@@ -58,7 +57,9 @@ class RollLogFooterNotationTextBox extends React.Component {
       const newValue = localHistoryValue === undefined ? globalHistoryValue : localHistoryValue
 
       if (newValue !== undefined) {
-        input.value = newValue
+        this.setState({
+          inputValue: newValue,
+        })
       }
     }
   }
@@ -92,9 +93,7 @@ class RollLogFooterNotationTextBox extends React.Component {
     const { target } = event
     event.preventDefault()
 
-    const input = this.inputRef.current
-
-    const inputValue = input.value
+    const { inputValue } = this.state
 
     const rolls = inputValue.split(/;/)
 
@@ -124,14 +123,19 @@ class RollLogFooterNotationTextBox extends React.Component {
       ? performRolls(rolls)
       : performRoll(rolls[0])
 
-    target.reset()
+    this.setState({
+      inputValue: '',
+    }, () => {
+      rollsPromise
+        .then(() => this.addHistoryEntry(inputValue))
+        .catch(() => {
+          const input = this.inputRef.current
 
-    rollsPromise
-      .then(() => this.addHistoryEntry(inputValue))
-      .catch(() => {
-        input.value = inputValue
-        input.select()
-      })
+          this.setState({
+            inputValue,
+          }, () => input.select())
+        })
+    })
   }
 
   render() {
@@ -156,11 +160,13 @@ class RollLogFooterNotationTextBox extends React.Component {
           id="notation-input"
           type="text"
           className="form-control form-control-lg border-0 bg-transparent rounded-0"
+          value={this.state.inputValue}
+          onChange={event => this.setState({ inputValue: event.target.value })}
           placeholder="Dice notation" />
 
         <div className="align-self-stretch my-2 px-2">
-          <button type="submit" className="send-button">
-            <ArrowUpSquareFill className="bi" size="1.5em" />
+          <button type="submit" className="send-button" disabled={this.state.inputValue.length === 0}>
+            <ArrowUp className="bi" />
           </button>
         </div>
       </form>

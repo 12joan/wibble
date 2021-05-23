@@ -107,34 +107,48 @@ $enable-negative-margins: true;
   }
 }
 
-.dropdown-button {
+.icon-button {
   @extend .btn;
   @extend .border-0;
   @extend .h-100;
   @extend .text-secondary;
+}
 
+.icon-button-active {
+  @extend .btn-dark;
+  @extend .text-white;
+}
+
+.icon-button-hover {
   &:hover, &:focus, &[aria-expanded="true"] {
-    @extend .btn-dark;
-    @extend .text-white;
+    @extend .icon-button-active;
+  }
+}
+
+.icon-button-enable-disable {
+  &:not([disabled]) {
+    @extend .icon-button-active;
   }
 }
 
 .burger-dropdown-button {
-  @extend .dropdown-button;
+  @extend .icon-button;
+  @extend .icon-button-hover;
   @extend .p-1;
 }
 
 .three-dots-dropup-button {
-  @extend .dropdown-button;
+  @extend .icon-button;
+  @extend .icon-button-hover;
   @extend .p-0;
   width: 2em;
 }
 
 .send-button {
-  @extend .btn;
-  @extend .text-primary;
-  @extend .h-100;
+  @extend .icon-button;
+  @extend .icon-button-enable-disable;
   @extend .p-0;
+  width: 2em;
 }
 
 .btn {
