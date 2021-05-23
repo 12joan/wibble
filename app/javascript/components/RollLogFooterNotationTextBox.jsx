@@ -92,31 +92,46 @@ class RollLogFooterNotationTextBox extends React.Component {
     const { target } = event
     event.preventDefault()
 
-    const inputValue = target.querySelector('input[type=text]').value
+    const input = this.inputRef.current
 
-    this.addHistoryEntry(inputValue, () => {
-      const rolls = inputValue.split(/;/)
+    const inputValue = input.value
 
-      const performRolls = ([rawNotation, ...otherRolls]) => {
-        const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
+    const rolls = inputValue.split(/;/)
 
-        const [, name] = rawNotation.match(nameRegex) || ["no match", null]
-        const notation = rawNotation.replace(nameRegex, "").trim()
+    const performRoll = rawNotation => {
+      const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
 
-        this.props.eventDelegate.performRoll({
-          name,
-          notation,
-        })
+      const [, name] = rawNotation.match(nameRegex) || ["no match", null]
+      const notation = rawNotation.replace(nameRegex, "").trim()
 
-        if (otherRolls.length > 0) {
-          setTimeout(() => performRolls(otherRolls), 100)
-        }
+      return this.props.eventDelegate.performRoll({
+        name,
+        notation,
+      })
+    }
+
+    const performRolls = ([rawNotation, ...otherRolls]) => {
+      performRoll(rawNotation)
+
+      if (otherRolls.length > 0) {
+        setTimeout(() => performRolls(otherRolls), 100)
       }
 
-      performRolls(rolls)
+      return Promise.resolve()
+    }
 
-      target.reset()
-    })
+    const rollsPromise = rolls.length > 1
+      ? performRolls(rolls)
+      : performRoll(rolls[0])
+
+    target.reset()
+
+    rollsPromise
+      .then(() => this.addHistoryEntry(inputValue))
+      .catch(() => {
+        input.value = inputValue
+        input.select()
+      })
   }
 
   render() {

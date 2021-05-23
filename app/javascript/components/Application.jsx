@@ -107,16 +107,9 @@ class Application extends React.Component {
     document.body.style.setProperty('--dice-button-outline', buttonOutline)
   }
 
-  performRoll(roll, showInRecents = true) {
-    if (showInRecents) {
-      this.setUserPreference('recentRolls', [
-        ...this.getUserPreference('recentRolls'),
-        roll,
-      ])
-    }
-
-    fetch(
-      `/room/${encodeURIComponent(this.props.roomId)}/roll`,
+  performRoll(roll, showInRecents = true, successCallback = () => {}) {
+    return fetch(
+      `/room/${encodeURIComponent(this.props.roomId)}/roll.json`,
       {
         method: 'POST',
         headers: {
@@ -135,7 +128,16 @@ class Application extends React.Component {
         }),
       },
     )
-      .catch(console.error)
+      .then(response => response.json())
+      .then(response => response.ok ? Promise.resolve() : Promise.reject(response.error))
+      .then(() => {
+        if (showInRecents) {
+          this.setUserPreference('recentRolls', [
+            ...this.getUserPreference('recentRolls'),
+            roll,
+          ])
+        }
+      })
   }
 
   receivedRoll(data) {

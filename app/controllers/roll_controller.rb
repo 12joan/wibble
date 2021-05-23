@@ -7,8 +7,14 @@ class RollController < ApplicationController
 
     roll = DiceRoller.perform_roll(data['roll'])
 
-    ActionCable.server.broadcast "room_#{params[:room_id]}", data.merge(
-      roll: roll,
-    )
+    if roll[:result][:parts].length > 0
+      ActionCable.server.broadcast "room_#{params[:room_id]}", data.merge(
+        roll: roll,
+      )
+
+      render json: { ok: true }
+    else
+      render json: { ok: false, error: 'Roll result contained no parts' }
+    end
   end
 end
