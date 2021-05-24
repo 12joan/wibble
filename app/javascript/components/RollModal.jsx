@@ -38,11 +38,14 @@ class RollModal extends React.Component {
     this.reset()
   }
 
-  show(rollData = null) {
+  show(rollData = null, indexInFavouriteRollsArray = undefined) {
     this.reset()
 
     if (rollData !== null) {
-      this.setState(rollData.modalState)
+      this.setState({
+        ...rollData.modalState,
+        indexInFavouriteRollsArray,
+      })
     }
 
     this.bootstrapModal.show()

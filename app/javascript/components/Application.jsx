@@ -150,8 +150,8 @@ class Application extends React.Component {
     })
   }
 
-  showRollModal(rollData = null) {
-    this.rollModalRef.current.show(rollData)
+  showRollModal(rollData = null, indexInFavouriteRollsArray = undefined) {
+    this.rollModalRef.current.show(rollData, indexInFavouriteRollsArray)
   }
 
   showPreferencesModal() {

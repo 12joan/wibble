@@ -49,7 +49,7 @@ const RollMenu = props => {
                 className="btn btn-link"
                 onClick={event => {
                   event.stopPropagation()
-                  props.eventDelegate.showRollModal(rollData)
+                  props.eventDelegate.showRollModal(rollData, i)
                 }}>
                 <PencilSquare className="bi" />
               </button>
