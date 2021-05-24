@@ -78,7 +78,9 @@ const bindHotkeys = (element, eventDelegate) => (
   element.addEventListener('keydown', event => {
     const { key, target } = event
 
-    if (target.matches('input, select')) {
+    const modifiersPressed = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
+
+    if (modifiersPressed || target.matches('input, select')) {
       return
     }
 
