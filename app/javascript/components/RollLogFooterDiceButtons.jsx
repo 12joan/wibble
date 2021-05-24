@@ -52,13 +52,14 @@ const DieButtonMenu = props => (
   </ul>
 )
 
-const DieButtonDropupToggle = props => (
+const DieButtonDropupToggle = ({ className, ...props }) => (
   <button
     type="button"
-    className={`btn btn-sm dropdown-toggle dropdown-toggle-split flex-grow-0 ${props.className || ''}`}
+    className={`btn btn-sm dropdown-toggle dropdown-toggle-split ${className || ''}`}
     data-bs-toggle="dropdown"
     data-bs-reference="parent"
-    aria-expanded="false">
+    aria-expanded="false"
+    {...props}>
     <span className="visually-hidden">Toggle Dropup</span>
   </button>
 )
@@ -109,17 +110,17 @@ const DieButton = props => {
   if (prefersGraphicalDiceButtons) {
     return (
       <div className="col d-flex justify-content-center">
-        <div className="btn-group dropup">
+        <div className="btn-group dropup" style={{ fontSize: `${graphicalDiceButtonSize}rem` }}>
           <button
             type="button"
             className={`btn p-0 ${showGrahicalDiceButtonsAsOutlines ? 'graphical-die-button-outline' : ''} `}
-            style={{ fontSize: `${graphicalDiceButtonSize}rem` }}
             aria-label={props.dieType}
+            style={{ fontSize: '1em' }}
             {...buttonProps}>
             <DieComponent />
           </button>
 
-          <DieButtonDropupToggle />
+          <DieButtonDropupToggle style={{ fontSize: '0.25em', paddingLeft: '1em', paddingRight: '1em' }} />
 
           <DieButtonMenu eventDelegate={props.eventDelegate} dieType={props.dieType} />
         </div>
@@ -133,7 +134,7 @@ const DieButton = props => {
             {props.dieType}
           </button>
 
-          <DieButtonDropupToggle className="btn-dark" />
+          <DieButtonDropupToggle className="btn-dark px-3" />
 
           <DieButtonMenu eventDelegate={props.eventDelegate} dieType={props.dieType} />
         </div>
