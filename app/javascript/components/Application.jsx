@@ -20,7 +20,7 @@ class Application extends React.Component {
     this.preferencesModalRef = React.createRef()
 
     this.diceRollSound = new Howl({
-      src: ['/dice-roll.webm', '/dice-roll.mp3', '/dice-roll.wav'],
+      src: ['/dice-roll.mp3', '/dice-roll.wav'],
     })
 
     this.state = {
