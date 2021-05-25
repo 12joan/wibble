@@ -6,7 +6,7 @@ const DropdownRow = props => {
   return (
     <li>
       <div className="dropdown-item d-flex py-1 px-2">
-        <button className="dropdown-item d-flex p-0" {...otherProps}>
+        <button type="button" className="dropdown-item d-flex p-0" {...otherProps}>
           <span className="mx-1">{icon}</span>
 
           <div className="mx-1 flex-grow-1">
