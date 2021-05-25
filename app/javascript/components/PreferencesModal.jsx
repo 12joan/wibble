@@ -94,6 +94,7 @@ class PreferencesModal extends React.Component {
 
   render() {
     const prefersGraphicalDiceButtons = this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons')
+    const prefersDiceRollSound = this.props.eventDelegate.getUserPreference('prefersDiceRollSound')
 
     return (
       <div ref={this.modalRef} className="modal fade" id="preferences-modal" tabIndex="-1" aria-label="User preferences" aria-hidden="true">
@@ -217,6 +218,33 @@ class PreferencesModal extends React.Component {
                 name="prefersRollAnimation"
                 className="mt-3"
                 label="Show animation for new dice rolls" />
+
+              <PreferencesCheckbox
+                eventDelegate={this.props.eventDelegate}
+                name="prefersDiceRollSound"
+                className="mt-3"
+                label="Play dice roll sound" />
+
+              {
+                prefersDiceRollSound && (
+                  <>
+                    <PreferencesSlider
+                      eventDelegate={this.props.eventDelegate}
+                      name="diceRollSoundVolume"
+                      className="mt-3"
+                      label="Dice roll sound volume"
+                      min={0}
+                      max={1}
+                      step={0.01} />
+
+                    <button
+                      className="btn btn-white mt-3"
+                      onClick={this.props.eventDelegate.playDiceRollSound}>
+                      Preview dice roll sound
+                    </button>
+                  </>
+                )
+              }
 
               <h4 className="mt-4 mb-0">Dice buttons</h4>
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
+import { Howl } from 'howler'
 import { userName as defaultUserName } from 'lib/constants'
 import { bindHotkeys } from 'lib/hotkeys'
 import Storage from 'lib/storage'
@@ -18,6 +19,10 @@ class Application extends React.Component {
     this.rollModalRef = React.createRef()
     this.preferencesModalRef = React.createRef()
 
+    this.diceRollSound = new Howl({
+      src: ['/dice-roll.webm', '/dice-roll.mp3', '/dice-roll.wav'],
+    })
+
     this.state = {
       rollData: [],
       userPreferences: {
@@ -26,6 +31,8 @@ class Application extends React.Component {
         favouriteRolls: [],
         upArrowHistory: [],
         prefersRollAnimation: true,
+        prefersDiceRollSound: false,
+        diceRollSoundVolume: 0.5,
         rollResultDirection: 'normal',
         prefersGraphicalDiceButtons: false,
         showGrahicalDiceButtonsAsOutlines: true,
@@ -59,6 +66,7 @@ class Application extends React.Component {
       addFavouriteRoll: this.addFavouriteRoll.bind(this),
       removeFavouriteRoll: this.removeFavouriteRoll.bind(this),
       updateFavouriteRoll: this.updateFavouriteRoll.bind(this),
+      playDiceRollSound: this.playDiceRollSound.bind(this),
     }
 
     this.roomChannel = RoomChannel.subscribe({
@@ -147,7 +155,16 @@ class Application extends React.Component {
         ...this.state.rollData,
         data,
       ].sort((d1, d2) => d1.ts - d2.ts),
+    }, () => {
+      if (this.getUserPreference('prefersDiceRollSound')) {
+        this.playDiceRollSound()
+      }
     })
+  }
+
+  playDiceRollSound() {
+    this.diceRollSound.volume(this.getUserPreference('diceRollSoundVolume'))
+    this.diceRollSound.play()
   }
 
   showRollModal(rollData = null, indexInFavouriteRollsArray = undefined) {
