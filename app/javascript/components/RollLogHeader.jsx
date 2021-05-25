@@ -5,12 +5,12 @@ import RoomMenu from 'components/RoomMenu'
 
 const RollLogHeader = props => (
   <div className="border-bottom p-3">
-    <div className="row justify-content-between align-items-center">
-      <div className="col-auto">
+    <div className="d-flex align-items-center mx-n2">
+      <div className="flex-grow-1 mx-1">
         <RollLogHeaderPostingAs eventDelegate={props.eventDelegate} />
       </div>
 
-      <div className="col-auto">
+      <div className="mx-1">
         <button
           type="button"
           className="burger-dropdown-button"

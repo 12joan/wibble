@@ -68,9 +68,13 @@ class RollLogHeaderPostingAs extends React.Component {
 
             : (
               <button
-                className="btn btn-link text-decoration-none"
+                className="btn btn-link d-flex text-decoration-none text-start"
                 onClick={this.startEditing.bind(this)}>
-                <PencilSquare className="bi" /> {name}
+                <div className="me-1">
+                  <PencilSquare className="bi" />
+                </div>
+
+                <div className="text-wrap">{name}</div>
               </button>
             )
         }
