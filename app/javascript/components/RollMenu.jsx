@@ -8,7 +8,7 @@ const RollRow = props => {
   return (
     <DropdownRow
       text={roll.name === null ? roll.notation : roll.name}
-      subtext={roll.name === null ? '' : `(${roll.notation})`}
+      subtext={roll.name === null ? '' : roll.notation}
       onClick={() => eventDelegate.performRoll(roll, false)}
       {...otherProps} />
   )
