@@ -5,16 +5,18 @@ const DropdownRow = props => {
 
   return (
     <li>
-      <button className="dropdown-item d-flex" {...otherProps}>
-        <span className="mx-1">{icon}</span>
+      <div className="dropdown-item d-flex">
+        <button className="dropdown-item d-flex" {...otherProps}>
+          <span className="mx-1">{icon}</span>
 
-        <div className="mx-1 flex-grow-1">
-          <div className="text-wrap">{text}</div>
-          <div className="text-wrap text-muted">{subtext}</div>
-        </div>
+          <div className="mx-1 flex-grow-1">
+            <div className="text-wrap">{text}</div>
+            <div className="text-wrap text-muted">{subtext}</div>
+          </div>
+        </button>
 
         <span className="mx-1">{editButton}</span>
-      </button>
+      </div>
     </li>
   )
 }
