@@ -33,6 +33,9 @@ class Application extends React.Component {
         prefersRollAnimation: true,
         prefersDiceRollSound: false,
         diceRollSoundVolume: 0.5,
+        sidebarAppears: 'sometimes',
+        sidebarPosition: 'left',
+        sidebarWidth: 300,
         rollResultDirection: 'normal',
         prefersGraphicalDiceButtons: false,
         showGrahicalDiceButtonsAsOutlines: true,
@@ -238,10 +241,16 @@ class Application extends React.Component {
   }
 
   render() {
+    const sidebarPosition = this.getUserPreference('sidebarPosition')
+
     return (
       <>
         <div className="d-flex h-100 text-break">
-          <Sidebar eventDelegate={this.eventDelegate} />
+          {
+            sidebarPosition === 'left' && (
+              <Sidebar eventDelegate={this.eventDelegate} />
+            )
+          }
 
           <div className="flex-grow-1 h-100 d-flex flex-column" style={{ maxWidth: '100%' }}>
             <RollLogHeader eventDelegate={this.eventDelegate} roomId={this.props.roomId} />
@@ -265,6 +274,12 @@ class Application extends React.Component {
 
             <RollLogFooter eventDelegate={this.eventDelegate} />
           </div>
+
+          {
+            sidebarPosition === 'right' && (
+              <Sidebar eventDelegate={this.eventDelegate} />
+            )
+          }
         </div>
 
         <RollModal ref={this.rollModalRef} eventDelegate={this.eventDelegate} />

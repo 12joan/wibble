@@ -95,6 +95,7 @@ class PreferencesModal extends React.Component {
   render() {
     const prefersGraphicalDiceButtons = this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons')
     const prefersDiceRollSound = this.props.eventDelegate.getUserPreference('prefersDiceRollSound')
+    const sidebarAppears = this.props.eventDelegate.getUserPreference('sidebarAppears')
 
     return (
       <div ref={this.modalRef} className="modal fade" id="preferences-modal" tabIndex="-1" aria-label="User preferences" aria-hidden="true">
@@ -298,6 +299,43 @@ class PreferencesModal extends React.Component {
                   </div>
                 </div>
               </fieldset>
+
+              <h4 className="mt-4 mb-0">Sidebar</h4>
+
+              <PreferencesSelect
+                eventDelegate={this.props.eventDelegate}
+                name="sidebarAppears"
+                className="mt-3"
+                label="Sidebar appears"
+                options={{
+                  'Always': 'always',
+                  'On larger screens': 'sometimes',
+                  'Never': 'never',
+                }} />
+
+              {
+                sidebarAppears !== 'never' && (
+                  <>
+                    <PreferencesSelect
+                      eventDelegate={this.props.eventDelegate}
+                      name="sidebarPosition"
+                      className="mt-3"
+                      label="Sidebar position"
+                      options={{
+                        'Left': 'left',
+                        'Right': 'right',
+                      }} />
+
+                    <PreferencesSlider
+                      eventDelegate={this.props.eventDelegate}
+                      name="sidebarWidth"
+                      className="mt-3"
+                      label="Sidebar width"
+                      min={50}
+                      max={1200} />
+                  </>
+                )
+              }
             </div>
           </div>
         </div>
