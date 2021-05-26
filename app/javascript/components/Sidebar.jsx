@@ -24,7 +24,11 @@ const Sidebar = props => {
       role="complementary"
       aria-label="Sidebar">
       <div className="h-100 d-flex overflow-scroll flex-column flex-column-reverse">
-        <RollMenu eventDelegate={props.eventDelegate} width={`${sidebarWidth}px`} className="show position-static border-0" />
+        <RollMenu
+          eventDelegate={props.eventDelegate}
+          width={`${sidebarWidth}px`}
+          className="show position-static border-0"
+          inSidebar />
       </div>
     </div>
   )

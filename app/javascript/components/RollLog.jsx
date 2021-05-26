@@ -1,4 +1,5 @@
 import React from 'react'
+import SkipLink from 'components/SkipLink'
 import Roll from 'components/Roll'
 
 class RollLog extends React.Component {
@@ -25,9 +26,10 @@ class RollLog extends React.Component {
         role="main"
         aria-label="Roll log">
         <div>
-          <div className="visually-hidden-focusable" id="top-of-roll-log">
-            This is the top of the roll log. <a href="#bottom-of-roll-log">Skip to most recent</a>
-          </div>
+          <SkipLink
+            linkId="top-of-roll-log"
+            linkText="Skip to most recent"
+            target="#bottom-of-roll-log" />
 
           <div className="text-center text-secondary mt-3">
             <h3>Thanks for joining</h3>
@@ -56,9 +58,10 @@ class RollLog extends React.Component {
             })
           }
 
-          <div className="visually-hidden-focusable" id="bottom-of-roll-log">
-            This is the bottom of the roll log. <a href="#top-of-roll-log">Skip to oldest</a>
-          </div>
+          <SkipLink
+            linkId="bottom-of-roll-log"
+            linkText="Skip to oldest"
+            target="#top-of-roll-log" />
         </div>
       </div>
     )

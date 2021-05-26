@@ -152,7 +152,9 @@ class RollLogFooterNotationTextBox extends React.Component {
             <ThreeDotsVertical className="bi" />
           </button>
 
-          <RollMenu eventDelegate={this.props.eventDelegate} width="calc(768px - 300px - 2em)" />
+          <RollMenu
+            eventDelegate={this.props.eventDelegate}
+            width="calc(768px - 300px - 2em)" />
         </div>
 
         <input
