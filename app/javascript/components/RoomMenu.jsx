@@ -12,7 +12,9 @@ const copyToClipboard = data => {
 }
 
 const RoomMenu = props => (
-  <ul className="dropdown-menu">
+  <ul
+    className="dropdown-menu"
+    aria-label="Room menu">
     <DropdownRow
       icon={<GearFill className="bi" />}
       text="User preferences"

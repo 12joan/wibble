@@ -17,39 +17,44 @@ const performDiceRoll = (count, dieType, append, performRoll) => (
 )
 
 const DieButtonMenu = props => (
-  <ul className="dropdown-menu dropdown-menu-end" style={{ minWidth: 0 }}>
-    {
-      [8, 7, 6, 5, 4, 3, 2, 1].map(n => (
-        <li key={n}>
-          <button
-            className="dropdown-item"
-            onClick={() => performDiceRoll(n, props.dieType, '', props.eventDelegate.performRoll)}>
-            {n}{props.dieType}
-          </button>
-        </li>
-      ))
-    }
+  <div
+    className="dropdown-menu dropdown-menu-end"
+    style={{ minWidth: 0 }}
+    aria-label="More options">
+    <div className="d-flex flex-column flex-column-reverse">
+      {
+        props.dieType === 'd20' && (
+          <>
+            {
+              ['Disadvantage', 'Advantage'].map(special => (
+                <div key={special}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => performDiceRoll(1, props.dieType, ' ' + special, props.eventDelegate.performRoll)}>
+                    {special}
+                  </button>
+                </div>
+              ))
+            }
 
-    {
-      props.dieType === 'd20' && (
-        <>
-          <li><hr className="dropdown-divider" /></li>
+            <hr className="dropdown-divider" />
+          </>
+        )
+      }
 
-          {
-            ['Advantage', 'Disadvantage'].map(special => (
-              <li key={special}>
-                <button
-                  className="dropdown-item"
-                  onClick={() => performDiceRoll(1, props.dieType, ' ' + special, props.eventDelegate.performRoll)}>
-                  {special}
-                </button>
-              </li>
-            ))
-          }
-        </>
-      )
-    }
-  </ul>
+      {
+        [1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+          <div key={n}>
+            <button
+              className="dropdown-item"
+              onClick={() => performDiceRoll(n, props.dieType, '', props.eventDelegate.performRoll)}>
+              {n}{props.dieType}
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  </div>
 )
 
 const DieButtonDropupToggle = ({ className, ...props }) => (
@@ -60,7 +65,7 @@ const DieButtonDropupToggle = ({ className, ...props }) => (
     data-bs-reference="parent"
     aria-expanded="false"
     {...props}>
-    <span className="visually-hidden">Toggle Dropup</span>
+    <span className="visually-hidden">Toggle options dropdown</span>
   </button>
 )
 
