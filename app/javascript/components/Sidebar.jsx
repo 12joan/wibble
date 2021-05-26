@@ -12,13 +12,17 @@ const Sidebar = props => {
     never: 'd-none',
   }[sidebarAppears]
 
-  const borderClass = {
-    left: 'border-end',
-    right: 'border-start',
+  const positionClasses = {
+    left: 'order-first border-end',
+    right: 'order-last border-start',
   }[sidebarPosition]
 
   return (
-    <div className={`flex-shrink-0 ${appearanceClasses} ${borderClass}`} style={{ flexBasis: `${sidebarWidth}px` }}>
+    <div
+      className={`flex-shrink-0 ${appearanceClasses} ${positionClasses}`}
+      style={{ flexBasis: `${sidebarWidth}px` }}
+      role="complementary"
+      aria-label="Sidebar">
       <div className="h-100 d-flex overflow-scroll flex-column flex-column-reverse">
         <RollMenu eventDelegate={props.eventDelegate} width={`${sidebarWidth}px`} className="show position-static border-0" />
       </div>

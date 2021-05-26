@@ -16,11 +16,14 @@ class RollLog extends React.Component {
   }
 
   render() {
-
     let previousName = undefined
 
     return (
-      <div ref={this.scrollEl} className="flex-grow-1 bg-light p-3 overflow-scroll d-flex flex-column-reverse" aria-label="Roll log">
+      <div
+        ref={this.scrollEl}
+        className="flex-grow-1 bg-light p-3 overflow-scroll d-flex flex-column-reverse"
+        role="main"
+        aria-label="Roll log">
         <div>
           <div className="visually-hidden-focusable" id="top-of-roll-log">
             This is the top of the roll log. <a href="#bottom-of-roll-log">Skip to most recent</a>

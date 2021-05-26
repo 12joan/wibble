@@ -4,7 +4,10 @@ import RollLogHeaderPostingAs from 'components/RollLogHeaderPostingAs'
 import RoomMenu from 'components/RoomMenu'
 
 const RollLogHeader = props => (
-  <div className="border-bottom p-3">
+  <div
+    className="border-bottom p-3"
+    role="group"
+    aria-label="Roll log header">
     <div className="d-flex align-items-center mx-n2">
       <div className="flex-grow-1 mx-1">
         <RollLogHeaderPostingAs eventDelegate={props.eventDelegate} />
