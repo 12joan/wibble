@@ -200,7 +200,8 @@ class RollModal extends React.Component {
                       name="diceCount"
                       value={this.state.diceCount}
                       onChange={this.handleInputChange.bind(this)}
-                      onBlur={this.handleDiceCountBlur.bind(this)} />
+                      onBlur={this.handleDiceCountBlur.bind(this)}
+                      aria-label="Dice count" />
                   </div>
 
                   <div className="col-6">
@@ -208,7 +209,8 @@ class RollModal extends React.Component {
                       className="form-select text-center"
                       name="dieType"
                       value={this.state.dieType}
-                      onChange={this.handleInputChange.bind(this)}>
+                      onChange={this.handleInputChange.bind(this)}
+                      aria-label="Die type">
                       {
                         ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd20 (adv.)', 'd20 (dis.)', 'd100'].map(dieType => (
                           <option key={dieType} value={dieType}>{dieType}</option>
@@ -227,7 +229,8 @@ class RollModal extends React.Component {
                       name="rollModifier"
                       value={this.state.rollModifier}
                       onChange={this.handleInputChange.bind(this)}
-                      onBlur={this.handleRollModifierBlur.bind(this)} />
+                      onBlur={this.handleRollModifierBlur.bind(this)}
+                      aria-label="Roll modifier" />
                   </div>
                 </div>
 
@@ -243,7 +246,8 @@ class RollModal extends React.Component {
                       onChange={this.handleFavouriteCheckChange.bind(this)} />
 
                     <label className="btn btn-outline-success" htmlFor="favourite-check">
-                      <HeartFill />
+                      <HeartFill aria-hidden />
+                      <span className="visually-hidden">Toggle favourite</span>
                     </label>
                   </div>
 

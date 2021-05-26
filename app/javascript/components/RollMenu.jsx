@@ -80,6 +80,7 @@ const RollMenu = props => {
                         props.eventDelegate.showRollModal(rollData, i)
                       }}>
                       <PencilSquare className="bi" />
+                      <span className="visually-hidden">Edit</span>
                     </button>
                   } />
               ))

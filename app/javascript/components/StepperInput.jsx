@@ -25,12 +25,16 @@ class StepperInput extends React.Component {
     const { className, preprocessValue, postprocessValue, valuePredicate, ...otherProps } = this.props
 
     return (
-      <div className="d-flex flex-column align-items-center">
+      <div
+        className="d-flex flex-column align-items-center"
+        role="group"
+        aria-label={this.props['aria-label']}>
         <button
           type="button"
           className="btn text-primary w-100 p-0"
           onClick={() => this.stepValue(1)}>
           <CaretUpFill className="bi" size="3em" />
+          <span className="visually-hidden">Increment</span>
         </button>
 
         <input
@@ -43,6 +47,7 @@ class StepperInput extends React.Component {
           className="btn text-primary w-100 p-0"
           onClick={() => this.stepValue(-1)}>
           <CaretDownFill className="bi" size="3em" />
+          <span className="visually-hidden">Decrement</span>
         </button>
       </div>
     )

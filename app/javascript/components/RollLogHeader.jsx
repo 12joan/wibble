@@ -21,6 +21,7 @@ const RollLogHeader = props => (
           data-bs-reference="parent"
           aria-expanded="false">
           <Burger className="bi align-middle" size="1.5em" />
+          <span className="visually-hidden">Toggle room menu dropdown</span>
         </button>
 
         <RoomMenu eventDelegate={props.eventDelegate} roomId={props.roomId} />

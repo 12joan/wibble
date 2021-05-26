@@ -150,6 +150,7 @@ class RollLogFooterNotationTextBox extends React.Component {
             data-bs-offset="0,8"
             aria-expanded="false">
             <ThreeDotsVertical className="bi" />
+            <span className="visually-hidden">Toggle roll menu dropdown</span>
           </button>
 
           <RollMenu
@@ -169,6 +170,7 @@ class RollLogFooterNotationTextBox extends React.Component {
         <div className="align-self-stretch my-2 px-2">
           <button type="submit" className="send-button" disabled={this.state.inputValue.length === 0}>
             <ArrowUp className="bi" />
+            <span className="visually-hidden">Submit roll</span>
           </button>
         </div>
       </form>
