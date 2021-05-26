@@ -72,6 +72,7 @@ class RollLogHeaderPostingAs extends React.Component {
                 onClick={this.startEditing.bind(this)}>
                 <div className="me-1">
                   <PencilSquare className="bi" />
+                  <span className="visually-hidden">Edit posting as</span>
                 </div>
 
                 <div className="text-wrap">{name}</div>
