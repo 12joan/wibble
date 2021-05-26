@@ -25,7 +25,7 @@ class RollLog extends React.Component {
         className="flex-grow-1 bg-light p-3 overflow-scroll d-flex flex-column-reverse"
         role="main"
         aria-label="Roll log">
-        <div>
+        <div role="log" aria-live="polite">
           <SkipLink
             linkId="top-of-roll-log"
             linkText="Skip to most recent"
