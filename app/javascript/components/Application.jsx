@@ -4,6 +4,7 @@ import { Howl } from 'howler'
 import { userName as defaultUserName } from 'lib/constants'
 import { bindHotkeys } from 'lib/hotkeys'
 import Storage from 'lib/storage'
+import executeDiceNotation from 'lib/executeDiceNotation'
 import RoomChannel from 'channels/room_channel'
 import Sidebar from 'components/Sidebar'
 import RollLogHeader from 'components/RollLogHeader'
@@ -109,6 +110,8 @@ class Application extends React.Component {
     bindHotkeys(document.body, this.eventDelegate)
 
     window.addEventListener('beforeunload', () => this.setState({ windowUnloading: true }))
+
+    window.executeDiceNotation = inputValue => executeDiceNotation(inputValue, this.eventDelegate)
   }
 
   componentDidUpdate(prevProps, prevState) {

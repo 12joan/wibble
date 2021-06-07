@@ -1,5 +1,6 @@
 import React from 'react'
 import { ThreeDotsVertical } from 'react-bootstrap-icons'
+import executeDiceNotation from 'lib/executeDiceNotation'
 import ArrowUp from 'components/ArrowUp'
 import RollMenu from 'components/RollMenu'
 
@@ -95,33 +96,7 @@ class RollLogFooterNotationTextBox extends React.Component {
 
     const { inputValue } = this.state
 
-    const rolls = inputValue.split(/;/)
-
-    const performRoll = rawNotation => {
-      const nameRegex = /["'‘’‚‛“”„‟〝〞〟＂＇](.*)["'‘’‚‛“”„‟〝〞〟＂＇]/
-
-      const [, name] = rawNotation.match(nameRegex) || ["no match", null]
-      const notation = rawNotation.replace(nameRegex, "").trim()
-
-      return this.props.eventDelegate.performRoll({
-        name,
-        notation,
-      })
-    }
-
-    const performRolls = ([rawNotation, ...otherRolls]) => {
-      performRoll(rawNotation)
-
-      if (otherRolls.length > 0) {
-        setTimeout(() => performRolls(otherRolls), 100)
-      }
-
-      return Promise.resolve()
-    }
-
-    const rollsPromise = rolls.length > 1
-      ? performRolls(rolls)
-      : performRoll(rolls[0])
+    const rollsPromise = executeDiceNotation(inputValue, this.props.eventDelegate)
 
     this.setState({
       inputValue: '',
