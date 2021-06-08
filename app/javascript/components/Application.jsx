@@ -1,6 +1,8 @@
 import React from 'react'
 import _ from 'lodash'
 import { Howl } from 'howler'
+import fileDialog from 'file-dialog'
+import FileSaver from 'file-saver'
 import { userName as defaultUserName } from 'lib/constants'
 import { bindHotkeys } from 'lib/hotkeys'
 import Storage from 'lib/storage'
@@ -55,6 +57,7 @@ class Application extends React.Component {
           secondary: '#ffffff',
           buttonOutline: '#404040',
         },
+        allowImport: true,
       },
       connected: false,
       connectedOnce: false,
@@ -71,6 +74,8 @@ class Application extends React.Component {
       removeFavouriteRoll: this.removeFavouriteRoll.bind(this),
       updateFavouriteRoll: this.updateFavouriteRoll.bind(this),
       playDiceRollSound: this.playDiceRollSound.bind(this),
+      importUserPreferences: this.importUserPreferences.bind(this),
+      exportUserPreferences: this.exportUserPreferences.bind(this),
     }
 
     this.roomChannel = RoomChannel.subscribe({
@@ -210,7 +215,13 @@ class Application extends React.Component {
       }
     )
 
-    this.setState({ userPreferences: newUserPreferences }, () => {
+    this.setUserPreferences(newUserPreferences)
+  }
+
+  setUserPreferences(newUserPreferences, callback = () => {}) {
+    this.setState({
+      userPreferences: newUserPreferences
+    }, () => {
       Storage.setItem('user-preferences', JSON.stringify(this.state.userPreferences))
         .catch(console.error)
         .then(() => callback())
@@ -241,6 +252,37 @@ class Application extends React.Component {
       rollData,
       ...favouriteRolls.slice(index + 1),
     ])
+  }
+
+  importUserPreferences() {
+    fileDialog({ accept: 'application/json' })
+      .then(fileList => {
+        if (fileList.length > 0) {
+          const file = fileList[0]
+          return file.text()
+        } else {
+          throw new Error('No file selected')
+        }
+      })
+      .then(rawData => {
+        const newUserPreferences = JSON.parse(rawData)
+
+        if (newUserPreferences.allowImport === true) {
+          this.setUserPreferences(newUserPreferences)
+        } else {
+          throw new Error('Invalid file selected')
+        }
+      })
+      .catch(console.error)
+  }
+
+  exportUserPreferences() {
+    const blob = new Blob(
+      [JSON.stringify(this.state.userPreferences)],
+      { type: "application/json;charset=utf-8" },
+    )
+
+    FileSaver.saveAs(blob, `${Date.now()}.json`)
   }
 
   render() {

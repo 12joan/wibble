@@ -336,6 +336,26 @@ class PreferencesModal extends React.Component {
                   </>
                 )
               }
+
+              <h4 className="mt-4 mb-0">Application data</h4>
+
+              <div className="mt-3 d-grid gap-2 d-md-block">
+                <button
+                  type="button"
+                  className="btn btn-white"
+                  onClick={this.props.eventDelegate.importUserPreferences}>
+                  Import JSON
+                </button>
+
+                {' '}
+
+                <button
+                  type="button"
+                  className="btn btn-white"
+                  onClick={this.props.eventDelegate.exportUserPreferences}>
+                  Export JSON
+                </button>
+              </div>
             </div>
           </div>
         </div>
