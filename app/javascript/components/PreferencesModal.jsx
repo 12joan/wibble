@@ -121,7 +121,7 @@ class PreferencesModal extends React.Component {
 
               <div className="row mt-4 mb-n4">
                 <div className="col-md-auto mb-4">
-                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     {
                       [
                         ['roll-log', 'Roll log', true],
@@ -130,6 +130,7 @@ class PreferencesModal extends React.Component {
                         ['application-data', 'Application data'],
                       ].map(([tabId, tabName, active]) => (
                         <button
+                          key={tabId}
                           className={`nav-link ${active ? 'active' : ''} text-start py-1 px-3 mb-1`}
                           id={`v-pills-${tabId}-tab`}
                           data-bs-toggle="pill"
@@ -146,7 +147,7 @@ class PreferencesModal extends React.Component {
                 </div>
 
                 <div className="col-md tab-content mb-4" id="v-pills-tabContent">
-                  <div class="tab-pane fade mt-n3 show active" id="v-pills-roll-log" role="tabpanel" aria-labelledby="v-pills-roll-log-tab">
+                  <div className="tab-pane fade mt-n3 show active" id="v-pills-roll-log" role="tabpanel" aria-labelledby="v-pills-roll-log-tab">
                     <PreferencesSelect
                       eventDelegate={this.props.eventDelegate}
                       name="rollResultDirection"
@@ -276,7 +277,7 @@ class PreferencesModal extends React.Component {
                     }
                   </div>
 
-                  <div class="tab-pane fade mt-n3" id="v-pills-dice-buttons" role="tabpanel" aria-labelledby="v-pills-dice-buttons-tab">
+                  <div className="tab-pane fade mt-n3" id="v-pills-dice-buttons" role="tabpanel" aria-labelledby="v-pills-dice-buttons-tab">
                     <PreferencesSelect
                       eventDelegate={this.props.eventDelegate}
                       name="prefersGraphicalDiceButtons"
@@ -329,7 +330,7 @@ class PreferencesModal extends React.Component {
                     </fieldset>
                   </div>
 
-                  <div class="tab-pane fade mt-n3" id="v-pills-sidebar" role="tabpanel" aria-labelledby="v-pills-sidebar-tab">
+                  <div className="tab-pane fade mt-n3" id="v-pills-sidebar" role="tabpanel" aria-labelledby="v-pills-sidebar-tab">
                     <PreferencesSelect
                       eventDelegate={this.props.eventDelegate}
                       name="sidebarAppears"
@@ -366,7 +367,7 @@ class PreferencesModal extends React.Component {
                     }
                   </div>
 
-                  <div class="tab-pane fade mt-n3" id="v-pills-application-data" role="tabpanel" aria-labelledby="v-pills-application-data-tab">
+                  <div className="tab-pane fade mt-n3" id="v-pills-application-data" role="tabpanel" aria-labelledby="v-pills-application-data-tab">
                     <h5 className="mt-3 mb-0">Import/Export application data</h5>
 
                     <div className="mt-3 d-grid gap-2 d-md-block">
