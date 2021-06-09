@@ -196,7 +196,7 @@ class RollModal extends React.Component {
                       type="text"
                       className="form-control text-center"
                       placeholder="1"
-                      valuePredicate={value => value > 0}
+                      valuePredicate={value => value > 0 && value <= 100}
                       name="diceCount"
                       value={this.state.diceCount}
                       onChange={this.handleInputChange.bind(this)}

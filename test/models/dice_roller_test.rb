@@ -18,19 +18,22 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d20',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n,
-            },
-          ],
-          text: "1d20 (#{n})",
-          value: n,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d20',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n,
+              },
+            ],
+            text: "1d20 (#{n})",
+            value: n,
+          },
         },
       },
       roll('1d20', random: [n])
@@ -43,25 +46,28 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '2d20',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n1,
-            },
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n2,
-            },
-          ],
-          text: "2d20 (#{n1 + n2})",
-          value: n1 + n2,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '2d20',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n1,
+              },
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n2,
+              },
+            ],
+            text: "2d20 (#{n1 + n2})",
+            value: n1 + n2,
+          },
         },
       },
       roll('2d20', random: [n1, n2])
@@ -73,19 +79,22 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d6',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd6',
-              used: true,
-              value: n,
-            },
-          ],
-          text: "1d6 (#{n})",
-          value: n,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d6',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd6',
+                used: true,
+                value: n,
+              },
+            ],
+            text: "1d6 (#{n})",
+            value: n,
+          },
         },
       },
       roll('1d6', random: [n])
@@ -99,31 +108,34 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d8 + 2d6',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd8',
-              used: true,
-              value: n1,
-            },
-            {
-              type: 'die',
-              dieType: 'd6',
-              used: true,
-              value: n2,
-            },
-            {
-              type: 'die',
-              dieType: 'd6',
-              used: true,
-              value: n3,
-            },
-          ],
-          text: "1d8 (#{n1}) + 2d6 (#{n2 + n3})",
-          value: n1 + n2 + n3,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d8 + 2d6',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd8',
+                used: true,
+                value: n1,
+              },
+              {
+                type: 'die',
+                dieType: 'd6',
+                used: true,
+                value: n2,
+              },
+              {
+                type: 'die',
+                dieType: 'd6',
+                used: true,
+                value: n3,
+              },
+            ],
+            text: "1d8 (#{n1}) + 2d6 (#{n2 + n3})",
+            value: n1 + n2 + n3,
+          },
         },
       },
       roll('1d8 + 2d6', random: [n1, n2, n3])
@@ -137,36 +149,39 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d8 + 2d6 + 5',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd8',
-              used: true,
-              value: n1,
-            },
-            {
-              type: 'die',
-              dieType: 'd6',
-              used: true,
-              value: n2,
-            },
-            {
-              type: 'die',
-              dieType: 'd6',
-              used: true,
-              value: n3,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: 5,
-            },
-          ],
-          text: "1d8 (#{n1}) + 2d6 (#{n2 + n3}) + 5",
-          value: n1 + n2 + n3 + 5,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d8 + 2d6 + 5',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd8',
+                used: true,
+                value: n1,
+              },
+              {
+                type: 'die',
+                dieType: 'd6',
+                used: true,
+                value: n2,
+              },
+              {
+                type: 'die',
+                dieType: 'd6',
+                used: true,
+                value: n3,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: 5,
+              },
+            ],
+            text: "1d8 (#{n1}) + 2d6 (#{n2 + n3}) + 5",
+            value: n1 + n2 + n3 + 5,
+          },
         },
       },
       roll('1d8 + 2d6 + 5', random: [n1, n2, n3])
@@ -178,24 +193,27 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d20 - 2',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: -2,
-            },
-          ],
-          text: "1d20 (#{n}) - 2",
-          value: n - 2,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d20 - 2',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: -2,
+              },
+            ],
+            text: "1d20 (#{n}) - 2",
+            value: n - 2,
+          },
         },
       },
       roll('1d20 - 2', random: [n])
@@ -205,33 +223,36 @@ class DiceRollerTest < ActiveSupport::TestCase
   test '5 - 2 + 1 + 8' do
     assert_equal(
       {
-        name: nil,
-        notation: '5 - 2 + 1 + 8',
-        result: {
-          parts: [
-            {
-              type: 'modifier',
-              used: true,
-              value: 5,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: -2,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: 1,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: 8,
-            },
-          ],
-          text: '5 - 2 + 1 + 8',
-          value: 12,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '5 - 2 + 1 + 8',
+          result: {
+            parts: [
+              {
+                type: 'modifier',
+                used: true,
+                value: 5,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: -2,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: 1,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: 8,
+              },
+            ],
+            text: '5 - 2 + 1 + 8',
+            value: 12,
+          },
         },
       },
       roll('5 - 2 + 1 + 8', random: [])
@@ -243,24 +264,27 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: 'roll 1d20 - 2 please',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: -2,
-            },
-          ],
-          text: "1d20 (#{n}) - 2",
-          value: n - 2,
+        ok: true,
+        data: {
+          name: nil,
+          notation: 'roll 1d20 - 2 please',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: -2,
+              },
+            ],
+            text: "1d20 (#{n}) - 2",
+            value: n - 2,
+          },
         },
       },
       roll('roll 1d20 - 2 please', random: [n])
@@ -273,30 +297,33 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d20 - 2 with Advantage',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n1,
-            },
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: false,
-              value: n2,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: -2,
-            },
-          ],
-          text: "1d20 (#{n1}, #{n2}) - 2 [advantage]",
-          value: n1 - 2,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d20 - 2 with Advantage',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n1,
+              },
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: false,
+                value: n2,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: -2,
+              },
+            ],
+            text: "1d20 (#{n1}, #{n2}) - 2 [advantage]",
+            value: n1 - 2,
+          },
         },
       },
       roll('1d20 - 2 with Advantage', random: [n1, n2])
@@ -309,33 +336,56 @@ class DiceRollerTest < ActiveSupport::TestCase
 
     assert_equal(
       {
-        name: nil,
-        notation: '1d20 - 2 with disadvantage',
-        result: {
-          parts: [
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: false,
-              value: n1,
-            },
-            {
-              type: 'die',
-              dieType: 'd20',
-              used: true,
-              value: n2,
-            },
-            {
-              type: 'modifier',
-              used: true,
-              value: -2,
-            },
-          ],
-          text: "1d20 (#{n1}, #{n2}) - 2 [disadvantage]",
-          value: n2 - 2,
+        ok: true,
+        data: {
+          name: nil,
+          notation: '1d20 - 2 with disadvantage',
+          result: {
+            parts: [
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: false,
+                value: n1,
+              },
+              {
+                type: 'die',
+                dieType: 'd20',
+                used: true,
+                value: n2,
+              },
+              {
+                type: 'modifier',
+                used: true,
+                value: -2,
+              },
+            ],
+            text: "1d20 (#{n1}, #{n2}) - 2 [disadvantage]",
+            value: n2 - 2,
+          },
         },
       },
       roll('1d20 - 2 with disadvantage', random: [n1, n2])
+    )
+  end
+
+  test 'roll result contained no parts' do
+    assert_equal(
+      {
+        ok: false,
+        error: 'Roll result contained no parts',
+      },
+      roll('roll', random: [])
+    )
+  end
+
+  test 'rolls exceeding 100 dice are not permitted' do
+    assert_equal(
+      {
+        ok: false,
+        error: 'Rolls exceeding 100 dice are not permitted',
+      },
+      roll('90d6 + 11d8', random: [])
     )
   end
 

@@ -6,10 +6,25 @@ module DiceRoller
 
     notation = parse_notation(unparsed_notation)
 
+    return {
+      ok: false,
+      error: 'Rolls exceeding 100 dice are not permitted',
+    } if notation.total_dice > 100
+
+    result = notation.result(rng: rng)
+
+    return {
+      ok: false,
+      error: 'Roll result contained no parts',
+    } if result[:parts].length == 0
+
     {
-      name: requested_roll['name'],
-      notation: unparsed_notation,
-      result: notation.result(rng: rng),
+      ok: true,
+      data: {
+        name: requested_roll['name'],
+        notation: unparsed_notation,
+        result: result,
+      }
     }
   end
 
@@ -57,6 +72,10 @@ module DiceRoller
       @advantage_type = advantage_type
     end
 
+    def total_dice
+      parts.filter { |part| part.is_a?(Part::Dice) }.map(&:count).sum
+    end
+
     def result(rng:)
       part_results = parts.map { |part| part.result(rng: rng, advantage_type: advantage_type) }
 
@@ -80,6 +99,8 @@ module DiceRoller
 
   class Part
     class Dice < Part
+      attr_reader :count, :sides
+
       def initialize(count, sides)
         @count = count
         @sides = sides

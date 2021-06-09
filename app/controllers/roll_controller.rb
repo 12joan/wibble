@@ -5,16 +5,16 @@ class RollController < ApplicationController
   def create
     data = JSON.parse(params[:data])
 
-    roll = DiceRoller.perform_roll(data['roll'])
+    result = DiceRoller.perform_roll(data['roll'])
 
-    if roll[:result][:parts].length > 0
+    if result[:ok]
       ActionCable.server.broadcast "room_#{params[:room_id]}", data.merge(
-        roll: roll,
+        roll: result[:data],
       )
 
       render json: { ok: true }
     else
-      render json: { ok: false, error: 'Roll result contained no parts' }
+      render json: result
     end
   end
 end
