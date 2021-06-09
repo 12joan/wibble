@@ -9,6 +9,7 @@ class RollLogFooterNotationTextBox extends React.Component {
     super(props)
 
     this.inputRef = React.createRef()
+    this.rollMenuRef = React.createRef()
 
     this.state = {
       inputValue: '',
@@ -123,14 +124,17 @@ class RollLogFooterNotationTextBox extends React.Component {
             data-bs-toggle="dropdown"
             data-bs-reference="parent"
             data-bs-offset="0,8"
-            aria-expanded="false">
+            aria-expanded="false"
+            onClick={() => this.rollMenuRef.current.scrollToBottom()}>
             <ThreeDotsVertical className="bi" />
             <span className="visually-hidden">Toggle roll menu dropdown</span>
           </button>
 
           <RollMenu
+            ref={this.rollMenuRef}
             eventDelegate={this.props.eventDelegate}
-            width="calc(768px - 300px - 2em)" />
+            width="calc(768px - 300px - 2em)"
+            style={{ maxHeight: '75vh', overflow: 'scroll' }} />
         </div>
 
         <input

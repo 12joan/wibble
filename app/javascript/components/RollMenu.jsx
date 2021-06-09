@@ -15,88 +15,104 @@ const RollRow = props => {
   )
 }
 
-const RollMenu = props => {
-  const recentRolls = props.eventDelegate.getUserPreference('recentRolls')
-  const favouriteRolls = props.eventDelegate.getUserPreference('favouriteRolls')
+class RollMenu extends React.Component {
+  constructor(props) {
+    super(props)
 
-  return (
-    <div className={`dropdown-menu ${props.className}`} style={{ width: props.width, maxWidth: '100vw' }}>
-      {
-        recentRolls.length > 0 && (
-          <div
-            role="group"
-            aria-label="Recent rolls">
-            {
-              props.inSidebar && (
-                <SkipLink
-                  linkId="top-of-recent-rolls"
-                  linkText="Skip to most recent"
-                  target="#bottom-of-recent-rolls" />
-              )
-            }
+    this.containerRef = React.createRef()
+  }
 
-            {
-              recentRolls.map((roll, i) => (
-                <RollRow
-                  key={i}
-                  roll={roll}
-                  eventDelegate={props.eventDelegate}
-                  icon={<ArrowCounterclockwise className="bi text-secondary" />} />
-              ))
-            }
+  scrollToBottom() {
+    const container = this.containerRef.current
+    container.scrollTop = container.scrollHeight
+  }
 
-            {
-              props.inSidebar && (
-                <SkipLink
-                  linkId="bottom-of-recent-rolls"
-                  linkText="Skip to oldest"
-                  target="#top-of-recent-rolls" />
-              )
-            }
+  render() {
+    const recentRolls = this.props.eventDelegate.getUserPreference('recentRolls')
+    const favouriteRolls = this.props.eventDelegate.getUserPreference('favouriteRolls')
 
-            <hr className="dropdown-divider" />
-          </div>
-        )
-      }
+    return (
+      <div
+        ref={this.containerRef}
+        className={`dropdown-menu ${this.props.className}`}
+        style={{ width: this.props.width, maxWidth: '100vw', ...(this.props.style || {}) }}>
+        {
+          recentRolls.length > 0 && (
+            <div
+              role="group"
+              aria-label="Recent rolls">
+              {
+                this.props.inSidebar && (
+                  <SkipLink
+                    linkId="top-of-recent-rolls"
+                    linkText="Skip to most recent"
+                    target="#bottom-of-recent-rolls" />
+                )
+              }
 
-      {
-        favouriteRolls.length > 0 && (
-          <div
-            role="group"
-            aria-label="Favourite rolls">
-            {
-              favouriteRolls.map((rollData, i) => (
-                <RollRow
-                  key={i}
-                  roll={rollData.roll}
-                  eventDelegate={props.eventDelegate}
-                  icon={<HeartFill className="bi text-success" />}
-                  editButton={
-                    <button
-                      type="button"
-                      className="btn btn-link"
-                      onClick={event => {
-                        event.stopPropagation()
-                        props.eventDelegate.showRollModal(rollData, i)
-                      }}>
-                      <PencilSquare className="bi" />
-                      <span className="visually-hidden">Edit</span>
-                    </button>
-                  } />
-              ))
-            }
+              {
+                recentRolls.map((roll, i) => (
+                  <RollRow
+                    key={i}
+                    roll={roll}
+                    eventDelegate={this.props.eventDelegate}
+                    icon={<ArrowCounterclockwise className="bi text-secondary" />} />
+                ))
+              }
 
-            <hr className="dropdown-divider" />
-          </div>
-        )
-      }
+              {
+                this.props.inSidebar && (
+                  <SkipLink
+                    linkId="bottom-of-recent-rolls"
+                    linkText="Skip to oldest"
+                    target="#top-of-recent-rolls" />
+                )
+              }
 
-      <DropdownRow
-        icon={<BoxArrowUpRight className="bi" />}
-        text="Custom dice roll"
-        onClick={props.eventDelegate.showRollModal} />
-    </div>
-  )
+              <hr className="dropdown-divider" />
+            </div>
+          )
+        }
+
+        {
+          favouriteRolls.length > 0 && (
+            <div
+              role="group"
+              aria-label="Favourite rolls">
+              {
+                favouriteRolls.map((rollData, i) => (
+                  <RollRow
+                    key={i}
+                    roll={rollData.roll}
+                    eventDelegate={this.props.eventDelegate}
+                    icon={<HeartFill className="bi text-success" />}
+                    editButton={
+                      <button
+                        type="button"
+                        className="btn btn-link"
+                        onClick={event => {
+                          event.stopPropagation()
+                          this.props.eventDelegate.showRollModal(rollData, i)
+                        }}>
+                        <PencilSquare className="bi" />
+                        <span className="visually-hidden">Edit</span>
+                      </button>
+                    } />
+                ))
+              }
+
+              <hr className="dropdown-divider" />
+            </div>
+          )
+        }
+
+        <DropdownRow
+          icon={<BoxArrowUpRight className="bi" />}
+          text="Custom dice roll"
+          onClick={this.props.eventDelegate.showRollModal} />
+      </div>
+    )
+  }
 }
 
 RollMenu.defaultProps = {
