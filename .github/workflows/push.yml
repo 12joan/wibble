@@ -16,7 +16,7 @@ jobs:
 
     - run: docker-compose build
 
-    - run: docker-compose run web sh -c 'rails db:setup RAILS_ENV=test && rails test'
+    - run: docker-compose run web sh -c 'RAILS_ENV=test rails db:setup && RAILS_ENV=test rails webpacker:compile && rails test'
 
   deploy_production:
     needs: test
