@@ -14,9 +14,9 @@ jobs:
     - uses: satackey/action-docker-layer-caching@v0.0.11
       continue-on-error: true
 
-    - run: docker-compose build
+    - run: docker-compose -f docker-compose.test.yml build
 
-    - run: docker-compose run web sh -c 'RAILS_ENV=test rails db:setup && RAILS_ENV=test rails webpacker:compile && rails test'
+    - run: docker-compose -f docker-compose.test.yml run web sh -c 'rails db:setup && rails webpacker:compile && rails test'
 
   deploy_production:
     needs: test
