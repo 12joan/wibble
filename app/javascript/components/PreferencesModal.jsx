@@ -257,8 +257,8 @@ class PreferencesModal extends React.Component {
                       label="Send roll notifications" />
 
                     {
-                      prefersRollNotification && (
-                        <>
+                      prefersRollNotification && (('Notification' in window)
+                        ? (
                           <button
                             type="button"
                             className="btn btn-white mt-3"
@@ -268,7 +268,10 @@ class PreferencesModal extends React.Component {
                             )}>
                             Send test notification
                           </button>
-                        </>
+                        )
+                        : (
+                          <p className="mt-3 mb-0 fw-bold text-muted">Notifications are not supported by this browser</p>
+                        )
                       )
                     }
 

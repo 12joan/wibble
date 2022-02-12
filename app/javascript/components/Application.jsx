@@ -184,7 +184,7 @@ class Application extends React.Component {
   }
 
   sendRollNotification({ user, roll }) {
-    if (document.hidden && Notification.permission === 'granted') {
+    if (document.hidden && ('Notification' in window) && Notification.permission === 'granted') {
       new Notification(
         `${user.name} rolled ${roll.name ?? ''} ${roll.result.value}`.replaceAll(/\s+/g, ' '),
         { body: roll.result.text },

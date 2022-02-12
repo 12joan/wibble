@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 const RollLogNotificationBanner = props => {
-  const [visible, setVisible] = useState(() => Notification.permission !== 'granted')
+  const [visible, setVisible] = useState(() => ('Notification' in window) && Notification.permission !== 'granted')
   const [denied, setDenied] = useState(false)
 
   const requestPermission = () => Notification.requestPermission().then(permission => {
