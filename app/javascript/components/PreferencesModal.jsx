@@ -95,6 +95,7 @@ class PreferencesModal extends React.Component {
   render() {
     const prefersGraphicalDiceButtons = this.props.eventDelegate.getUserPreference('prefersGraphicalDiceButtons')
     const prefersDiceRollSound = this.props.eventDelegate.getUserPreference('prefersDiceRollSound')
+    const prefersRollNotification = this.props.eventDelegate.getUserPreference('prefersRollNotification')
     const sidebarAppears = this.props.eventDelegate.getUserPreference('sidebarAppears')
 
     return (
@@ -251,6 +252,28 @@ class PreferencesModal extends React.Component {
 
                     <PreferencesCheckbox
                       eventDelegate={this.props.eventDelegate}
+                      name="prefersRollNotification"
+                      className="mt-3"
+                      label="Send roll notifications" />
+
+                    {
+                      prefersRollNotification && (
+                        <>
+                          <button
+                            type="button"
+                            className="btn btn-white mt-3"
+                            onClick={() => new Notification(
+                              'It works! 🚀',
+                              { body: 'Ordinarily, you\'ll only see notifications when this tab is hidden.' },
+                            )}>
+                            Send test notification
+                          </button>
+                        </>
+                      )
+                    }
+
+                    <PreferencesCheckbox
+                      eventDelegate={this.props.eventDelegate}
                       name="prefersDiceRollSound"
                       className="mt-3"
                       label="Play dice roll sound" />
@@ -268,6 +291,7 @@ class PreferencesModal extends React.Component {
                             step={0.01} />
 
                           <button
+                            type="button"
                             className="btn btn-white mt-3"
                             onClick={this.props.eventDelegate.playDiceRollSound}>
                             Preview dice roll sound

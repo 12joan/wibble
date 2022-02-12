@@ -35,6 +35,7 @@ class Application extends React.Component {
         upArrowHistory: [],
         prefersRollAnimation: true,
         prefersDiceRollSound: false,
+        prefersRollNotification: true,
         diceRollSoundVolume: 0.5,
         sidebarAppears: 'sometimes',
         sidebarPosition: 'left',
@@ -170,12 +171,25 @@ class Application extends React.Component {
       if (this.getUserPreference('prefersDiceRollSound')) {
         this.playDiceRollSound()
       }
+
+      if (this.getUserPreference('prefersRollNotification')) {
+        this.sendRollNotification(data)
+      }
     })
   }
 
   playDiceRollSound() {
     this.diceRollSound.volume(this.getUserPreference('diceRollSoundVolume'))
     this.diceRollSound.play()
+  }
+
+  sendRollNotification({ user, roll }) {
+    if (document.hidden && Notification.permission === 'granted') {
+      new Notification(
+        `${user.name} rolled ${roll.name ?? ''} ${roll.result.value}`.replaceAll(/\s+/g, ' '),
+        { body: roll.result.text },
+      )
+    }
   }
 
   showRollModal(rollData = null, indexInFavouriteRollsArray = undefined) {
