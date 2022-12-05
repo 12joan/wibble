@@ -10,7 +10,7 @@
     "@rails/ujs": "^6.1.7",
     "@rails/webpacker": "5.4.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
     "file-dialog": "^0.0.8",
     "file-saver": "^2.0.5",
@@ -20,7 +20,7 @@
     "moment.distance": "^1.2.0",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
-    "react-bootstrap-icons": "^1.9.1",
+    "react-bootstrap-icons": "^1.10.2",
     "react-dom": "^17.0.2",
     "turbolinks": "^5.2.0",
     "use-long-press": "^1.2.0"
