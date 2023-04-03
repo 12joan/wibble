@@ -4,7 +4,7 @@
   "dependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-react": "^7.18.6",
-    "@popperjs/core": "^2.11.6",
+    "@popperjs/core": "^2.11.7",
     "@rails/actioncable": "^6.1.7",
     "@rails/activestorage": "^6.1.7",
     "@rails/ujs": "^6.1.7",
