@@ -1,5 +1,5 @@
 import { performDiceRollRequest } from './performDiceRollRequest';
-import { DiceRollRequestPart } from './types';
+import { DiceRollRequestPart, DiceRollResult } from './types';
 
 const fakeRandomDieRoll = async (sides: number) => sides;
 
@@ -15,10 +15,12 @@ const itShouldWorkFor = (
       randomDieRoll: fakeRandomDieRoll,
     });
 
-    expect(result).toEqual({
-      request,
+    const expected: DiceRollResult = {
+      ...request,
       partsDieValues: partsDieSides,
-    });
+    };
+
+    expect(result).toEqual(expected);
   });
 };
 

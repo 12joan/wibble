@@ -3,14 +3,12 @@ import { getDiceRollResultPartValue } from './getDiceRollResultPartValue';
 import { DiceRollResult } from './types';
 
 export const getDiceRollResultTotal = ({
-  request,
+  parts,
   partsDieValues,
 }: DiceRollResult): number => {
-  const partsValues = zip(request.parts, partsDieValues).map(
-    ([part, dieValues]) => {
-      return getDiceRollResultPartValue(part!, dieValues!);
-    }
-  );
+  const partsValues = zip(parts, partsDieValues).map(([part, dieValues]) => {
+    return getDiceRollResultPartValue(part!, dieValues!);
+  });
 
   return partsValues.reduce((sum, partValue) => sum + partValue, 0);
 };

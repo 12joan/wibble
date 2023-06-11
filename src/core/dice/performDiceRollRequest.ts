@@ -31,7 +31,7 @@ export const performDiceRollRequest = async (
   );
 
   return {
-    request,
+    ...request,
     partsDieValues,
   };
 };

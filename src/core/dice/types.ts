@@ -20,7 +20,6 @@ export type DiceRollRequestPart =
   | DiceRollRequestPartDice
   | DiceRollRequestPartModifier;
 
-export type DiceRollResult = {
-  request: DiceRollRequest;
+export type DiceRollResult = DiceRollRequest & {
   partsDieValues: number[][];
 };
