@@ -10,7 +10,7 @@ export const mountSocket = (server: HTTPServer) => {
   io.on('connection', (socket) => {
     socket.on('diceRollRequest', async (request) => {
       const result = await performDiceRollRequest(request, { randomDieRoll });
-      socket.emit('diceRollResult', result);
+      io.emit('diceRollResult', result);
     });
   });
 };

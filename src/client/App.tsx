@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { DiceRollResult } from '../core/dice/types';
+import { getDieShape } from './dieShapes';
+import { DieValueSVG } from './DieSVG';
 import { useSocket } from './useSocket';
 
 export const App = () => {
@@ -17,14 +19,14 @@ export const App = () => {
     performDiceRoll({
       label: 'test',
       parts: [
-        { type: 'dice', count: 1, die: 6 },
+        { type: 'dice', count: 784, die: 6 },
         { type: 'modifier', value: 7 },
       ],
     });
   };
 
   return (
-    <div>
+    <div className="p-8 space-y-8">
       <p>isConnected: {isConnected ? 'true' : 'false'}</p>
 
       <button type="button" onClick={handleClick} disabled={!isConnected}>
@@ -32,9 +34,16 @@ export const App = () => {
       </button>
 
       {diceRollResult && (
-        <pre>
-          <code>{JSON.stringify(diceRollResult, null, 2)}</code>
-        </pre>
+        <div className="flex flex-wrap">
+          {diceRollResult.partsDieValues.flat(1).map((dieValue, index) => (
+            <DieValueSVG
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              {...getDieShape(6)}
+              label={dieValue.toString()}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
