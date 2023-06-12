@@ -23,6 +23,11 @@ export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
       setIsConnected(false);
     });
 
+    socket.on('error', (message) => {
+      // eslint-disable-next-line no-console
+      console.error(message);
+    });
+
     return () => {
       socket.disconnect();
     };

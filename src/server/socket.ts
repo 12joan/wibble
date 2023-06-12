@@ -9,8 +9,14 @@ export const mountSocket = (server: HTTPServer) => {
 
   io.on('connection', (socket) => {
     socket.on('diceRollRequest', async (request) => {
-      const result = await performDiceRollRequest(request, { randomDieRoll });
-      io.emit('diceRollResult', result);
+      try {
+        const result = await performDiceRollRequest(request, { randomDieRoll });
+        io.emit('diceRollResult', result);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        socket.emit('error', 'Error in diceRollRequest');
+      }
     });
   });
 };

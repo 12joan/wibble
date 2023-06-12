@@ -104,4 +104,8 @@ describe('parseDiceNotation', () => {
   it('should return null for invalid notation', () => {
     expect(parseDiceNotation('x')).toBeNull();
   });
+
+  it('should return null for 0-sided dice', () => {
+    expect(parseDiceNotation('1d0')).toBeNull();
+  });
 });

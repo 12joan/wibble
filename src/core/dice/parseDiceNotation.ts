@@ -28,7 +28,11 @@ export const parseDiceNotation = (
         ? (dieString.toUpperCase() as '20A' | '20D')
         : parseInt(dieString, 10);
 
-      parts.push({ type: 'dice', count, die });
+      if (die === 0) {
+        error = true;
+      } else {
+        parts.push({ type: 'dice', count, die });
+      }
     } else if ((modifierMatch = lexeme.match(/^(\d+)$/))) {
       const [, valueString] = modifierMatch;
       const value = sign * parseInt(valueString, 10);

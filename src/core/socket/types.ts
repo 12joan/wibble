@@ -8,6 +8,7 @@ export interface ClientToServerEvents {
 
 export interface ServerToClientEvents {
   diceRollResult: (response: TDiceRollResult) => void;
+  error: (message: string) => void;
 }
 
 export type TSocket = TRawSocket<ServerToClientEvents, ClientToServerEvents>;
