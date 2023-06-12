@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { DiceRollRequest, DiceRollResult } from '../core/dice/types';
-import { Socket } from '../core/socket/types';
+import { TDiceRollRequest, TDiceRollResult } from '../core/dice/types';
+import { TSocket } from '../core/socket/types';
 
 export interface UseSocketOptions {
-  onDiceRollResult: (result: DiceRollResult) => void;
+  onDiceRollResult: (result: TDiceRollResult) => void;
 }
 
 export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const [socket, setSocket] = useState<TSocket | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
   useEffect(() => {
-    const socket: Socket = io();
+    const socket: TSocket = io();
     setSocket(socket);
 
     socket.on('connect', () => {
@@ -38,7 +38,7 @@ export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
 
   return {
     isConnected,
-    performDiceRoll: (request: DiceRollRequest) => {
+    performDiceRoll: (request: TDiceRollRequest) => {
       if (socket) {
         socket.emit('diceRollRequest', request);
       } else {

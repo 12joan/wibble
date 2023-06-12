@@ -1,25 +1,35 @@
-export type Die = number | '20A' | '20D';
+export type TDie = number | '20A' | '20D';
 
-export type DiceRollRequest = {
+export type TDiceRollRequest = {
   label: string | null;
-  parts: DiceRollRequestPart[];
+  parts: TDiceRollRequestPart[];
 };
 
-export type DiceRollRequestPartDice = {
+export type TDiceRollRequestPartDice = {
   type: 'dice';
   count: number;
-  die: Die;
+  die: TDie;
 };
 
-export type DiceRollRequestPartModifier = {
+export type TDiceRollRequestPartModifier = {
   type: 'modifier';
   value: number;
 };
 
-export type DiceRollRequestPart =
-  | DiceRollRequestPartDice
-  | DiceRollRequestPartModifier;
+export type TDiceRollRequestPart =
+  | TDiceRollRequestPartDice
+  | TDiceRollRequestPartModifier;
 
-export type DiceRollResult = DiceRollRequest & {
-  partsDieValues: number[][];
+export type TDiceRollResultPartDice = TDiceRollRequestPartDice & {
+  values: number[];
+};
+
+export type TDiceRollResultPartModifier = TDiceRollRequestPartModifier;
+
+export type TDiceRollResultPart =
+  | TDiceRollResultPartDice
+  | TDiceRollResultPartModifier;
+
+export type TDiceRollResult = Omit<TDiceRollRequest, 'parts'> & {
+  parts: TDiceRollResultPart[];
 };

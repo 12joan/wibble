@@ -1,14 +1,14 @@
-import { Server as RawServer } from 'socket.io';
-import { Socket as RawSocket } from 'socket.io-client';
-import { DiceRollRequest, DiceRollResult } from '../dice/types';
+import { Server as TRawServer } from 'socket.io';
+import { Socket as TRawSocket } from 'socket.io-client';
+import { TDiceRollRequest, TDiceRollResult } from '../dice/types';
 
 export interface ClientToServerEvents {
-  diceRollRequest: (request: DiceRollRequest) => void;
+  diceRollRequest: (request: TDiceRollRequest) => void;
 }
 
 export interface ServerToClientEvents {
-  diceRollResult: (response: DiceRollResult) => void;
+  diceRollResult: (response: TDiceRollResult) => void;
 }
 
-export type Socket = RawSocket<ServerToClientEvents, ClientToServerEvents>;
-export type Server = RawServer<ClientToServerEvents, ServerToClientEvents>;
+export type TSocket = TRawSocket<ServerToClientEvents, ClientToServerEvents>;
+export type TServer = TRawServer<ClientToServerEvents, ServerToClientEvents>;

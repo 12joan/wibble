@@ -1,7 +1,7 @@
 import { Server as HTTPServer } from 'http';
 import { Server } from 'socket.io';
 import { performDiceRollRequest } from '../core/dice/performDiceRollRequest';
-import { Server as TServer } from '../core/socket/types';
+import { TServer } from '../core/socket/types';
 import { randomDieRoll } from './randomDieRoll';
 
 export const mountSocket = (server: HTTPServer) => {

@@ -1,14 +1,7 @@
-import { zip } from 'lodash';
 import { getDiceRollResultPartValue } from './getDiceRollResultPartValue';
-import { DiceRollResult } from './types';
+import { TDiceRollResult } from './types';
 
-export const getDiceRollResultTotal = ({
-  parts,
-  partsDieValues,
-}: DiceRollResult): number => {
-  const partsValues = zip(parts, partsDieValues).map(([part, dieValues]) => {
-    return getDiceRollResultPartValue(part!, dieValues!);
-  });
-
+export const getDiceRollResultTotal = ({ parts }: TDiceRollResult): number => {
+  const partsValues = parts.map(getDiceRollResultPartValue);
   return partsValues.reduce((sum, partValue) => sum + partValue, 0);
 };

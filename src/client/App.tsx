@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { DiceRollResult } from '../core/dice/types';
-import { getDieShape } from './dieShapes';
-import { DieValueSVG } from './DieSVG';
+import { TDiceRollResult } from '../core/dice/types';
+import { DiceRollResultPart } from './DiceRollResultPart';
 import { useSocket } from './useSocket';
 
 export const App = () => {
-  const [diceRollResult, setDiceRollResult] = useState<DiceRollResult | null>(
+  const [diceRollResult, setDiceRollResult] = useState<TDiceRollResult | null>(
     null
   );
 
@@ -19,8 +18,18 @@ export const App = () => {
     performDiceRoll({
       label: 'test',
       parts: [
-        { type: 'dice', count: 784, die: 6 },
-        { type: 'modifier', value: 7 },
+        { type: 'dice', die: 4, count: 1 },
+        { type: 'modifier', value: 2 },
+        { type: 'dice', die: 6, count: 1 },
+        { type: 'dice', die: 8, count: 1 },
+        { type: 'dice', die: 10, count: 1 },
+        { type: 'modifier', value: -2 },
+        { type: 'modifier', value: 2 },
+        { type: 'dice', die: 12, count: 1 },
+        { type: 'dice', die: 20, count: 1 },
+        { type: 'dice', die: '20A', count: 1 },
+        { type: 'dice', die: '20D', count: 1 },
+        { type: 'dice', die: 100, count: 1 },
       ],
     });
   };
@@ -34,14 +43,10 @@ export const App = () => {
       </button>
 
       {diceRollResult && (
-        <div className="flex flex-wrap">
-          {diceRollResult.partsDieValues.flat(1).map((dieValue, index) => (
-            <DieValueSVG
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-              {...getDieShape(6)}
-              label={dieValue.toString()}
-            />
+        <div className="flex flex-wrap items-center">
+          {diceRollResult.parts.map((part, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <DiceRollResultPart key={index} part={part} />
           ))}
         </div>
       )}

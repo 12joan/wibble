@@ -1,13 +1,20 @@
-import { DiceRollRequest, DiceRollResult } from './types';
+import { zip } from 'lodash';
+import {
+  TDiceRollRequest,
+  TDiceRollResult,
+  TDiceRollResultPart,
+  TDiceRollResultPartDice,
+  TDiceRollResultPartModifier,
+} from './types';
 
 export interface PerformDiceRollRequestOptions {
   randomDieRoll: (sides: number) => Promise<number>;
 }
 
 export const performDiceRollRequest = async (
-  request: DiceRollRequest,
+  request: TDiceRollRequest,
   { randomDieRoll }: PerformDiceRollRequestOptions
-): Promise<DiceRollResult> => {
+): Promise<TDiceRollResult> => {
   const partsDieSides: number[][] = request.parts.map((part) => {
     if (part.type !== 'dice') return [];
 
@@ -30,8 +37,21 @@ export const performDiceRollRequest = async (
     )
   );
 
+  const parts: TDiceRollResultPart[] = zip(request.parts, partsDieValues).map(
+    ([part, values]) => {
+      if (part!.type === 'dice') {
+        return {
+          ...part,
+          values,
+        } as TDiceRollResultPartDice;
+      }
+
+      return part as TDiceRollResultPartModifier;
+    }
+  );
+
   return {
     ...request,
-    partsDieValues,
+    parts,
   };
 };
