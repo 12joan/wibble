@@ -1,35 +1,24 @@
 import React, { useState } from 'react';
+import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { TDiceRollResult } from '../core/dice/types';
 import { DiceRollResultPart } from './DiceRollResultPart';
 import { useSocket } from './useSocket';
 
 export const App = () => {
-  const [diceRollResult, setDiceRollResult] = useState<TDiceRollResult | null>(
-    null
-  );
+  const [diceRollResults, setDiceRollResults] = useState<TDiceRollResult[]>([]);
 
   const { isConnected, performDiceRoll } = useSocket({
     onDiceRollResult: (result) => {
-      setDiceRollResult(result);
+      setDiceRollResults((prev) => [result, ...prev]);
     },
   });
 
   const handleClick = () => {
     performDiceRoll({
-      label: 'test',
+      label: '4d6 + 2',
       parts: [
-        { type: 'dice', die: 4, count: 1 },
+        { type: 'dice', die: 6, count: 4 },
         { type: 'modifier', value: 2 },
-        { type: 'dice', die: 6, count: 1 },
-        { type: 'dice', die: 8, count: 1 },
-        { type: 'dice', die: 10, count: 1 },
-        { type: 'modifier', value: -2 },
-        { type: 'modifier', value: 2 },
-        { type: 'dice', die: 12, count: 1 },
-        { type: 'dice', die: 20, count: 1 },
-        { type: 'dice', die: '20A', count: 1 },
-        { type: 'dice', die: '20D', count: 1 },
-        { type: 'dice', die: 100, count: 1 },
       ],
     });
   };
@@ -42,14 +31,32 @@ export const App = () => {
         Roll the dice
       </button>
 
-      {diceRollResult && (
-        <div className="flex flex-wrap items-center">
-          {diceRollResult.parts.map((part, index) => (
+      <div className="max-w-sm divide-y border rounded-lg">
+        {diceRollResults.map((result, index) => (
+          <div
             // eslint-disable-next-line react/no-array-index-key
-            <DiceRollResultPart key={index} part={part} />
-          ))}
-        </div>
-      )}
+            key={index}
+            className="p-4 grid grid-cols-2 gap-2"
+          >
+            <div className="flex flex-col text-center justify-center">
+              {result.label && (
+                <div className="text-lg font-medium">{result.label}</div>
+              )}
+
+              <div className="text-5xl font-medium">
+                {getDiceRollResultTotal(result)}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap justify-center items-center">
+              {result.parts.map((part, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <DiceRollResultPart key={index} part={part} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

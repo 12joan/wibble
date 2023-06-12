@@ -72,7 +72,7 @@ export const DieValueSVG = ({
   labelProps: { className: labelClassNameProp, ...labelProps } = {},
   ...props
 }: DieSVGProps) => {
-  const className = twMerge('w-16 h-16', classNameProp);
+  const className = twMerge('w-8 h-8', classNameProp);
 
   const polygonClassName = twMerge(
     'fill-current stroke-current text-black dark:text-white',
