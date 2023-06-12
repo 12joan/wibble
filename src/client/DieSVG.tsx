@@ -7,6 +7,7 @@ export interface DieSVGProps extends React.SVGProps<SVGSVGElement> {
   borderRadius?: number;
   padding?: number;
   label: string;
+  fontSize?: number;
   polygonProps?: React.SVGProps<SVGPolygonElement>;
   labelProps?: React.SVGProps<SVGTextElement>;
 }
@@ -17,6 +18,7 @@ export const DieSVG = ({
   borderRadius = 0.2,
   padding = 0.05,
   label,
+  fontSize = 0.5,
   polygonProps,
   labelProps,
   ...svgProps
@@ -58,7 +60,7 @@ export const DieSVG = ({
         y="0.5625"
         dominantBaseline="middle"
         textAnchor="middle"
-        fontSize="0.5"
+        fontSize={fontSize}
         {...labelProps}
         children={label}
       />
@@ -66,36 +68,60 @@ export const DieSVG = ({
   );
 };
 
-export const DieValueSVG = ({
-  className: classNameProp,
-  polygonProps: { className: polygonClassNameProp, ...polygonProps } = {},
-  labelProps: { className: labelClassNameProp, ...labelProps } = {},
-  ...props
-}: DieSVGProps) => {
-  const className = twMerge('w-8 h-8', classNameProp);
+const makeDieVariant =
+  ({
+    className: baseClassName,
+    polygonClassName: basePolygonClassName,
+    labelClassName: baseLabelClassName,
+    ...baseProps
+  }: Partial<DieSVGProps> & {
+    className?: string;
+    polygonClassName?: string;
+    labelClassName?: string;
+  }) =>
+  ({
+    className: classNameProp,
+    polygonProps: { className: polygonClassNameProp, ...polygonProps } = {},
+    labelProps: { className: labelClassNameProp, ...labelProps } = {},
+    ...props
+  }: DieSVGProps) => {
+    const className = twMerge(baseClassName, classNameProp);
 
-  const polygonClassName = twMerge(
-    'fill-current stroke-current text-black dark:text-white',
-    polygonClassNameProp
-  );
+    const polygonClassName = twMerge(
+      basePolygonClassName,
+      polygonClassNameProp
+    );
 
-  const labelClassName = twMerge(
-    'fill-current text-white dark:text-black',
-    labelClassNameProp
-  );
+    const labelClassName = twMerge(baseLabelClassName, labelClassNameProp);
 
-  return (
-    <DieSVG
-      className={className}
-      polygonProps={{
-        className: polygonClassName,
-        ...polygonProps,
-      }}
-      labelProps={{
-        className: labelClassName,
-        ...labelProps,
-      }}
-      {...props}
-    />
-  );
-};
+    return (
+      <DieSVG
+        className={className}
+        polygonProps={{
+          className: polygonClassName,
+          ...polygonProps,
+        }}
+        labelProps={{
+          className: labelClassName,
+          ...labelProps,
+        }}
+        {...baseProps}
+        {...props}
+      />
+    );
+  };
+
+export const DieValueSVG = makeDieVariant({
+  className: 'w-8 h-8',
+  polygonClassName: 'fill-current stroke-current text-black dark:text-white',
+  labelClassName: 'fill-current text-white dark:text-black',
+});
+
+export const DieButtonSVG = makeDieVariant({
+  className:
+    'w-12 h-12 text-transparent hover:text-slate-100 dark:hover:text-slate-800 transition-colors',
+  polygonClassName: 'stroke-black dark:stroke-white fill-current',
+  labelClassName: 'stroke-none fill-black dark:fill-white',
+  borderRadius: 0.04,
+  fontSize: 0.35,
+});

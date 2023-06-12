@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { parseDiceNotation } from '../core/dice/parseDiceNotation';
-import { TDiceRollResult } from '../core/dice/types';
+import { TDiceRollResult, TDie } from '../core/dice/types';
 import { DiceRollResultPart } from './DiceRollResultPart';
+import { getDieShape } from './dieShapes';
+import { DieButtonSVG } from './DieSVG';
 import { useSocket } from './useSocket';
 
 export const App = () => {
@@ -14,6 +16,13 @@ export const App = () => {
       setDiceRollResults((prev) => [result, ...prev]);
     },
   });
+
+  const handleSingleDieRoll = (die: TDie) => {
+    performDiceRoll({
+      label: die.toString(),
+      parts: [{ type: 'dice', die, count: 1 }],
+    });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -39,6 +48,18 @@ export const App = () => {
         </button>
       </form>
 
+      <div className="flex gap-2">
+        {[4, 6, 8, 10, 12, 20, 100].map((die: TDie) => (
+          <button
+            type="button"
+            key={die}
+            onClick={() => handleSingleDieRoll(die)}
+          >
+            <DieButtonSVG {...getDieShape(die)} label={die.toString()} />
+          </button>
+        ))}
+      </div>
+
       <div className="max-w-sm divide-y border rounded-lg">
         {diceRollResults.map((result, index) => (
           <div
@@ -56,7 +77,7 @@ export const App = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center">
+            <div className="flex flex-wrap items-center">
               {result.parts.map((part, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <DiceRollResultPart key={index} part={part} />
