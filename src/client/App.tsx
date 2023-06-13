@@ -20,7 +20,7 @@ export const App = () => {
           <DiceRoller diceRollResults={diceRollResults} />
         </main>
 
-        <div className="grow p-8 space-y-8">
+        <div className="grow p-8 space-y-8 bg-foreground rounded-l-xl shadow-xl">
           <p>isConnected: {isConnected ? 'true' : 'false'}</p>
         </div>
       </div>

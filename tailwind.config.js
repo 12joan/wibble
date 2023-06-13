@@ -5,7 +5,15 @@ module.exports = {
     './src/client/**/*.{ts,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: 'var(--color-background)',
+        foreground: 'var(--color-foreground)',
+        text: 'var(--color-text)',
+        border: 'var(--color-border)',
+        placeholder: 'var(--color-placeholder)',
+      },
+    },
   },
   plugins: [],
 }

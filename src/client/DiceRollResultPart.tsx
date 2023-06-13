@@ -25,7 +25,7 @@ export const DiceRollResultPart = ({ part }: DiceRollResultPartProps) => {
 
     case 'modifier':
       return (
-        <span className="text-lg font-medium mx-[0.3ex]">
+        <span className="text-sm font-medium mx-[0.3ex]">
           {part.value > 0 ? '+ ' : '- '}
           {Math.abs(part.value)}
         </span>
