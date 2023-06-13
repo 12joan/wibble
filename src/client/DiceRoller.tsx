@@ -15,19 +15,53 @@ export interface DiceRollerProps {
 export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
   const { performDiceRoll } = useAppContext();
   const [diceNotation, setDiceNotation] = useState('');
-
-  const handleSingleDieRoll = (die: TDie) => {
-    performDiceRoll({
-      label: die.toString(),
-      parts: [{ type: 'dice', die, count: 1 }],
-    });
-  };
+  const [diceNotationHistory, setDiceNotationHistory] = useState<string[]>([]);
+  const [diceNotationHistoryCursor, setDiceNotationHistoryCursor] =
+    useState(-1);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (/^\s*$/.test(diceNotation)) return;
     const parts = parseDiceNotation(diceNotation);
     if (!parts) throw new Error('Invalid dice notation');
     performDiceRoll({ label: diceNotation, parts });
+
+    setDiceNotationHistory((history) => {
+      const newHistory = [...history];
+      if (diceNotationHistoryCursor !== -1) {
+        // Remove old entry from history
+        newHistory.splice(diceNotationHistoryCursor, 1);
+      }
+
+      newHistory.unshift(diceNotation);
+      return newHistory;
+    });
+
+    setDiceNotationHistoryCursor(-1);
+    setDiceNotation('');
+  };
+
+  const stepThroughDiceNotationHistory = (step: number) => {
+    const newCursor = diceNotationHistoryCursor + step;
+    if (newCursor < -1 || newCursor >= diceNotationHistory.length) return;
+    setDiceNotationHistoryCursor(newCursor);
+
+    if (newCursor === -1) {
+      setDiceNotation('');
+    } else {
+      setDiceNotation(diceNotationHistory[newCursor]);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      stepThroughDiceNotationHistory(1);
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      stepThroughDiceNotationHistory(-1);
+    }
   };
 
   return (
@@ -44,9 +78,7 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
                 <div className="text-sm font-medium">{result.label}</div>
               )}
 
-              <div className="text-xl">
-                {getDiceRollResultTotal(result)}
-              </div>
+              <div className="text-xl">{getDiceRollResultTotal(result)}</div>
             </div>
 
             <div className="flex flex-wrap items-center">
@@ -60,17 +92,24 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
       </ReverseScroll>
 
       <div className="p-4 flex gap-2">
-        <form onSubmit={handleSubmit} className="grow border rounded-lg focus-within:ring-2 ring-blue-500 flex bg-foreground">
+        <form
+          onSubmit={handleSubmit}
+          className="grow border rounded-lg focus-within:ring-2 ring-blue-500 flex bg-foreground"
+        >
           <input
             type="text"
             value={diceNotation}
             onChange={(event) => setDiceNotation(event.target.value)}
+            onKeyDown={handleKeyDown}
             className="grow py-2 pl-3 bg-transparent outline-none"
             placeholder="1d20 + 7"
             aria-label="Dice notation"
           />
 
-          <button type="submit" className="p-2 my-2 mr-2 h-8 w-8 rounded-lg bg-slate-300 dark:bg-slate-700" />
+          <button
+            type="submit"
+            className="p-2 my-2 mr-2 h-8 w-8 rounded-lg bg-slate-300 dark:bg-slate-700"
+          />
         </form>
       </div>
     </div>
