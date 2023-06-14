@@ -87,7 +87,8 @@ export const DiceRollerNotationInput = () => {
 
       <Button
         type="submit"
-        variant="iconSubtle"
+        shape="icon"
+        color="subtle"
         className="my-1 mr-1"
         disabled={diceNotationIsEmpty}
         aria-label="Submit roll"

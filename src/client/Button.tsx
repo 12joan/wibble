@@ -4,28 +4,35 @@ import { twMerge } from 'tailwind-merge';
 
 export const buttonVariants = cva('rounded-lg', {
   variants: {
-    variant: {
-      rect: '',
-      iconSubtle:
-        'p-3 enabled:hocus-visible:bg-primary-accent text-primary disabled:text-placeholder',
+    shape: {
+      rect: 'px-4 py-2',
+      icon: 'p-3',
+    },
+    color: {
+      normal: 'bg-white border',
+      primary:
+        'text-white bg-primary enabled:hocus-visible:bg-primary-dimmed-1 enabled:hocus-visible:active:bg-primary-dimmed-2 ring-offset-2',
+      subtle:
+        'text-primary enabled:hocus-visible:bg-primary-accent enabled:hocus-visible:active:bg-primary-accent-dimmed-1 disabled:text-placeholder',
     },
   },
   defaultVariants: {
-    variant: 'rect',
+    shape: 'rect',
+    color: 'normal',
   },
 });
 
 export interface ButtonProps
   extends VariantProps<typeof buttonVariants>,
-    React.ButtonHTMLAttributes<HTMLButtonElement> {}
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, shape, color, ...props }, ref) => {
     return (
       <button
         ref={ref}
         type="button"
-        className={twMerge(className, buttonVariants(props))}
+        className={twMerge(buttonVariants({ shape, color }), className)}
         {...props}
       />
     );

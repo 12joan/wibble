@@ -5,8 +5,11 @@
 :root {
   --color-background: #F8FAFC;
   --color-foreground: #FFFFFF;
-  --color-primary: #3B82F6;
+  --color-primary: #2563EB;
+  --color-primary-dimmed-1: #1D4ED8;
+  --color-primary-dimmed-2: #1E40AF;
   --color-primary-accent: #EFF6FF;
+  --color-primary-accent-dimmed-1: #DBEAFE;
   --color-text: #1E293B;
   --color-border: #E2E8F0;
   --color-placeholder: #94A3B8;
@@ -16,8 +19,8 @@
   :root {
     --color-background: #0F172A;
     --color-foreground: #1E293B;
-    --color-primary: #3B82F6;
-    --color-primary-accent: #1E3A8A80;
+    --color-primary-accent: #1E3A8A60;
+    --color-primary-accent-dimmed-1: #1E3A8A40;
     --color-text: #E2E8F0;
     --color-border: #334155;
     --color-placeholder: #64748B;
