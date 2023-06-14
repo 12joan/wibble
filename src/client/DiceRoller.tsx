@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { parseDiceNotation } from '../core/dice/parseDiceNotation';
-import { TDiceRollResult, TDie } from '../core/dice/types';
+import { TDiceRollResult } from '../core/dice/types';
 import { useAppContext } from './appContext';
 import { DiceRollResultPart } from './DiceRollResultPart';
-import { getDieShape } from './dieShapes';
-import { DieButtonSVG } from './DieSVG';
 import { ReverseScroll } from './ReverseScroll';
 
 export interface DiceRollerProps {
