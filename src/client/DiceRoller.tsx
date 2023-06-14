@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getDiceRollRequestPartsNotation } from '../core/dice/getDiceRollRequestPartsNotation';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { parseDiceNotation } from '../core/dice/parseDiceNotation';
 import { TDiceRollResult } from '../core/dice/types';
@@ -21,9 +22,14 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
     event.preventDefault();
 
     if (/^\s*$/.test(diceNotation)) return;
+
     const parts = parseDiceNotation(diceNotation);
     if (!parts) throw new Error('Invalid dice notation');
-    performDiceRoll({ label: diceNotation, parts });
+
+    performDiceRoll({
+      label: getDiceRollRequestPartsNotation(parts),
+      parts,
+    });
 
     setDiceNotationHistory((history) => {
       const newHistory = [...history];
@@ -81,8 +87,8 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
 
             <div className="flex flex-wrap items-center gap-2">
               {result.parts.map((part, index) => (
-                // eslint-disable-next-line react/no-array-index-key
                 <DiceRollResultPart
+                  // eslint-disable-next-line react/no-array-index-key
                   key={index}
                   part={part}
                   isFirst={index === 0}

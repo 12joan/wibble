@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TDiceRollResultPart } from '../core/dice/types';
@@ -21,7 +22,10 @@ export interface DiceRollResultPartProps {
   isFirst: boolean;
 }
 
-export const DiceRollResultPart = ({ part, isFirst }: DiceRollResultPartProps) => {
+export const DiceRollResultPart = ({
+  part,
+  isFirst,
+}: DiceRollResultPartProps) => {
   switch (part.type) {
     case 'dice':
       return (
