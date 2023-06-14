@@ -39,7 +39,7 @@ export const DiceRollResultPart = ({
               die={part.die}
               value={value}
               pathClassName="fill-current"
-              valueClassName="fill-white"
+              valueClassName="fill-white dark:fill-black"
             />
           ))}
         </>
