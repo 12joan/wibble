@@ -66,12 +66,12 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
 
   return (
     <div className="h-full flex flex-col">
-      <ReverseScroll className="grow px-4 pt-4">
+      <ReverseScroll className="grow px-4 pt-4 flex flex-col">
         {diceRollResults.map((result, index) => (
           <div
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            className="p-3 flex gap-3 items-center first:rounded-t-lg last:rounded-b-lg bg-foreground border-x first:border-t border-b"
+            className="p-3 flex gap-3 items-center first:rounded-t-lg last:rounded-b-lg bg-foreground border-x first:border-t border-b first:mt-auto"
           >
             <div className="flex flex-col grow">
               {result.label && (
