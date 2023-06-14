@@ -79,10 +79,14 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
               <div className="text-xl">{getDiceRollResultTotal(result)}</div>
             </div>
 
-            <div className="flex flex-wrap items-center">
+            <div className="flex flex-wrap items-center gap-2">
               {result.parts.map((part, index) => (
                 // eslint-disable-next-line react/no-array-index-key
-                <DiceRollResultPart key={index} part={part} />
+                <DiceRollResultPart
+                  key={index}
+                  part={part}
+                  isFirst={index === 0}
+                />
               ))}
             </div>
           </div>
