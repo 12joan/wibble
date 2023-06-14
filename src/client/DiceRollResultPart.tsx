@@ -40,6 +40,7 @@ export const DiceRollResultPart = ({
               value={value}
               pathClassName="fill-current"
               valueClassName="fill-white dark:fill-black"
+              aria-label={`d${part.die} rolled ${value}`}
             />
           ))}
         </>

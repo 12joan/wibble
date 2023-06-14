@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { TDiceRollResult } from '../core/dice/types';
@@ -24,6 +24,8 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
     };
   }, []);
 
+  const total = useMemo(() => getDiceRollResultTotal(result), [result]);
+
   return (
     <div
       className={twMerge(
@@ -33,13 +35,17 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
         isFirstRender && 'bg-blue-200 dark:bg-blue-800',
         isAnimating && 'duration-1000'
       )}
+      aria-group
+      aria-label={`${result.postingAs.name} rolled ${total}`}
     >
       <div className="flex flex-col grow">
         {result.label && (
           <div className="text-sm font-medium">{result.label}</div>
         )}
 
-        <div className="text-xl">{getDiceRollResultTotal(result)}</div>
+        <div className="text-xl">
+          <span className="sr-only">Total:</span> {total}
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center justify-end gap-2">

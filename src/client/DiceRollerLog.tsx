@@ -25,6 +25,8 @@ export const DiceRollerLog = ({ diceRollResults }: DiceRollerLogProps) => {
     <ReverseScroll
       itemCount={diceRollResults.length}
       className="grow px-4 pt-4 flex flex-col gap-2"
+      aria-live="polite"
+      aria-relevant="additions"
     >
       {groupedDiceRollResults.map(({ postingAs, diceRollResults }, index) => (
         // eslint-disable-next-line react/no-array-index-key
