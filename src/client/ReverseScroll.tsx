@@ -5,22 +5,21 @@ import { Button } from './Button';
 export interface ReverseScrollProps
   extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
+  itemCount: number;
   children: React.ReactNode;
 }
 
 export const ReverseScroll = ({
   className = '',
+  itemCount,
   children,
   ...props
 }: ReverseScrollProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const [isNearBottom, setIsNearBottom] = useState(true);
-  const [lastSeenChildrenCount, setLastSeenChildrenCount] = useState(() =>
-    React.Children.count(children)
-  );
-  const childrenCount = React.Children.count(children);
-  const newChildrenCount = childrenCount - lastSeenChildrenCount;
-  const showJumpToBottom = !isNearBottom && newChildrenCount > 0;
+  const [lastSeenItemCount, setLastSeenItemCount] = useState(itemCount);
+  const newItemCount = itemCount - lastSeenItemCount;
+  const showJumpToBottom = !isNearBottom && newItemCount > 0;
 
   const scrollToBottom = useCallback(
     (smooth = false) => {
@@ -42,13 +41,13 @@ export const ReverseScroll = ({
     if (isNearBottom) {
       scrollToBottom();
     }
-  }, [childrenCount, isNearBottom, scrollToBottom]);
+  }, [itemCount, scrollToBottom]);
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { scrollHeight, scrollTop, clientHeight } = event.currentTarget;
     const isNearBottom = scrollHeight - scrollTop - clientHeight < 50;
     setIsNearBottom(isNearBottom);
-    if (isNearBottom) setLastSeenChildrenCount(childrenCount);
+    if (isNearBottom) setLastSeenItemCount(itemCount);
   };
 
   return (
@@ -67,8 +66,8 @@ export const ReverseScroll = ({
             className="mx-auto rounded-full flex gap-2 items-center"
             onClick={() => scrollToBottom(true)}
           >
-            {newChildrenCount} new dice roll
-            {newChildrenCount > 1 ? 's' : ''}
+            {newItemCount} new dice roll
+            {newItemCount > 1 ? 's' : ''}
           </Button>
         </div>
       )}

@@ -18,6 +18,7 @@ module.exports = {
         'primary-accent': 'var(--color-primary-accent)',
         'primary-accent-dimmed-1': 'var(--color-primary-accent-dimmed-1)',
         text: 'var(--color-text)',
+        'text-muted': 'var(--color-text-muted)',
         border: 'var(--color-border)',
         placeholder: 'var(--color-placeholder)',
       },

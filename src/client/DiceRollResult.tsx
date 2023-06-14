@@ -27,7 +27,7 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
   return (
     <div
       className={twMerge(
-        'p-3 flex gap-3 items-center bg-foreground first:mt-auto',
+        'p-3 flex gap-3 items-center bg-foreground',
         'border-x border-b first:border-t',
         'first:rounded-t-lg last:rounded-b-lg',
         isFirstRender && 'bg-blue-200 dark:bg-blue-800',
@@ -42,7 +42,7 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
         <div className="text-xl">{getDiceRollResultTotal(result)}</div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center justify-end gap-2">
         {result.parts.map((part, index) => (
           <DiceRollResultPart
             // eslint-disable-next-line react/no-array-index-key

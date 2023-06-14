@@ -1,7 +1,9 @@
 import React, { createContext, useContext } from 'react';
+import { TPostingAs } from '../core/types';
 import { useSocket } from './useSocket';
 
 type TAppContext = {
+  postingAs: TPostingAs;
   performDiceRoll: ReturnType<typeof useSocket>['performDiceRoll'];
 };
 

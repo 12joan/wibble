@@ -1,7 +1,10 @@
+import { TPostingAs } from '../types';
+
 export type TDie = number | '20A' | '20D';
 
 export type TDiceRollRequest = {
   label: string | null;
+  postingAs: TPostingAs;
   parts: TDiceRollRequestPart[];
 };
 

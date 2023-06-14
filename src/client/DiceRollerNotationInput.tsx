@@ -6,7 +6,7 @@ import { useAppContext } from './appContext';
 import { Button } from './Button';
 
 export const DiceRollerNotationInput = () => {
-  const { performDiceRoll } = useAppContext();
+  const { performDiceRoll, postingAs } = useAppContext();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +27,7 @@ export const DiceRollerNotationInput = () => {
 
     performDiceRoll({
       label: getDiceRollRequestPartsNotation(parts),
+      postingAs,
       parts,
     });
 
