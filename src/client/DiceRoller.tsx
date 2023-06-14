@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import * as Icons from 'react-bootstrap-icons';
 import { getDiceRollRequestPartsNotation } from '../core/dice/getDiceRollRequestPartsNotation';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { parseDiceNotation } from '../core/dice/parseDiceNotation';
@@ -6,6 +7,7 @@ import { TDiceRollResult } from '../core/dice/types';
 import { useAppContext } from './appContext';
 import { DiceRollResultPart } from './DiceRollResultPart';
 import { ReverseScroll } from './ReverseScroll';
+import { Button } from './Button';
 
 export interface DiceRollerProps {
   diceRollResults: TDiceRollResult[];
@@ -13,15 +15,20 @@ export interface DiceRollerProps {
 
 export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
   const { performDiceRoll } = useAppContext();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [diceNotation, setDiceNotation] = useState('');
   const [diceNotationHistory, setDiceNotationHistory] = useState<string[]>([]);
   const [diceNotationHistoryCursor, setDiceNotationHistoryCursor] =
     useState(-1);
 
+  const diceNotationIsEmpty = diceNotation.trim().length === 0;
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (/^\s*$/.test(diceNotation)) return;
+    if (diceNotationIsEmpty) return;
 
     const parts = parseDiceNotation(diceNotation);
     if (!parts) throw new Error('Invalid dice notation');
@@ -44,6 +51,8 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
 
     setDiceNotationHistoryCursor(-1);
     setDiceNotation('');
+
+    inputRef.current!.focus();
   };
 
   const stepThroughDiceNotationHistory = (step: number) => {
@@ -102,22 +111,28 @@ export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
       <div className="p-4 flex gap-2">
         <form
           onSubmit={handleSubmit}
-          className="grow border rounded-lg focus-within:ring-2 ring-blue-500 flex bg-foreground"
+          className="grow border rounded-lg has-lifted-focus-ring:focus-ring flex bg-foreground"
         >
           <input
+            ref={inputRef}
             type="text"
             value={diceNotation}
             onChange={(event) => setDiceNotation(event.target.value)}
             onKeyDown={handleKeyDown}
-            className="grow py-2 pl-3 bg-transparent outline-none"
+            className="grow py-2 pl-3 bg-transparent lift-focus-ring"
             placeholder="1d20 + 7"
             aria-label="Dice notation"
           />
 
-          <button
+          <Button
             type="submit"
-            className="p-2 my-2 mr-2 h-8 w-8 rounded-lg bg-slate-300 dark:bg-slate-700"
-          />
+            variant="iconSubtle"
+            className="my-1 mr-1"
+            disabled={diceNotationIsEmpty}
+            aria-label="Submit roll"
+          >
+            <Icons.SendFill aria-hidden />
+          </Button>
         </form>
       </div>
     </div>

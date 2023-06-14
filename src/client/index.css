@@ -5,6 +5,8 @@
 :root {
   --color-background: #F8FAFC;
   --color-foreground: #FFFFFF;
+  --color-primary: #3B82F6;
+  --color-primary-accent: #EFF6FF;
   --color-text: #1E293B;
   --color-border: #E2E8F0;
   --color-placeholder: #94A3B8;
@@ -14,6 +16,8 @@
   :root {
     --color-background: #0F172A;
     --color-foreground: #1E293B;
+    --color-primary: #3B82F6;
+    --color-primary-accent: #1E3A8A80;
     --color-text: #E2E8F0;
     --color-border: #334155;
     --color-placeholder: #64748B;
@@ -22,10 +26,28 @@
 
 @layer base {
   * {
-    @apply border-border placeholder-placeholder;
+    @apply border-border placeholder-placeholder transition-default focus-ring-base;
+  }
+
+  *:not(.no-focus-ring, .lift-focus-ring):focus-visible {
+    @apply focus-ring;
   }
 
   input {
     @apply placeholder-placeholder;
+  }
+}
+
+@layer utilities {
+  .focus-ring-base {
+    @apply ring-2 ring-transparent;
+  }
+
+  .focus-ring {
+    @apply outline-none ring-2 ring-primary border-transparent relative z-10;
+  }
+
+  .no-focus-ring, .lift-focus-ring {
+    @apply outline-none;
   }
 }

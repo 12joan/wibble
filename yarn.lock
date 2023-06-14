@@ -332,6 +332,11 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@csstools/selector-specificity@^2.0.1":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.2.0.tgz#2cbcf822bf3764c9658c4d2e568bd0c0cb748016"
+  integrity sha512-+OJ9konv95ClSTOJCmMZqpd5+YGsB2S+x6w3E1oaM8UuR5j8nTNHYSz8c9BEPGDOCMQYIEEGlVPj/VY64iTbGw==
+
 "@esbuild/android-arm64@0.17.19":
   version "0.17.19"
   resolved "https://registry.yarnpkg.com/@esbuild/android-arm64/-/android-arm64-0.17.19.tgz#bafb75234a5d3d1b690e7c2956a599345e84a2fd"
@@ -1566,6 +1571,13 @@ cjs-module-lexer@^1.0.0:
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz#6c370ab19f8a3394e318fe682686ec0ac684d107"
   integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
 
+class-variance-authority@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/class-variance-authority/-/class-variance-authority-0.6.0.tgz#d10df1ee148bb8efc11c17909ef1567abdc85a03"
+  integrity sha512-qdRDgfjx3GRb9fpwpSvn+YaidnT7IUJNe4wt5/SWwM+PmUwJUhQRk/8zAyNro0PmVfmen2635UboTjIBXXxy5A==
+  dependencies:
+    clsx "1.2.1"
+
 cliui@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-8.0.1.tgz#0c04b075db02cbfe60dc8e6cf2f5486b1a3608aa"
@@ -1574,6 +1586,11 @@ cliui@^8.0.1:
     string-width "^4.2.0"
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
+
+clsx@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
 co@^4.6.0:
   version "4.6.0"
@@ -1682,6 +1699,15 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+css-has-pseudo@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/css-has-pseudo/-/css-has-pseudo-5.0.2.tgz#8798118c705d858b7aeb9d839a39edd901c1cc83"
+  integrity sha512-q+U+4QdwwB7T9VEW/LyO6CFrLAeLqOykC5mDqJXc7aKZAhDbq7BvGT13VGJe+IwBfdN2o3Xdw2kJ5IxwV1Sc9Q==
+  dependencies:
+    "@csstools/selector-specificity" "^2.0.1"
+    postcss-selector-parser "^6.0.10"
+    postcss-value-parser "^4.2.0"
 
 cssesc@^3.0.0:
   version "3.0.0"
@@ -3927,7 +3953,7 @@ postcss-nested@^6.0.1:
   dependencies:
     postcss-selector-parser "^6.0.11"
 
-postcss-selector-parser@^6.0.11:
+postcss-selector-parser@^6.0.10, postcss-selector-parser@^6.0.11:
   version "6.0.13"
   resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-6.0.13.tgz#d05d8d76b1e8e173257ef9d60b706a8e5e99bf1b"
   integrity sha512-EaV1Gl4mUEV4ddhDnv/xtj7sxwrwxdetHdWUGnT4VJQf+4d05v6lHYZr8N573k5Z0BViss7BDhfWtKS3+sfAqQ==
@@ -3983,7 +4009,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4041,6 +4067,13 @@ raw-body@2.5.1:
     http-errors "2.0.0"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+react-bootstrap-icons@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/react-bootstrap-icons/-/react-bootstrap-icons-1.10.3.tgz#5d64a93c7b172856b03c7d3cd5119a025b094966"
+  integrity sha512-j4hSby6gT9/enhl3ybB1tfr1slZNAYXDVntcRrmVjxB3//2WwqrzpESVqKhyayYVaWpEtnwf9wgUQ03cuziwrw==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-dom@^18.2.0:
   version "18.2.0"
