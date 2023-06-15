@@ -73,7 +73,7 @@ export const DiceRollerNotationInput = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grow border rounded-lg has-lifted-focus-ring:focus-ring flex bg-foreground"
+      className="grow border rounded-lg has-lifted-focus-ring:focus-ring flex bg-foreground max-md:dark:bg-background"
     >
       <input
         ref={inputRef}
@@ -81,7 +81,7 @@ export const DiceRollerNotationInput = () => {
         value={diceNotation}
         onChange={(event) => setDiceNotation(event.target.value)}
         onKeyDown={handleKeyDown}
-        className="grow py-2 pl-3 bg-transparent lift-focus-ring"
+        className="w-0 grow py-2 pl-3 bg-transparent lift-focus-ring"
         placeholder="1d20 + 7"
         aria-label="Dice notation"
       />

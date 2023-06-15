@@ -24,7 +24,7 @@ export const DiceRollerLog = ({ diceRollResults }: DiceRollerLogProps) => {
   return (
     <ReverseScroll
       itemCount={diceRollResults.length}
-      className="grow px-4 pt-4 flex flex-col gap-2"
+      className="grow p-4 flex flex-col gap-2"
       aria-live="polite"
       aria-relevant="additions"
     >

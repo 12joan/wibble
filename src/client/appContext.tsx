@@ -1,10 +1,12 @@
 import React, { createContext, useContext } from 'react';
 import { TPostingAs } from '../core/types';
+import { TEventEmitter } from './eventEmitter';
 import { useSocket } from './useSocket';
 
 type TAppContext = {
   postingAs: TPostingAs;
   performDiceRoll: ReturnType<typeof useSocket>['performDiceRoll'];
+  onPerformDiceRoll: TEventEmitter;
 };
 
 const AppContext = createContext<TAppContext | null>(null);

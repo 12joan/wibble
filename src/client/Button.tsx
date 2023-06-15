@@ -11,9 +11,9 @@ export const buttonVariants = cva('rounded-lg', {
     color: {
       normal: 'bg-white border',
       primary:
-        'text-white bg-primary enabled:hocus-visible:bg-primary-dimmed-1 enabled:hocus-visible:active:bg-primary-dimmed-2 ring-offset-2',
+        'text-white bg-primary enabled:hocus:bg-primary-dimmed-1 enabled:hocus:active:bg-primary-dimmed-2 ring-offset-2',
       subtle:
-        'text-primary enabled:hocus-visible:bg-primary-accent enabled:hocus-visible:active:bg-primary-accent-dimmed-1 disabled:text-placeholder',
+        'text-primary enabled:hocus:bg-primary-accent enabled:hocus:active:bg-primary-accent-dimmed-1 disabled:text-placeholder',
     },
   },
   defaultVariants: {

@@ -60,7 +60,7 @@ export const ReverseScroll = ({
       {children}
 
       {showJumpToBottom && (
-        <div className="sticky bottom-5 inset-x-5 flex">
+        <div className="sticky bottom-5 inset-x-5 flex z-20">
           <Button
             color="primary"
             className="mx-auto rounded-full flex gap-2 items-center"

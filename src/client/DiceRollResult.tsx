@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
 import { TDiceRollResult } from '../core/dice/types';
@@ -35,7 +35,7 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
         isFirstRender && 'bg-blue-200 dark:bg-blue-800',
         isAnimating && 'duration-1000'
       )}
-      aria-group
+      role="group"
       aria-label={`${result.postingAs.name} rolled ${total}`}
     >
       <div className="flex flex-col grow">

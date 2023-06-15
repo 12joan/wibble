@@ -5,16 +5,22 @@ import { DiceRollerNotationInput } from './DiceRollerNotationInput';
 
 export interface DiceRollerProps {
   diceRollResults: TDiceRollResult[];
+  wrapControls: (children: React.ReactNode) => React.ReactNode;
 }
 
-export const DiceRoller = ({ diceRollResults }: DiceRollerProps) => {
+export const DiceRoller = ({
+  diceRollResults,
+  wrapControls,
+}: DiceRollerProps) => {
   return (
     <div className="h-full flex flex-col">
       <DiceRollerLog diceRollResults={diceRollResults} />
 
-      <div className="p-4 flex gap-2">
-        <DiceRollerNotationInput />
-      </div>
+      {wrapControls(
+        <div className="p-4">
+          <DiceRollerNotationInput />
+        </div>
+      )}
     </div>
   );
 };

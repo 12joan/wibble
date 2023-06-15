@@ -25,11 +25,15 @@ module.exports = {
       transitionProperty: {
         default: `${defaultTheme.transitionProperty.colors}, ${defaultTheme.transitionProperty.shadow}`,
       },
+      boxShadow: {
+        'bottom-sheet': '0 0 25px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.04)',
+      },
     },
   },
   plugins: [
     plugin(({ addVariant }) => {
-      addVariant('hocus-visible', ['&:hover', '&:focus-visible']);
+      addVariant('hocus', ['&:hover', '&:focus-visible']);
+      addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
     }),
   ],
