@@ -7,6 +7,7 @@ type TAppContext = {
   postingAs: TPostingAs;
   performDiceRoll: ReturnType<typeof useSocket>['performDiceRoll'];
   onPerformDiceRoll: TEventEmitter;
+  onBottomSheetOpenChange: TEventEmitter<[boolean]>;
 };
 
 const AppContext = createContext<TAppContext | null>(null);

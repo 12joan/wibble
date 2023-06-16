@@ -12,6 +12,7 @@ import { useSocket } from './useSocket';
 export const App = () => {
   const [diceRollResults, setDiceRollResults] = useState<TDiceRollResult[]>([]);
   const onPerformDiceRoll = useEventEmitter();
+  const onBottomSheetOpenChange = useEventEmitter<[boolean]>();
 
   const [postingAs, setPostingAs] = useState<TPostingAs>({
     id: Math.random().toString(36).substr(2, 9),
@@ -50,6 +51,7 @@ export const App = () => {
       postingAs={postingAs}
       performDiceRoll={performDiceRoll}
       onPerformDiceRoll={onPerformDiceRoll}
+      onBottomSheetOpenChange={onBottomSheetOpenChange}
     >
       <div className="flex h-[100dvh] relative">
         <main className="w-full md:max-w-md h-full relative">

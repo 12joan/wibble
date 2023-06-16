@@ -5,11 +5,17 @@
 :root {
   --color-background: #F8FAFC;
   --color-foreground: #FFFFFF;
+  --color-foreground-dimmed-1: #F1F5F9;
+  --color-foreground-dimmed-2: #E2E8F0;
   --color-primary: #2563EB;
   --color-primary-dimmed-1: #1D4ED8;
   --color-primary-dimmed-2: #1E40AF;
   --color-primary-accent: #EFF6FF;
   --color-primary-accent-dimmed-1: #DBEAFE;
+  --color-primary-bg: #2563EB;
+  --color-primary-bg-dimmed-1: #1D4ED8;
+  --color-primary-bg-dimmed-2: #1E40AF;
+  --color-danger: #DC2626;
   --color-text: #1E293B;
   --color-text-muted: #334155;
   --color-border: #E2E8F0;
@@ -18,13 +24,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #0F172A;
-    --color-foreground: #1E293B;
+    --color-background: #020617;
+    --color-foreground: #0F172A;
+    --color-foreground-dimmed-1: #1E293B;
+    --color-foreground-dimmed-2: #334155;
+    --color-primary: #3B82F6;
+    --color-primary-dimmed-1: #2563EB;
+    --color-primary-dimmed-2: #1D4ED8;
     --color-primary-accent: #1E3A8A60;
     --color-primary-accent-dimmed-1: #1E3A8A40;
+    --color-danger: #EF4444;
     --color-text: #E2E8F0;
     --color-text-muted: #CBD5E1;
-    --color-border: #334155;
+    --color-border: #1E293B;
     --color-placeholder: #64748B;
   }
 }
@@ -38,8 +50,8 @@
     @apply focus-ring;
   }
 
-  input {
-    @apply placeholder-placeholder;
+  input[type="text"], input[type="number"] {
+    @apply placeholder-placeholder appearance-none;
   }
 }
 
@@ -54,5 +66,13 @@
 
   .no-focus-ring, .lift-focus-ring {
     @apply outline-none;
+  }
+
+  .bg-background * {
+    @apply ring-offset-background;
+  }
+
+  .bg-foreground * {
+    @apply ring-offset-foreground;
   }
 }

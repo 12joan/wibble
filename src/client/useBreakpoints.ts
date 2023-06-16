@@ -1,13 +1,13 @@
 import tailwindConfig from 'tailwind-config';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import { useViewportWidth } from './useViewportWidth';
+import { useViewportSize } from './useViewportSize';
 
 const twConfig = resolveConfig(tailwindConfig);
 
 export type TBreakpoints = Record<keyof typeof twConfig.theme.screens, boolean>;
 
 export const useBreakpoints = (): TBreakpoints => {
-  const viewportWidth = useViewportWidth();
+  const { width: viewportWidth } = useViewportSize();
 
   return Object.keys(twConfig.theme.screens).reduce((acc, breakpoint) => {
     acc[breakpoint] =

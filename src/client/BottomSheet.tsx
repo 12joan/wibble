@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   BottomSheet as UpstreamBottomSheet,
   BottomSheetRef,
@@ -29,7 +29,7 @@ export interface BottomSheetProps {
 }
 
 export const BottomSheet = ({ header, children }: BottomSheetProps) => {
-  const { onPerformDiceRoll } = useAppContext();
+  const { onPerformDiceRoll, onBottomSheetOpenChange } = useAppContext();
 
   const sheetRef = useRef<BottomSheetRef>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +45,10 @@ export const BottomSheet = ({ header, children }: BottomSheetProps) => {
   const toggleOpen = () => snapTo(isOpen ? 'collapsed' : 'expanded');
 
   onPerformDiceRoll.useEventListener(() => snapTo('collapsed'), []);
+
+  useEffect(() => {
+    onBottomSheetOpenChange.dispatchEvent(isOpen);
+  }, [isOpen]);
 
   return (
     <>

@@ -5,15 +5,19 @@ import { twMerge } from 'tailwind-merge';
 export const buttonVariants = cva('rounded-lg', {
   variants: {
     shape: {
-      rect: 'px-4 py-2',
-      icon: 'p-3',
+      rect: 'px-4 py-2 inline-block',
+      icon: 'p-2 inline-block',
+      menu: 'px-3 py-2 w-full text-left',
+      link: '',
     },
     color: {
-      normal: 'bg-white border',
+      normal:
+        'border bg-foreground enabled:hocus:bg-foreground-dimmed-1 enabled:hocus:active:bg-foreground-dimmed-2',
       primary:
-        'text-white bg-primary enabled:hocus:bg-primary-dimmed-1 enabled:hocus:active:bg-primary-dimmed-2 ring-offset-2',
+        'text-white bg-primary-bg enabled:hover:bg-primary-bg-dimmed-1 enabled:hover:active:bg-primary-bg-dimmed-2 ring-offset-2',
       subtle:
         'text-primary enabled:hocus:bg-primary-accent enabled:hocus:active:bg-primary-accent-dimmed-1 disabled:text-placeholder',
+      link: 'text-primary enabled:hover:text-primary-dimmed-1 enabled:hover:active:text-primary-dimmed-2 disabled:text-placeholder ring-offset-2',
     },
   },
   defaultVariants: {

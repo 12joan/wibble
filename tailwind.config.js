@@ -12,11 +12,17 @@ module.exports = {
       colors: {
         background: 'var(--color-background)',
         foreground: 'var(--color-foreground)',
+        'foreground-dimmed-1': 'var(--color-foreground-dimmed-1)',
+        'foreground-dimmed-2': 'var(--color-foreground-dimmed-2)',
         primary: 'var(--color-primary)',
         'primary-dimmed-1': 'var(--color-primary-dimmed-1)',
         'primary-dimmed-2': 'var(--color-primary-dimmed-2)',
         'primary-accent': 'var(--color-primary-accent)',
         'primary-accent-dimmed-1': 'var(--color-primary-accent-dimmed-1)',
+        'primary-bg': 'var(--color-primary-bg)',
+        'primary-bg-dimmed-1': 'var(--color-primary-bg-dimmed-1)',
+        'primary-bg-dimmed-2': 'var(--color-primary-bg-dimmed-2)',
+        danger: 'var(--color-danger)',
         text: 'var(--color-text)',
         'text-muted': 'var(--color-text-muted)',
         border: 'var(--color-border)',
@@ -35,6 +41,7 @@ module.exports = {
       addVariant('hocus', ['&:hover', '&:focus-visible']);
       addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
+      addVariant('enabled', '&:not([disabled])');
     }),
   ],
 };
