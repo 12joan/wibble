@@ -1,6 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useElementBounds } from './useElementBounds';
+import { useRenderCount } from './useRenderCount';
 import { useViewportSize } from './useViewportSize';
 
 export interface KeepOnScreenProps
@@ -15,6 +16,7 @@ export const KeepOnScreen = ({
 }: KeepOnScreenProps) => {
   const { height: viewportHeight } = useViewportSize();
   const [{ top, bottom }, containerRef] = useElementBounds();
+  const renderCount = useRenderCount();
 
   const nearSideOffset = nearSide === 'top' ? top : viewportHeight - bottom;
   const maxHeight = viewportHeight - nearSideOffset - 16;
@@ -23,7 +25,7 @@ export const KeepOnScreen = ({
     <div
       ref={containerRef}
       className={twMerge('overflow-y-auto', className)}
-      style={{ maxHeight }}
+      style={{ maxHeight: renderCount > 2 ? maxHeight : undefined }}
     >
       {children}
     </div>
