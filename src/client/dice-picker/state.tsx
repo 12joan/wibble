@@ -4,11 +4,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { TDiceRollRequestPart, TDie } from '~/core/dice/types';
 
 export type TDicePickerState = {
+  isFirstPage: boolean;
   diceRollRequestParts: TDiceRollRequestPart[];
   composingDie: TDie | null;
 };
 
 const initialState: TDicePickerState = {
+  isFirstPage: true,
   diceRollRequestParts: [],
   composingDie: null,
 };
@@ -34,7 +36,10 @@ export const useNavigateWithState = () => {
         navigate(to);
       } else {
         navigate(to, {
-          state: transformState(state),
+          state: {
+            ...transformState(state),
+            isFirstPage: false,
+          },
           replace,
         });
       }

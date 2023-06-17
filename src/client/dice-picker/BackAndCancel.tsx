@@ -2,19 +2,12 @@ import React from 'react';
 import * as Icons from 'react-bootstrap-icons';
 import { Button } from '../Button';
 import { useDicePickerContext } from './dicePickerContext';
-import { useNavigateWithState } from './state';
+import { useDicePickerState, useNavigateWithState } from './state';
 
-export interface BackAndCancelProps {
-  backEnabled?: boolean;
-  backLabel?: string;
-}
-
-export const BackAndCancel = ({
-  backEnabled = true,
-  backLabel = 'Back',
-}: BackAndCancelProps): JSX.Element => {
+export const BackAndCancel = () => {
   const navigate = useNavigateWithState();
   const { close } = useDicePickerContext();
+  const { isFirstPage } = useDicePickerState();
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
@@ -23,10 +16,10 @@ export const BackAndCancel = ({
         shape="link"
         color="link"
         className="flex items-center gap-1"
-        disabled={!backEnabled}
+        disabled={isFirstPage}
       >
         <Icons.CaretLeftFill aria-hidden />
-        {backLabel}
+        Back
       </Button>
 
       <Button
