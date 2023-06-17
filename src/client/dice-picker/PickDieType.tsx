@@ -3,7 +3,7 @@ import { BackAndCancel } from './BackAndCancel';
 import { NavMenuItem } from './MenuItem';
 import { TDicePickerState } from './state';
 
-import { allDice } from '~/core/dice/allDice';
+import { ALL_DICE } from '~/core/dice/constants';
 import { TDie } from '~/core/dice/types';
 
 const customLabels: { [key in TDie]?: string } = {
@@ -43,7 +43,7 @@ export const PickDieType = () => {
       <h1 className="font-medium">What kind of dice?</h1>
 
       <div>
-        {allDice.map((die) => {
+        {ALL_DICE.map((die) => {
           const label = customLabels[die] ?? `d${die}`;
           const specialBehaviour = specialDice[die] ?? 'count';
 

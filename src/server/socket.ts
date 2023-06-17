@@ -11,7 +11,12 @@ export const mountSocket = (server: HTTPServer) => {
     socket.on('diceRollRequest', async (request) => {
       try {
         const result = await performDiceRollRequest(request, { randomDieRoll });
-        io.emit('diceRollResult', result);
+
+        if (result) {
+          io.emit('diceRollResult', result);
+        } else {
+          socket.emit('error', 'performDiceRollRequest returned null');
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);

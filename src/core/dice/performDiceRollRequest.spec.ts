@@ -1,3 +1,4 @@
+import { MAX_DICE } from './constants';
 import { performDiceRollRequest } from './performDiceRollRequest';
 import {
   TDiceRollRequestPart,
@@ -12,6 +13,10 @@ const itShouldWorkFor = (
   requestParts: TDiceRollRequestPart[],
   resultParts: TDiceRollResultPart[]
 ) => {
+  beforeEach(() => {
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
   it(`should work for ${description}`, async () => {
     const request = {
       label: 'test',
@@ -81,4 +86,57 @@ describe('performDiceRollRequest', () => {
       { type: 'modifier', value: 2 },
     ]
   );
+
+  it('should return null if the total number of dice exceeds MAX_DICE', async () => {
+    const parts: TDiceRollRequestPart[] = [
+      ...Array(Math.floor(MAX_DICE / 2)).fill({
+        type: 'dice',
+        count: 1,
+        die: 20,
+      }),
+      ...Array(Math.ceil(MAX_DICE / 2)).fill({
+        type: 'dice',
+        count: 1,
+        die: 12,
+      }),
+      { type: 'dice', count: 1, die: 4 },
+    ];
+
+    const request = {
+      label: 'test',
+      parts,
+    } as any;
+
+    const result = await performDiceRollRequest(request, {
+      randomDieRoll: fakeRandomDieRoll,
+    });
+
+    expect(result).toBeNull();
+  });
+
+  it('should not return null if the total number of dice equals MAX_DICE', async () => {
+    const parts: TDiceRollRequestPart[] = [
+      ...Array(Math.floor(MAX_DICE / 2)).fill({
+        type: 'dice',
+        count: 1,
+        die: 20,
+      }),
+      ...Array(Math.ceil(MAX_DICE / 2)).fill({
+        type: 'dice',
+        count: 1,
+        die: 12,
+      }),
+    ];
+
+    const request = {
+      label: 'test',
+      parts,
+    } as any;
+
+    const result = await performDiceRollRequest(request, {
+      randomDieRoll: fakeRandomDieRoll,
+    });
+
+    expect(result).not.toBeNull();
+  });
 });

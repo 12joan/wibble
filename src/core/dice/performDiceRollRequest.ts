@@ -1,4 +1,5 @@
 import { zip } from 'lodash';
+import { MAX_DICE } from './constants';
 import {
   TDiceRollRequest,
   TDiceRollResult,
@@ -14,7 +15,7 @@ export interface PerformDiceRollRequestOptions {
 export const performDiceRollRequest = async (
   request: TDiceRollRequest,
   { randomDieRoll }: PerformDiceRollRequestOptions
-): Promise<TDiceRollResult> => {
+): Promise<TDiceRollResult | null> => {
   const partsDieSides: number[][] = request.parts.map((part) => {
     if (part.type !== 'dice') return [];
 
@@ -30,6 +31,12 @@ export const performDiceRollRequest = async (
       throw new Error(`Unknown die: ${part.die}`);
     }).flat(1);
   });
+
+  if (partsDieSides.flat(1).length > MAX_DICE) {
+    // eslint-disable-next-line no-console
+    console.warn('Too many dice requested');
+    return null;
+  }
 
   const partsDieValues: number[][] = await Promise.all(
     partsDieSides.map((part) =>
