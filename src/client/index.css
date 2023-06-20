@@ -53,6 +53,10 @@
   input[type="text"], input[type="number"] {
     @apply placeholder-placeholder appearance-none;
   }
+
+  [data-radix-popper-content-wrapper] {
+    z-index: 30 !important;
+  }
 }
 
 @layer utilities {
