@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Icons from 'react-bootstrap-icons';
 import { Select } from './Select';
-import { TPostingAs } from '../core/types';
+
+import { TProfile } from '~/core/types';
 
 const withIconClassName = 'flex items-center gap-2';
 
 export interface ProfileSelectProps {
   id: string;
-  profiles: TPostingAs[];
-  value: TPostingAs;
-  onChange: (profile: TPostingAs) => void;
+  profiles: TProfile[];
+  value: TProfile;
+  onChange: (profile: TProfile) => void;
 }
 
 export const ProfileSelect = ({

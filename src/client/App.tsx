@@ -6,6 +6,7 @@ import { BottomSheet } from './BottomSheet';
 import { CharacterSheet } from './CharacterSheet';
 import { DiceRoller } from './DiceRoller';
 import { useEventEmitter } from './eventEmitter';
+import { useCurrentProfileStore, useProfilesStore } from './profilesStore';
 import { useBreakpoints } from './useBreakpoints';
 import { useSocket } from './useSocket';
 
@@ -14,10 +15,14 @@ export const App = () => {
   const onPerformDiceRoll = useEventEmitter();
   const onBottomSheetOpenChange = useEventEmitter<[boolean]>();
 
-  const [postingAs, setPostingAs] = useState<TPostingAs>({
-    id: Math.random().toString(36).substr(2, 9),
-    name: 'Anonymous',
-  });
+  const profilesStore = useProfilesStore();
+  const currentProfileStore = useCurrentProfileStore(profilesStore);
+  const currentProfile = currentProfileStore.get();
+
+  const postingAs: TPostingAs = {
+    id: currentProfile.id,
+    name: currentProfile.postingAsName,
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { isConnected, performDiceRoll: upstreamPerformDiceRoll } = useSocket({
@@ -31,10 +36,6 @@ export const App = () => {
     onPerformDiceRoll.dispatchEvent();
   };
 
-  const characterSheet = (
-    <CharacterSheet postingAs={postingAs} setPostingAs={setPostingAs} />
-  );
-
   const { md: isDesktop } = useBreakpoints();
 
   const wrapControls = (children: React.ReactNode) =>
@@ -42,12 +43,16 @@ export const App = () => {
       children
     ) : (
       <BottomSheet header={children}>
-        <div className="px-4 pb-4">{characterSheet}</div>
+        <div className="px-4 pb-4">
+          <CharacterSheet />
+        </div>
       </BottomSheet>
     );
 
   return (
     <AppProvider
+      profilesStore={profilesStore}
+      currentProfileStore={currentProfileStore}
       postingAs={postingAs}
       performDiceRoll={performDiceRoll}
       onPerformDiceRoll={onPerformDiceRoll}
@@ -63,7 +68,7 @@ export const App = () => {
 
         {isDesktop && (
           <aside className="grow p-8 space-y-8 bg-foreground rounded-l-xl shadow-xl">
-            {characterSheet}
+            <CharacterSheet />
           </aside>
         )}
       </div>

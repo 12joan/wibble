@@ -1,70 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { TPostingAs } from '../core/types';
-import { ProfileSelect } from './ProfileSelect';
+import React from 'react';
+import { useAppContext } from './appContext';
 import { InputGroup } from './Input';
+import { ProfileSelect } from './ProfileSelect';
+import { useOverridable } from './useOverridable';
 
-const profiles: TPostingAs[] = [
-  { id: '1', name: 'Profile 1' },
-  { id: '2', name: 'Profile 2' },
-  { id: '3', name: 'Profile 3' },
-];
+export const CharacterSheet = () => {
+  const { profilesStore, currentProfileStore } = useAppContext();
 
-export interface CharacterSheetProps {
-  postingAs: TPostingAs;
-  setPostingAs: React.Dispatch<React.SetStateAction<TPostingAs>>;
-}
+  const profiles = profilesStore.get();
+  const [currentProfile, setCurrentProfile] = currentProfileStore.use();
 
-export const CharacterSheet = ({
-  postingAs,
-  setPostingAs,
-}: CharacterSheetProps) => {
-  const [profile, setProfile] = useState<TPostingAs>(profiles[0]);
-  const [nameOverride, setNameOverride] = useState('');
+  const [workingPostingAsName, setWorkingPostingAsName] = useOverridable(
+    currentProfile.postingAsName
+  );
 
-  useEffect(() => {
-    setNameOverride('');
-  }, [profile]);
+  const commitPostingAsName = () => {
+    const newPostingAsName = workingPostingAsName.trim() || currentProfile.name;
+    setWorkingPostingAsName(newPostingAsName);
 
-  useEffect(() => {
-    setPostingAs({
-      ...profile,
-      name: nameOverride.trim() || profile.name,
+    currentProfileStore.set({
+      ...currentProfile,
+      postingAsName: newPostingAsName,
     });
-  }, [profile, nameOverride]);
+  };
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-start gap-[inherit]">
         <div className="lg:max-w-[16rem] w-full space-y-1">
-          <label htmlFor="profile-select" className="block text-sm font-medium pointer-events-none">
+          <label
+            htmlFor="profile-select"
+            className="block text-sm font-medium pointer-events-none"
+          >
             Profile
           </label>
 
           <ProfileSelect
             id="profile-select"
             profiles={profiles}
-            value={profile}
-            onChange={setProfile}
+            value={currentProfile}
+            onChange={setCurrentProfile}
           />
         </div>
 
         <div className="lg:max-w-[16rem] w-full space-y-1">
-          <label htmlFor="posting-as-input" className="block text-sm font-medium">
+          <label
+            htmlFor="posting-as-input"
+            className="block text-sm font-medium"
+          >
             Posting as
           </label>
 
           <InputGroup>
             <InputGroup.Input
               id="posting-as-input"
-              placeholder={profile.name}
-              value={nameOverride}
-              onChange={(event) => setNameOverride(event.target.value)}
+              placeholder={currentProfile.name}
+              value={workingPostingAsName}
+              onChange={(event) => {
+                setWorkingPostingAsName(event.target.value);
+              }}
+              onBlur={commitPostingAsName}
             />
           </InputGroup>
         </div>
       </div>
-
-      {JSON.stringify(postingAs)}
     </div>
   );
 };

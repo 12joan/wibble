@@ -1,9 +1,12 @@
 import React, { createContext, useContext } from 'react';
 import { TPostingAs } from '../core/types';
 import { TEventEmitter } from './eventEmitter';
+import { TProfilesStore, TProfileStore } from './profilesStore';
 import { useSocket } from './useSocket';
 
 type TAppContext = {
+  profilesStore: TProfilesStore;
+  currentProfileStore: TProfileStore;
   postingAs: TPostingAs;
   performDiceRoll: ReturnType<typeof useSocket>['performDiceRoll'];
   onPerformDiceRoll: TEventEmitter;

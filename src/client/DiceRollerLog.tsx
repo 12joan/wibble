@@ -12,12 +12,13 @@ export interface DiceRollerLogProps {
 export const DiceRollerLog = ({ diceRollResults }: DiceRollerLogProps) => {
   const groupedDiceRollResults = useMemo(
     () =>
-      groupConsecutiveBy(diceRollResults, (result) => result.postingAs.id).map(
-        (results) => ({
-          postingAs: results[0].postingAs,
-          diceRollResults: results,
-        })
-      ),
+      groupConsecutiveBy(
+        diceRollResults,
+        ({ postingAs }) => `${postingAs.id}-${postingAs.name}`
+      ).map((results) => ({
+        postingAs: results[0].postingAs,
+        diceRollResults: results,
+      })),
     [diceRollResults]
   );
 
