@@ -1,7 +1,13 @@
-import React from 'react';
-import * as Icons from 'react-bootstrap-icons';
+import React, { useState, useEffect } from 'react';
 import { TPostingAs } from '../core/types';
-import { Select } from './Select';
+import { ProfileSelect } from './ProfileSelect';
+import { InputGroup } from './Input';
+
+const profiles: TPostingAs[] = [
+  { id: '1', name: 'Profile 1' },
+  { id: '2', name: 'Profile 2' },
+  { id: '3', name: 'Profile 3' },
+];
 
 export interface CharacterSheetProps {
   postingAs: TPostingAs;
@@ -12,75 +18,53 @@ export const CharacterSheet = ({
   postingAs,
   setPostingAs,
 }: CharacterSheetProps) => {
-  const { id, name } = postingAs;
-  const setId = (id: string) => setPostingAs((prev) => ({ ...prev, id }));
-  const setName = (name: string) => setPostingAs((prev) => ({ ...prev, name }));
+  const [profile, setProfile] = useState<TPostingAs>(profiles[0]);
+  const [nameOverride, setNameOverride] = useState('');
 
-  const items = ['one', 'two', 'three', 'four', 'five'];
-  const [selectedItem, setSelectedItem] = React.useState(items[0]);
+  useEffect(() => {
+    setNameOverride('');
+  }, [profile]);
+
+  useEffect(() => {
+    setPostingAs({
+      ...profile,
+      name: nameOverride.trim() || profile.name,
+    });
+  }, [profile, nameOverride]);
 
   return (
-    <div className="space-y-4">
-      <Select.Root value={selectedItem} onValueChange={setSelectedItem}>
-        <Select.Trigger className="max-md:max-w-none">
-          <Select.Value>
-            <div className="flex items-center gap-2">
-              <Icons.PersonCircle aria-hidden />
-              {selectedItem}
-            </div>
-          </Select.Value>
-        </Select.Trigger>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-start gap-[inherit]">
+        <div className="lg:max-w-[16rem] w-full space-y-1">
+          <label htmlFor="profile-select" className="block text-sm font-medium pointer-events-none">
+            Profile
+          </label>
 
-        <Select.Portal>
-          <Select.Content>
-            <Select.Viewport>
-              <Select.Item value="x">
-                <Select.ItemText>
-                  <div className="flex items-center gap-2">
-                    <Icons.PersonLinesFill aria-hidden />
-                    Manage profiles
-                  </div>
-                </Select.ItemText>
-              </Select.Item>
+          <ProfileSelect
+            id="profile-select"
+            profiles={profiles}
+            value={profile}
+            onChange={setProfile}
+          />
+        </div>
 
-              <Select.Item value="y">
-                <Select.ItemText>
-                  <div className="flex items-center gap-2">
-                    <Icons.PersonPlusFill aria-hidden />
-                    New profile
-                  </div>
-                </Select.ItemText>
-              </Select.Item>
+        <div className="lg:max-w-[16rem] w-full space-y-1">
+          <label htmlFor="posting-as-input" className="block text-sm font-medium">
+            Posting as
+          </label>
 
-              <Select.Separator />
-              {items.map((item) => (
-                <Select.Item key={item} value={item}>
-                  <Select.ItemText>
-                    <div className="flex items-center gap-2">
-                      <Icons.PersonCircle aria-hidden />
-                      {item}
-                    </div>
-                  </Select.ItemText>
-                </Select.Item>
-              ))}
-            </Select.Viewport>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+          <InputGroup>
+            <InputGroup.Input
+              id="posting-as-input"
+              placeholder={profile.name}
+              value={nameOverride}
+              onChange={(event) => setNameOverride(event.target.value)}
+            />
+          </InputGroup>
+        </div>
+      </div>
 
-      <label className="block">
-        <div className="font-medium">ID</div>
-        <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
-      </label>
-
-      <label className="block">
-        <div className="font-medium">Name</div>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
+      {JSON.stringify(postingAs)}
     </div>
   );
 };

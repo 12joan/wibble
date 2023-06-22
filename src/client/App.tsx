@@ -54,7 +54,7 @@ export const App = () => {
       onBottomSheetOpenChange={onBottomSheetOpenChange}
     >
       <div className="flex h-[100dvh] relative">
-        <main className="w-full md:max-w-md h-full relative">
+        <main className="shrink-0 w-full md:max-w-md h-full relative">
           <DiceRoller
             diceRollResults={diceRollResults}
             wrapControls={wrapControls}
@@ -62,9 +62,9 @@ export const App = () => {
         </main>
 
         {isDesktop && (
-          <div className="grow p-8 space-y-8 bg-foreground rounded-l-xl shadow-xl">
+          <aside className="grow p-8 space-y-8 bg-foreground rounded-l-xl shadow-xl">
             {characterSheet}
-          </div>
+          </aside>
         )}
       </div>
     </AppProvider>

@@ -7,7 +7,7 @@ import { KeepOnScreen } from './KeepOnScreen';
 const SelectTrigger: typeof UpstreamSelect.SelectTrigger = forwardRef(
   ({ className, children, ...props }, ref) => {
     const resolvedClassName = twMerge(
-      'px-3 py-2 border rounded-lg bg-foreground hocus:bg-foreground-dimmed-1 max-w-[16rem] w-full flex justify-between items-center',
+      'px-3 py-2 border rounded-lg bg-foreground hocus:bg-foreground-dimmed-1 flex justify-between items-center gap-2 w-full',
       className
     );
 
@@ -102,6 +102,15 @@ const SelectSeparator: typeof UpstreamSelect.SelectSeparator = forwardRef(
     );
   }
 );
+
+export type {
+  SelectProps,
+  SelectTriggerProps,
+  SelectContentProps,
+  SelectViewportProps,
+  SelectItemProps,
+  SelectSeparatorProps,
+} from '@radix-ui/react-select';
 
 export const Select = {
   ...UpstreamSelect,
