@@ -28,9 +28,6 @@ const config: Config = {
         border: 'var(--color-border)',
         placeholder: 'var(--color-placeholder)',
       },
-      transitionProperty: {
-        default: `${defaultTheme.transitionProperty.colors}, ${defaultTheme.transitionProperty.shadow}`,
-      },
       boxShadow: {
         'bottom-sheet': '0 0 25px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.04)',
       },

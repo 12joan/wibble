@@ -206,10 +206,13 @@ export const ManageProfiles = () => {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       <div className="space-y-1">
         <BackButton navigate={navigate} />
-        <h1 className="text-2xl font-medium">Manage profiles</h1>
+        <h1 className="text-2xl font-medium flex items-center gap-2">
+          <Icons.PersonLinesFill />
+          Manage profiles
+        </h1>
       </div>
 
       <div
