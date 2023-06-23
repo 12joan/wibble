@@ -1,7 +1,7 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Button, ButtonProps } from '../Button';
-import { NavigateOptions, useNavigateWithState } from './state';
+import { TNavigateOptions, TTo, useNavigateWithState } from './state';
 
 export type MenuItemProps = ButtonProps;
 
@@ -18,7 +18,9 @@ export const MenuItem = ({ className, ...props }: MenuItemProps) => {
   );
 };
 
-export interface NavMenuItemProps extends MenuItemProps, NavigateOptions {}
+export interface NavMenuItemProps extends MenuItemProps, TNavigateOptions {
+  to: TTo;
+}
 
 export const NavMenuItem = ({
   to,
@@ -30,7 +32,7 @@ export const NavMenuItem = ({
 
   return (
     <MenuItem
-      onClick={() => navigate({ to, transformState, replace })}
+      onClick={() => navigate(to, { transformState, replace })}
       {...props}
     />
   );

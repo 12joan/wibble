@@ -50,8 +50,7 @@ export const ReviewDiceRoll = () => {
       return;
     }
 
-    navigate({
-      to: '/review-dice-roll',
+    navigate('/review-dice-roll', {
       transformState: (state) => ({
         ...state,
         diceRollRequestParts: parsedNotation,

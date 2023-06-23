@@ -43,7 +43,7 @@
 
 @layer base {
   * {
-    @apply border-border placeholder-placeholder transition-default focus-ring-base;
+    @apply border-border placeholder-placeholder focus-ring-base;
   }
 
   *:not(.no-focus-ring, .lift-focus-ring):focus-visible {
@@ -52,6 +52,10 @@
 
   input[type="text"], input[type="number"] {
     @apply placeholder-placeholder appearance-none;
+  }
+
+  [data-radix-popper-content-wrapper] {
+    z-index: 30 !important;
   }
 }
 

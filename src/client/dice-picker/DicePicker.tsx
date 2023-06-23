@@ -12,11 +12,11 @@ const DicePickerContent = () => {
   const navigate = useNavigateWithState();
   const { isOpen } = useDicePickerContext();
 
-  useHotkeys(['ctrl+z', 'meta+z'], () => navigate({ to: -1 }), {
+  useHotkeys(['ctrl+z', 'meta+z'], () => navigate(-1), {
     enabled: isOpen,
   });
 
-  useHotkeys(['meta+shift+z', 'ctrl+y'], () => navigate({ to: 1 }), {
+  useHotkeys(['meta+shift+z', 'ctrl+y'], () => navigate(-1), {
     enabled: isOpen,
   });
 

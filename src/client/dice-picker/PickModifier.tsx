@@ -37,8 +37,7 @@ export const PickModifier = () => {
     event.preventDefault();
     if (customModifier === null) return;
 
-    navigate({
-      to: destination,
+    navigate(destination, {
       transformState: addModifier(customModifier),
     });
   };

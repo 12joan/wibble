@@ -2,9 +2,10 @@ import React from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 
-export const buttonVariants = cva('rounded-lg', {
+export const buttonVariants = cva('rounded-lg transition-colors', {
   variants: {
     shape: {
+      custom: '',
       rect: 'px-4 py-2 inline-block',
       icon: 'p-2 inline-block',
       menu: 'px-3 py-2 w-full text-left',
@@ -12,7 +13,7 @@ export const buttonVariants = cva('rounded-lg', {
     },
     color: {
       normal:
-        'border bg-foreground enabled:hocus:bg-foreground-dimmed-1 enabled:hocus:active:bg-foreground-dimmed-2',
+        'border bg-foreground enabled:hocus:bg-foreground-dimmed-1 enabled:hocus:active:bg-foreground-dimmed-2 disabled:text-placeholder',
       primary:
         'text-white bg-primary-bg enabled:hover:bg-primary-bg-dimmed-1 enabled:hover:active:bg-primary-bg-dimmed-2 ring-offset-2',
       subtle:

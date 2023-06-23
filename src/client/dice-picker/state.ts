@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { TDiceRollRequestPart, TDie } from '~/core/dice/types';
@@ -20,8 +20,9 @@ export const useDicePickerState = () => {
   return (state ?? initialState) as TDicePickerState;
 };
 
-export type NavigateOptions = {
-  to: number | string;
+export type TTo = number | string;
+
+export type TNavigateOptions = {
   transformState?: (state: TDicePickerState) => TDicePickerState;
   replace?: boolean;
 };
@@ -31,7 +32,10 @@ export const useNavigateWithState = () => {
   const state = useDicePickerState();
 
   return useCallback(
-    ({ to, transformState = (state) => state, replace }: NavigateOptions) => {
+    (
+      to: TTo | number,
+      { transformState = (state) => state, replace }: TNavigateOptions = {}
+    ) => {
       if (typeof to === 'number') {
         navigate(to);
       } else {
@@ -46,10 +50,4 @@ export const useNavigateWithState = () => {
     },
     [navigate, state]
   );
-};
-
-export const DebugState = () => {
-  const state = useDicePickerState();
-
-  return <pre className="text-xs">{JSON.stringify(state, null, 2)}</pre>;
 };

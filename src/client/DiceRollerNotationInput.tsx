@@ -73,7 +73,7 @@ export const DiceRollerNotationInput = () => {
 
   return (
     <form onSubmit={handleSubmit} className="contents">
-      <InputGroup className="grow max-md:dark:bg-background">
+      <InputGroup className="grow">
         <InputGroup.Input
           ref={inputRef}
           value={diceNotation}

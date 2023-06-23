@@ -28,9 +28,6 @@ const config: Config = {
         border: 'var(--color-border)',
         placeholder: 'var(--color-placeholder)',
       },
-      transitionProperty: {
-        default: `${defaultTheme.transitionProperty.colors}, ${defaultTheme.transitionProperty.shadow}`,
-      },
       boxShadow: {
         'bottom-sheet': '0 0 25px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.04)',
       },
@@ -42,6 +39,7 @@ const config: Config = {
       addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
       addVariant('enabled', '&:not([disabled])');
+      addVariant('selected', '&[aria-selected="true"]');
     }),
   ],
 };
