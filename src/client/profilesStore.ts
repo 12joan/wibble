@@ -13,6 +13,7 @@ const initialProfiles: TProfile[] = [
     id: generateInsecureRandomId(),
     name: 'My Profile',
     postingAsName: generateRandomName(),
+    postingAsNameIsTemporary: true,
   },
 ];
 
@@ -65,7 +66,7 @@ export const useCurrentProfileStore = (
         ...newProfileProps,
       }));
     },
-    [currentProfileIdStore]
+    [currentProfile, currentProfileIdStore, profileStore]
   );
 
   return useMemo(

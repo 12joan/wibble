@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { TDiceRollResult } from '../core/dice/types';
 import { TPostingAs } from '../core/types';
+import { Panel } from './panel/Panel';
 import { AppProvider } from './appContext';
 import { BottomSheet } from './BottomSheet';
-import { CharacterSheet } from './CharacterSheet';
 import { DiceRoller } from './DiceRoller';
 import { useEventEmitter } from './eventEmitter';
 import { useCurrentProfileStore, useProfilesStore } from './profilesStore';
@@ -43,8 +43,8 @@ export const App = () => {
       children
     ) : (
       <BottomSheet header={children}>
-        <div className="px-4 pb-4">
-          <CharacterSheet />
+        <div className="p-4">
+          <Panel />
         </div>
       </BottomSheet>
     );
@@ -67,8 +67,8 @@ export const App = () => {
         </main>
 
         {isDesktop && (
-          <aside className="grow p-8 space-y-8 bg-foreground rounded-l-xl shadow-xl">
-            <CharacterSheet />
+          <aside className="grow p-8 bg-foreground rounded-l-xl shadow-xl overflow-y-auto">
+            <Panel />
           </aside>
         )}
       </div>

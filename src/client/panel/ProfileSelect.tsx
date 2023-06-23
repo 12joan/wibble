@@ -1,16 +1,21 @@
 import React from 'react';
 import * as Icons from 'react-bootstrap-icons';
-import { Select } from './Select';
+import { Select } from '../Select';
 
 import { TProfile } from '~/core/types';
 
 const withIconClassName = 'flex items-center gap-2';
+
+const MANAGE_PROFILES = 'manage-profiles';
+const NEW_PROFILE = 'new-profile';
 
 export interface ProfileSelectProps {
   id: string;
   profiles: TProfile[];
   value: TProfile;
   onChange: (profile: TProfile) => void;
+  onManageProfiles: () => void;
+  onNewProfile: () => void;
 }
 
 export const ProfileSelect = ({
@@ -18,10 +23,18 @@ export const ProfileSelect = ({
   profiles,
   value,
   onChange,
+  onManageProfiles,
+  onNewProfile,
 }: ProfileSelectProps) => {
   const handleChange = (id: string) => {
-    const profile = profiles.find((profile) => profile.id === id);
-    onChange(profile!);
+    if (id === MANAGE_PROFILES) {
+      onManageProfiles();
+    } else if (id === NEW_PROFILE) {
+      onNewProfile();
+    } else {
+      const profile = profiles.find((profile) => profile.id === id);
+      onChange(profile!);
+    }
   };
 
   return (
@@ -38,7 +51,7 @@ export const ProfileSelect = ({
       <Select.Portal>
         <Select.Content>
           <Select.Viewport>
-            <Select.Item value="x">
+            <Select.Item value={MANAGE_PROFILES}>
               <Select.ItemText>
                 <div className={withIconClassName}>
                   <Icons.PersonLinesFill aria-hidden className="shrink-0" />
@@ -47,7 +60,7 @@ export const ProfileSelect = ({
               </Select.ItemText>
             </Select.Item>
 
-            <Select.Item value="y">
+            <Select.Item value={NEW_PROFILE}>
               <Select.ItemText>
                 <div className={withIconClassName}>
                   <Icons.PersonPlusFill aria-hidden className="shrink-0" />

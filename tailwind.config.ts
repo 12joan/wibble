@@ -42,6 +42,7 @@ const config: Config = {
       addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
       addVariant('enabled', '&:not([disabled])');
+      addVariant('selected', '&[aria-selected="true"]');
     }),
   ],
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Icons from 'react-bootstrap-icons';
+import { BackButton } from '../BackButton';
 import { Button } from '../Button';
 import { useDicePickerContext } from './dicePickerContext';
 import { useDicePickerState, useNavigateWithState } from './state';
@@ -11,16 +11,7 @@ export const BackAndCancel = () => {
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
-      <Button
-        onClick={() => navigate({ to: -1 })}
-        shape="link"
-        color="link"
-        className="flex items-center gap-1"
-        disabled={isFirstPage}
-      >
-        <Icons.CaretLeftFill aria-hidden />
-        Back
-      </Button>
+      <BackButton navigate={navigate} disabled={isFirstPage} />
 
       <Button
         onClick={() => close()}

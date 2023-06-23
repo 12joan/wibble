@@ -74,18 +74,20 @@ export const useLocalStorageStore = <T>(
 
   const setValue = useCallback(
     (newValue: TSetter<T>) => {
-      const resolvedNewValue = resolveSetter(newValue, value);
+      rawSetValue((prevValue) => {
+        const resolvedNewValue = resolveSetter(newValue, prevValue);
 
-      rawSetValue(resolvedNewValue);
+        const storedValue: StoredValue = {
+          version,
+          value: resolvedNewValue,
+        };
 
-      const storedValue: StoredValue = {
-        version,
-        value: resolvedNewValue,
-      };
+        localStorage.setItem(key, JSON.stringify(storedValue));
 
-      localStorage.setItem(key, JSON.stringify(storedValue));
+        return resolvedNewValue;
+      });
     },
-    [value, rawSetValue, key, version]
+    [rawSetValue, key, version]
   );
 
   return useMemo(

@@ -88,7 +88,7 @@ export const BottomSheet = ({ header, children }: BottomSheetProps) => {
           />
         }
         header={
-          <div className="flex flex-col">
+          <div className="flex flex-col border-b">
             <button
               type="button"
               onClick={toggleOpen}

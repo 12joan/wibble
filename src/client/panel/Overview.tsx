@@ -1,11 +1,13 @@
 import React from 'react';
-import { useAppContext } from './appContext';
-import { InputGroup } from './Input';
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../appContext';
+import { InputGroup } from '../Input';
+import { useOverridable } from '../useOverridable';
 import { ProfileSelect } from './ProfileSelect';
-import { useOverridable } from './useOverridable';
 
-export const CharacterSheet = () => {
+export const Overview = () => {
   const { profilesStore, currentProfileStore } = useAppContext();
+  const navigate = useNavigate();
 
   const profiles = profilesStore.get();
   const [currentProfile, setCurrentProfile] = currentProfileStore.use();
@@ -21,7 +23,16 @@ export const CharacterSheet = () => {
     currentProfileStore.set({
       ...currentProfile,
       postingAsName: newPostingAsName,
+      postingAsNameIsTemporary: false,
     });
+  };
+
+  const handleManageProfiles = () => {
+    navigate('/manage-profiles');
+  };
+
+  const handleNewProfile = () => {
+    navigate('/manage-profiles/new');
   };
 
   return (
@@ -40,6 +51,8 @@ export const CharacterSheet = () => {
             profiles={profiles}
             value={currentProfile}
             onChange={setCurrentProfile}
+            onManageProfiles={handleManageProfiles}
+            onNewProfile={handleNewProfile}
           />
         </div>
 

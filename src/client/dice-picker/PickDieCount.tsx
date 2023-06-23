@@ -41,8 +41,7 @@ export const PickDieCount = () => {
     event.preventDefault();
     if (customCount === null) return;
 
-    navigate({
-      to: destination,
+    navigate(destination, {
       transformState: finalizeWithCount(customCount),
     });
   };
