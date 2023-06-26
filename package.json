@@ -2,8 +2,8 @@
   "name": "dice",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.22.1",
-    "@babel/preset-react": "^7.22.3",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
     "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^6.1.7",
     "@rails/activestorage": "^6.1.7",
