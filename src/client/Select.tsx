@@ -20,7 +20,7 @@ const SelectTrigger: typeof UpstreamSelect.SelectTrigger = forwardRef(
         {children}
 
         <UpstreamSelect.SelectIcon>
-          <Icons.ChevronDown />
+          <Icons.ChevronDown aria-hidden />
         </UpstreamSelect.SelectIcon>
       </UpstreamSelect.SelectTrigger>
     );
@@ -82,7 +82,7 @@ const SelectItem: typeof UpstreamSelect.SelectItem = forwardRef(
         {children}
 
         <UpstreamSelect.ItemIndicator className="ml-auto">
-          <Icons.Check2 />
+          <Icons.Check2 aria-hidden />
         </UpstreamSelect.ItemIndicator>
       </UpstreamSelect.SelectItem>
     );

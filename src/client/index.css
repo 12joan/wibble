@@ -15,6 +15,9 @@
   --color-primary-bg: #2563EB;
   --color-primary-bg-dimmed-1: #1D4ED8;
   --color-primary-bg-dimmed-2: #1E40AF;
+  --color-overlay: #F1F5F9AA;
+  --color-overlay-dimmed-1: #E2E8F0AA;
+  --color-overlay-dimmed-2: #CBD5E1AA;
   --color-danger: #DC2626;
   --color-text: #1E293B;
   --color-text-muted: #334155;
@@ -33,10 +36,13 @@
     --color-primary-dimmed-2: #1D4ED8;
     --color-primary-accent: #1E3A8A60;
     --color-primary-accent-dimmed-1: #1E3A8A40;
+    --color-overlay: #1E293BCC;
+    --color-overlay-dimmed-1: #0F172ACC;
+    --color-overlay-dimmed-2: #020617CC;
     --color-danger: #EF4444;
     --color-text: #E2E8F0;
     --color-text-muted: #CBD5E1;
-    --color-border: #1E293B;
+    --color-border: #334155;
     --color-placeholder: #64748B;
   }
 }
@@ -46,7 +52,7 @@
     @apply border-border placeholder-placeholder focus-ring-base;
   }
 
-  *:not(.no-focus-ring, .lift-focus-ring):focus-visible {
+  *:not(.no-focus-ring):focus-visible {
     @apply focus-ring;
   }
 
@@ -70,6 +76,10 @@
 
   .no-focus-ring, .lift-focus-ring {
     @apply outline-none;
+  }
+
+  .no-webkit-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
   }
 
   .bg-background * {

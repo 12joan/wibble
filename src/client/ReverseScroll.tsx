@@ -53,7 +53,7 @@ export const ReverseScroll = ({
   return (
     <div
       ref={setContainer}
-      className={twMerge('overflow-y-auto relative', className)}
+      className={twMerge('overflow-y-auto', className)}
       onScroll={handleScroll}
       {...props}
     >

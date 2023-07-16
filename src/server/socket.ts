@@ -23,5 +23,9 @@ export const mountSocket = (server: HTTPServer) => {
         socket.emit('error', 'Error in diceRollRequest');
       }
     });
+
+    socket.on('diceRollDelete', (id) => {
+      io.emit('diceRollDelete', id);
+    });
   });
 };

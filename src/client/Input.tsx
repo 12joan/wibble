@@ -26,7 +26,7 @@ const InputGroupInput = forwardRef<
       ref={ref}
       type="text"
       className={twMerge(
-        'w-0 grow py-2 first:pl-3 last:pr-3 bg-transparent lift-focus-ring',
+        'w-0 grow py-2 first:pl-3 last:pr-3 bg-transparent lift-focus-ring no-focus-ring',
         className
       )}
       {...props}

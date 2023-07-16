@@ -1,6 +1,6 @@
 import { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
-import defaultTheme from 'tailwindcss/defaultTheme';
+import tailwindAnimate from 'tailwindcss-animate';
 
 const config: Config = {
   content: [
@@ -22,6 +22,9 @@ const config: Config = {
         'primary-bg': 'var(--color-primary-bg)',
         'primary-bg-dimmed-1': 'var(--color-primary-bg-dimmed-1)',
         'primary-bg-dimmed-2': 'var(--color-primary-bg-dimmed-2)',
+        'overlay': 'var(--color-overlay)',
+        'overlay-dimmed-1': 'var(--color-overlay-dimmed-1)',
+        'overlay-dimmed-2': 'var(--color-overlay-dimmed-2)',
         danger: 'var(--color-danger)',
         text: 'var(--color-text)',
         'text-muted': 'var(--color-text-muted)',
@@ -34,12 +37,15 @@ const config: Config = {
     },
   },
   plugins: [
+    tailwindAnimate,
     plugin(({ addVariant }) => {
       addVariant('hocus', ['&:hover', '&:focus-visible']);
       addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
+      addVariant('group-focus-visible', '.group:focus-visible &');
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
       addVariant('enabled', '&:not([disabled])');
       addVariant('selected', '&[aria-selected="true"]');
+      addVariant('exiting', '.exiting &');
     }),
   ],
 };

@@ -4,10 +4,12 @@ import { TDiceRollRequest, TDiceRollResult } from '../dice/types';
 
 export interface ClientToServerEvents {
   diceRollRequest: (request: TDiceRollRequest) => void;
+  diceRollDelete: (id: TDiceRollResult['id']) => void;
 }
 
 export interface ServerToClientEvents {
   diceRollResult: (response: TDiceRollResult) => void;
+  diceRollDelete: (id: TDiceRollResult['id']) => void;
   error: (message: string) => void;
 }
 

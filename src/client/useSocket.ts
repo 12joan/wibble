@@ -5,9 +5,13 @@ import { TSocket } from '../core/socket/types';
 
 export interface UseSocketOptions {
   onDiceRollResult: (result: TDiceRollResult) => void;
+  onDiceRollDelete: (id: TDiceRollResult['id']) => void;
 }
 
-export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
+export const useSocket = ({
+  onDiceRollResult,
+  onDiceRollDelete,
+}: UseSocketOptions) => {
   const [socket, setSocket] = useState<TSocket | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
@@ -35,9 +39,11 @@ export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
 
   useEffect(() => {
     socket?.on('diceRollResult', onDiceRollResult);
+    socket?.on('diceRollDelete', onDiceRollDelete);
 
     return () => {
       socket?.off('diceRollResult', onDiceRollResult);
+      socket?.off('diceRollDelete', onDiceRollDelete);
     };
   }, [socket, onDiceRollResult]);
 
@@ -46,6 +52,14 @@ export const useSocket = ({ onDiceRollResult }: UseSocketOptions) => {
     performDiceRoll: (request: TDiceRollRequest) => {
       if (socket) {
         socket.emit('diceRollRequest', request);
+      } else {
+        // eslint-disable-next-line no-console
+        console.warn('Socket not connected');
+      }
+    },
+    deleteDiceRoll: (id: TDiceRollResult['id']) => {
+      if (socket) {
+        socket.emit('diceRollDelete', id);
       } else {
         // eslint-disable-next-line no-console
         console.warn('Socket not connected');

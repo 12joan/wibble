@@ -1,8 +1,8 @@
 import { useCallback, useMemo } from 'react';
-import { generateInsecureRandomId } from './insecureRandomId';
 import { generateRandomName } from './randomName';
 import { resolveSetter, TSetter, TStore, useLocalStorageStore } from './stores';
 
+import { generateInsecureRandomId } from '~/core/insecureRandomId';
 import { TProfile } from '~/core/types';
 
 export type TProfilesStore = TStore<TProfile[]>;

@@ -34,5 +34,6 @@ export type TDiceRollResultPart =
   | TDiceRollResultPartModifier;
 
 export type TDiceRollResult = Omit<TDiceRollRequest, 'parts'> & {
+  id: string;
   parts: TDiceRollResultPart[];
 };

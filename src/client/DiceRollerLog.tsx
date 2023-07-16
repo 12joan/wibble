@@ -1,15 +1,14 @@
 import React, { useMemo } from 'react';
 import * as Icons from 'react-bootstrap-icons';
-import { TDiceRollResult } from '../core/dice/types';
+import { useAppContext } from './appContext';
 import { DiceRollResult } from './DiceRollResult';
+import { ExitAnimation } from './ExitAnimation';
 import { groupConsecutiveBy } from './groupConsecutiveBy';
 import { ReverseScroll } from './ReverseScroll';
 
-export interface DiceRollerLogProps {
-  diceRollResults: TDiceRollResult[];
-}
+export const DiceRollerLog = () => {
+  const { diceRollResults, deletedDiceRollIds } = useAppContext();
 
-export const DiceRollerLog = ({ diceRollResults }: DiceRollerLogProps) => {
   const groupedDiceRollResults = useMemo(
     () =>
       groupConsecutiveBy(
@@ -30,20 +29,26 @@ export const DiceRollerLog = ({ diceRollResults }: DiceRollerLogProps) => {
       aria-relevant="additions"
     >
       {groupedDiceRollResults.map(({ postingAs, diceRollResults }, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={index} className="first:mt-auto">
-          <div className="text-sm font-medium text-text-muted flex gap-1.5 items-center sticky -top-4 bg-background p-2 z-[1]">
+        <ExitAnimation
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${postingAs.id}-${index}`}
+          isOpen={diceRollResults.some(
+            ({ id }) => !deletedDiceRollIds.includes(id)
+          )}
+          duration={300}
+          className="first:mt-auto"
+        >
+          <div className="text-sm font-medium text-text-muted flex gap-1.5 items-center sticky -top-4 bg-background p-2 z-[1] exiting:animate-out exiting:fade-out exiting:duration-300">
             <Icons.PersonCircle aria-hidden />
             {postingAs.name}
           </div>
 
           <div>
-            {diceRollResults.map((result, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <DiceRollResult key={index} result={result} />
+            {diceRollResults.map((result) => (
+              <DiceRollResult key={result.id} result={result} />
             ))}
           </div>
-        </div>
+        </ExitAnimation>
       ))}
     </ReverseScroll>
   );

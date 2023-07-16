@@ -1,4 +1,5 @@
 import { zip } from 'lodash';
+import { generateInsecureRandomId } from '../insecureRandomId';
 import { MAX_DICE } from './constants';
 import {
   TDiceRollRequest,
@@ -59,6 +60,7 @@ export const performDiceRollRequest = async (
 
   return {
     ...request,
+    id: generateInsecureRandomId(),
     parts,
   };
 };

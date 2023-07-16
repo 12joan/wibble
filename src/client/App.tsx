@@ -12,6 +12,9 @@ import { useSocket } from './useSocket';
 
 export const App = () => {
   const [diceRollResults, setDiceRollResults] = useState<TDiceRollResult[]>([]);
+  const [deletedDiceRollIds, setDeletedDiceRollIds] = useState<
+    TDiceRollResult['id'][]
+  >([]);
   const onPerformDiceRoll = useEventEmitter();
   const onBottomSheetOpenChange = useEventEmitter<[boolean]>();
 
@@ -24,10 +27,17 @@ export const App = () => {
     name: currentProfile.postingAsName,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { isConnected, performDiceRoll: upstreamPerformDiceRoll } = useSocket({
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    isConnected,
+    performDiceRoll: upstreamPerformDiceRoll,
+    deleteDiceRoll,
+  } = useSocket({
     onDiceRollResult: (result) => {
       setDiceRollResults((prev) => [...prev, result]);
+    },
+    onDiceRollDelete: (id) => {
+      setDeletedDiceRollIds((prev) => [...prev, id]);
     },
   });
 
@@ -53,17 +63,17 @@ export const App = () => {
     <AppProvider
       profilesStore={profilesStore}
       currentProfileStore={currentProfileStore}
+      diceRollResults={diceRollResults}
+      deletedDiceRollIds={deletedDiceRollIds}
       postingAs={postingAs}
       performDiceRoll={performDiceRoll}
+      deleteDiceRoll={deleteDiceRoll}
       onPerformDiceRoll={onPerformDiceRoll}
       onBottomSheetOpenChange={onBottomSheetOpenChange}
     >
       <div className="flex h-[100dvh] relative">
         <main className="shrink-0 w-full md:max-w-md h-full relative">
-          <DiceRoller
-            diceRollResults={diceRollResults}
-            wrapControls={wrapControls}
-          />
+          <DiceRoller wrapControls={wrapControls} />
         </main>
 
         {isDesktop && (

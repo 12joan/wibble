@@ -19,6 +19,8 @@ export const buttonVariants = cva('rounded-lg transition-colors', {
       subtle:
         'text-primary enabled:hocus:bg-primary-accent enabled:hocus:active:bg-primary-accent-dimmed-1 disabled:text-placeholder',
       link: 'text-primary enabled:hover:text-primary-dimmed-1 enabled:hover:active:text-primary-dimmed-2 disabled:text-placeholder ring-offset-2',
+      overlay:
+        'bg-overlay enabled:hocus:bg-overlay-dimmed-1 enabled:hocus:active:bg-overlay-dimmed-2',
     },
   },
   defaultVariants: {

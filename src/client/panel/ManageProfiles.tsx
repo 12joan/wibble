@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppContext } from '../appContext';
 import { BackButton } from '../BackButton';
 import { Button, ButtonProps } from '../Button';
-import { generateInsecureRandomId } from '../insecureRandomId';
 import { transformProfileById } from '../profilesStore';
+
+import { generateInsecureRandomId } from '~/core/insecureRandomId';
 
 const ListboxButton = (props: ButtonProps) => {
   const { title } = props;
@@ -206,11 +207,11 @@ export const ManageProfiles = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="space-y-1">
         <BackButton navigate={navigate} />
         <h1 className="text-2xl font-medium flex items-center gap-2">
-          <Icons.PersonLinesFill />
+          <Icons.PersonLinesFill aria-hidden />
           Manage profiles
         </h1>
       </div>

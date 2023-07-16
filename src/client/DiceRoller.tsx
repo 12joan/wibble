@@ -1,5 +1,4 @@
 import React from 'react';
-import { TDiceRollResult } from '../core/dice/types';
 import { DicePickerPoppover } from './dice-picker/DicePickerPopover';
 import { Button } from './Button';
 import { DiceRollerLog } from './DiceRollerLog';
@@ -7,17 +6,13 @@ import { DiceRollerNotationInput } from './DiceRollerNotationInput';
 import { DieIcon } from './DieIcon';
 
 export interface DiceRollerProps {
-  diceRollResults: TDiceRollResult[];
   wrapControls: (children: React.ReactNode) => React.ReactNode;
 }
 
-export const DiceRoller = ({
-  diceRollResults,
-  wrapControls,
-}: DiceRollerProps) => {
+export const DiceRoller = ({ wrapControls }: DiceRollerProps) => {
   return (
     <div className="h-full flex flex-col">
-      <DiceRollerLog diceRollResults={diceRollResults} />
+      <DiceRollerLog />
 
       {wrapControls(
         <div className="p-4 flex gap-2">
