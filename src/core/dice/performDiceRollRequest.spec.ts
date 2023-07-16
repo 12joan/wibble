@@ -25,10 +25,12 @@ const itShouldWorkFor = (
 
     const result = await performDiceRollRequest(request, {
       randomDieRoll: fakeRandomDieRoll,
+      randomId: () => 'test',
     });
 
     const expected: TDiceRollResult = {
       ...request,
+      id: 'test',
       parts: resultParts,
     };
 

@@ -11,11 +11,15 @@ import {
 
 export interface PerformDiceRollRequestOptions {
   randomDieRoll: (sides: number) => Promise<number>;
+  randomId?: () => string;
 }
 
 export const performDiceRollRequest = async (
   request: TDiceRollRequest,
-  { randomDieRoll }: PerformDiceRollRequestOptions
+  {
+    randomDieRoll,
+    randomId = generateInsecureRandomId,
+  }: PerformDiceRollRequestOptions
 ): Promise<TDiceRollResult | null> => {
   const partsDieSides: number[][] = request.parts.map((part) => {
     if (part.type !== 'dice') return [];
@@ -60,7 +64,7 @@ export const performDiceRollRequest = async (
 
   return {
     ...request,
-    id: generateInsecureRandomId(),
+    id: randomId(),
     parts,
   };
 };
