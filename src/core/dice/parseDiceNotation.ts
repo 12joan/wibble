@@ -1,5 +1,5 @@
 /* eslint-disable no-cond-assign */
-import { TDiceRollRequestPart } from './types';
+import { TDiceRollRequestPart } from '../types';
 
 export const parseDiceNotation = (
   notation: string

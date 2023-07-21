@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { TDiceRollRequestPart, TDie } from '~/core/dice/types';
+import { TDiceRollRequestPart, TDie } from '~/core/types';
 
 export type TDicePickerState = {
   isFirstPage: boolean;

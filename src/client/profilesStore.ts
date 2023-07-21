@@ -14,11 +14,29 @@ const initialProfiles: TProfile[] = [
     name: 'My Profile',
     postingAsName: generateRandomName(),
     postingAsNameIsTemporary: true,
+    favouriteDiceRolls: [],
   },
 ];
 
 export const useProfilesStore = (): TProfilesStore => {
-  return useLocalStorageStore('profiles', initialProfiles);
+  return useLocalStorageStore('profiles', initialProfiles, {
+    version: 2,
+    migrate: (oldProfiles, oldVersion) => {
+      return (oldProfiles as TProfile[]).map((oldProfile) => {
+        let profile = oldProfile;
+
+        // Version 2: Add favouriteDiceRolls
+        if (oldVersion < 2) {
+          profile = {
+            ...profile,
+            favouriteDiceRolls: [],
+          };
+        }
+
+        return profile;
+      });
+    },
+  });
 };
 
 export const transformProfileById = (

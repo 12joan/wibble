@@ -1,13 +1,14 @@
 import { zip } from 'lodash';
 import { generateInsecureRandomId } from '../insecureRandomId';
-import { MAX_DICE } from './constants';
 import {
   TDiceRollRequest,
   TDiceRollResult,
   TDiceRollResultPart,
   TDiceRollResultPartDice,
   TDiceRollResultPartModifier,
-} from './types';
+} from '../types';
+import { MAX_DICE } from './constants';
+import { getDieSides } from './getDieSides';
 
 export interface PerformDiceRollRequestOptions {
   randomDieRoll: (sides: number) => Promise<number>;
@@ -24,17 +25,9 @@ export const performDiceRollRequest = async (
   const partsDieSides: number[][] = request.parts.map((part) => {
     if (part.type !== 'dice') return [];
 
-    return Array.from({ length: part.count }, () => {
-      if (['20A', '20D'].includes(part.die as string)) {
-        return [20, 20];
-      }
-
-      if (typeof part.die === 'number') {
-        return [part.die];
-      }
-
-      throw new Error(`Unknown die: ${part.die}`);
-    }).flat(1);
+    return Array.from({ length: part.count }, () => getDieSides(part.die)).flat(
+      1
+    );
   });
 
   if (partsDieSides.flat(1).length > MAX_DICE) {

@@ -8,12 +8,15 @@ import {
   useFloating,
   useInteractions,
 } from '@floating-ui/react';
+import { omit } from 'lodash';
 import { twMerge } from 'tailwind-merge';
-import { TDiceRollResult } from '../core/dice/types';
 import { useAppContext } from './appContext';
 import { buttonVariants } from './Button';
 import { ExitAnimation } from './ExitAnimation';
 import { PieMenu } from './pie-menu';
+
+import { diceRollResultToRequest } from '~/core/dice/diceRollResultToRequest';
+import { TDiceRollResult } from '~/core/types';
 
 export interface UseDiceRollResultMenuOptions {
   result: TDiceRollResult;
@@ -22,7 +25,9 @@ export interface UseDiceRollResultMenuOptions {
 export const useDiceRollResultMenu = ({
   result,
 }: UseDiceRollResultMenuOptions) => {
-  const { performDiceRoll, deleteDiceRoll, postingAs } = useAppContext();
+  const { performDiceRoll, deleteDiceRoll, postingAs, currentProfileStore } =
+    useAppContext();
+  const [, setCurrentProfile] = currentProfileStore.use();
   const [isOpen, setIsOpen] = useState(false);
 
   const [pointerPosition, setPointerPosition] = useState<{
@@ -71,8 +76,14 @@ export const useDiceRollResultMenu = ({
     {
       label: 'Save',
       icon: Icons.FileEarmarkPlusFill,
-      // eslint-disable-next-line no-alert
-      onClick: () => alert('Not implemented yet'),
+      onClick: () =>
+        setCurrentProfile((profile) => ({
+          ...profile,
+          favouriteDiceRolls: [
+            ...profile.favouriteDiceRolls,
+            omit(diceRollResultToRequest(result), 'postingAs'),
+          ],
+        })),
     },
     {
       label: 'Delete',

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TDiceRollResult } from '../core/dice/types';
-import { TPostingAs } from '../core/types';
+import { TDiceRollResult, TPostingAs } from '../core/types';
 import { Panel } from './panel/Panel';
 import { AppProvider } from './appContext';
 import { BottomSheet } from './BottomSheet';

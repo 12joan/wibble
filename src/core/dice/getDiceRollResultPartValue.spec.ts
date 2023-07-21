@@ -1,5 +1,5 @@
+import { TDiceRollResultPart } from '../types';
 import { getDiceRollResultPartValue } from './getDiceRollResultPartValue';
-import { TDiceRollResultPart } from './types';
 
 describe('getDiceRollResultPartValue', () => {
   describe('when the part is a modifier', () => {

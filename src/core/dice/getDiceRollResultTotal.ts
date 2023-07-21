@@ -1,5 +1,5 @@
+import { TDiceRollResult } from '../types';
 import { getDiceRollResultPartValue } from './getDiceRollResultPartValue';
-import { TDiceRollResult } from './types';
 
 export const getDiceRollResultTotal = ({ parts }: TDiceRollResult): number => {
   const partsValues = parts.map(getDiceRollResultPartValue);

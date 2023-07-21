@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { TDie } from '../core/dice/types';
+import { TDie } from '../core/types';
 import { useD100Values } from './useD100Values';
 
 type DieSVGProps = React.SVGProps<SVGSVGElement>;

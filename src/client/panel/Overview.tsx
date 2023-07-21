@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../appContext';
-import { InputGroup } from '../Input';
-import { useOverridable } from '../useOverridable';
+import { FavouriteDiceRolls } from './FavouriteDiceRolls';
+import { PostingAsNameInput } from './PostingAsNameInput';
 import { ProfileSelect } from './ProfileSelect';
 
 export const Overview = () => {
@@ -11,21 +11,6 @@ export const Overview = () => {
 
   const profiles = profilesStore.get();
   const [currentProfile, setCurrentProfile] = currentProfileStore.use();
-
-  const [workingPostingAsName, setWorkingPostingAsName] = useOverridable(
-    currentProfile.postingAsName
-  );
-
-  const commitPostingAsName = () => {
-    const newPostingAsName = workingPostingAsName.trim() || currentProfile.name;
-    setWorkingPostingAsName(newPostingAsName);
-
-    currentProfileStore.set({
-      ...currentProfile,
-      postingAsName: newPostingAsName,
-      postingAsNameIsTemporary: false,
-    });
-  };
 
   const handleManageProfiles = () => {
     navigate('/manage-profiles');
@@ -64,18 +49,13 @@ export const Overview = () => {
             Posting as
           </label>
 
-          <InputGroup>
-            <InputGroup.Input
-              id="posting-as-input"
-              placeholder={currentProfile.name}
-              value={workingPostingAsName}
-              onChange={(event) => {
-                setWorkingPostingAsName(event.target.value);
-              }}
-              onBlur={commitPostingAsName}
-            />
-          </InputGroup>
+          <PostingAsNameInput id="posting-as-input" />
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <h1 className="text-xl font-medium">Favourites</h1>
+        <FavouriteDiceRolls />
       </div>
     </div>
   );

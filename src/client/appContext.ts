@@ -3,8 +3,7 @@ import { TEventEmitter } from './eventEmitter';
 import { TProfilesStore, TProfileStore } from './profilesStore';
 import { useSocket } from './useSocket';
 
-import { TDiceRollResult } from '~/core/dice/types';
-import { TPostingAs } from '~/core/types';
+import { TDiceRollResult, TPostingAs } from '~/core/types';
 
 type TAppContext = {
   profilesStore: TProfilesStore;

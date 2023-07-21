@@ -1,5 +1,5 @@
 import { chunk } from 'lodash';
-import { TDiceRollResultPart } from './types';
+import { TDiceRollResultPart } from '../types';
 
 export const getDiceRollResultPartValue = (
   part: TDiceRollResultPart
