@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { getDiceRollResultTotal } from '../core/dice/getDiceRollResultTotal';
-import { TDiceRollResult } from '../core/dice/types';
+import { TDiceRollResult } from '../core/types';
 import { useAppContext } from './appContext';
 import { Button } from './Button';
+import { DiceRollPartsContainer } from './DiceRollPartsContainer';
 import { DiceRollResultPart } from './DiceRollResultPart';
 import { ExitAnimation } from './ExitAnimation';
 import { useDiceRollResultMenu } from './useDiceRollResultMenu';
@@ -81,7 +82,7 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <DiceRollPartsContainer className="justify-end">
           {result.parts.map((part, index) => (
             <DiceRollResultPart
               // eslint-disable-next-line react/no-array-index-key
@@ -90,7 +91,7 @@ export const DiceRollResult = ({ result }: DiceRollResultProps) => {
               isFirst={index === 0}
             />
           ))}
-        </div>
+        </DiceRollPartsContainer>
       </Button>
 
       {menu}

@@ -75,6 +75,7 @@ export const ManageProfiles = () => {
         name: 'New Profile',
         postingAsName: 'New Profile',
         postingAsNameIsTemporary: true,
+        favouriteDiceRolls: [],
       },
     ]);
 

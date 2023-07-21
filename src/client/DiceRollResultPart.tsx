@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
-import { TDiceRollResultPart } from '../core/dice/types';
+import { TDiceRollResultPart } from '../core/types';
 import { DieIcon } from './DieIcon';
 
 const textClassName = 'text-lg font-medium';

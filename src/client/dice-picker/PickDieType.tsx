@@ -4,7 +4,7 @@ import { NavMenuItem } from './MenuItem';
 import { TDicePickerState } from './state';
 
 import { ALL_DICE } from '~/core/dice/constants';
-import { TDie } from '~/core/dice/types';
+import { TDie } from '~/core/types';
 
 const customLabels: { [key in TDie]?: string } = {
   '20A': 'd20 (advantage)',

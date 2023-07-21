@@ -1,6 +1,6 @@
 import { Server as TRawServer } from 'socket.io';
 import { Socket as TRawSocket } from 'socket.io-client';
-import { TDiceRollRequest, TDiceRollResult } from '../dice/types';
+import { TDiceRollRequest, TDiceRollResult } from '../types';
 
 export interface ClientToServerEvents {
   diceRollRequest: (request: TDiceRollRequest) => void;

@@ -17,8 +17,6 @@ const config: Config = {
         primary: 'var(--color-primary)',
         'primary-dimmed-1': 'var(--color-primary-dimmed-1)',
         'primary-dimmed-2': 'var(--color-primary-dimmed-2)',
-        'primary-accent': 'var(--color-primary-accent)',
-        'primary-accent-dimmed-1': 'var(--color-primary-accent-dimmed-1)',
         'primary-bg': 'var(--color-primary-bg)',
         'primary-bg-dimmed-1': 'var(--color-primary-bg-dimmed-1)',
         'primary-bg-dimmed-2': 'var(--color-primary-bg-dimmed-2)',
@@ -46,6 +44,7 @@ const config: Config = {
       addVariant('enabled', '&:not([disabled])');
       addVariant('selected', '&[aria-selected="true"]');
       addVariant('exiting', '.exiting &');
+      addVariant('touch-device', '@media (hover: none) { & }');
     }),
   ],
 };

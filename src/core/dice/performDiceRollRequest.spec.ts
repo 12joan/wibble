@@ -1,10 +1,10 @@
-import { MAX_DICE } from './constants';
-import { performDiceRollRequest } from './performDiceRollRequest';
 import {
   TDiceRollRequestPart,
   TDiceRollResult,
   TDiceRollResultPart,
-} from './types';
+} from '../types';
+import { MAX_DICE } from './constants';
+import { performDiceRollRequest } from './performDiceRollRequest';
 
 const fakeRandomDieRoll = async (sides: number) => sides;
 

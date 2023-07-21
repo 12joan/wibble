@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { TDiceRollRequestPart } from './types';
+import { TDiceRollRequestPart } from '../types';
 
 export const getDiceRollRequestPartsNotation = (
   parts: TDiceRollRequestPart[]

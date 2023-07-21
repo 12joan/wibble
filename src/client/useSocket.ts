@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { TDiceRollRequest, TDiceRollResult } from '../core/dice/types';
 import { TSocket } from '../core/socket/types';
+import { TDiceRollRequest, TDiceRollResult } from '../core/types';
 
 export interface UseSocketOptions {
   onDiceRollResult: (result: TDiceRollResult) => void;
