@@ -30,7 +30,7 @@ const SelectTrigger: typeof UpstreamSelect.SelectTrigger = forwardRef(
 const SelectContent: typeof UpstreamSelect.SelectContent = forwardRef(
   ({ className, children, ...props }, ref) => {
     const resolvedClassName = twMerge(
-      'border rounded-lg bg-foreground w-[--radix-select-trigger-width] no-focus-ring',
+      'border rounded-lg bg-foreground shadow-lg w-[--radix-select-trigger-width] no-focus-ring animate-in zoom-in-95 fade-in data-[side=bottom]:slide-in-from-top-2 data-[side=bottom]:origin-top data-[side=top]:slide-in-from-bottom-2 data-[side=top]:origin-bottom',
       className
     );
 
@@ -40,7 +40,7 @@ const SelectContent: typeof UpstreamSelect.SelectContent = forwardRef(
         className={resolvedClassName}
         position="popper"
         avoidCollisions={false}
-        sideOffset={-1}
+        sideOffset={4}
         {...props}
       >
         <KeepOnScreen nearSide="top" className="p-2">

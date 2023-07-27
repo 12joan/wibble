@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 import * as Popover from '@radix-ui/react-popover';
 import { useAppContext } from '../appContext';
 import { KeepOnScreen } from '../KeepOnScreen';
@@ -22,16 +23,22 @@ export const DicePickerPoppover = ({ children }: DicePickerPoppoverProps) => {
   return (
     <div
       className="contents"
+      // Drag
       onPointerDown={(event) => isOpen && event.stopPropagation()}
       onPointerMove={(event) => isOpen && event.stopPropagation()}
       onPointerUp={(event) => isOpen && event.stopPropagation()}
       onPointerCancel={(event) => isOpen && event.stopPropagation()}
+      // Tab
+      onKeyDownCapture={(event) => isOpen && event.stopPropagation()}
     >
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger asChild>{children}</Popover.Trigger>
 
         <Popover.Content
-          className="border bg-background z-40 rounded-xl drop-shadow-xl no-focus-ring w-64"
+          className={twMerge(
+            'border bg-background z-40 rounded-xl drop-shadow-xl no-focus-ring w-64 animate-in zoom-in-95 fade-in',
+            bottomSheetIsOpen ? 'origin-top-right slide-in-from-top-2' : 'origin-bottom-right md:origin-bottom slide-in-from-bottom-2'
+          )}
           collisionPadding={16}
           onKeyDown={(event) => {
             event.stopPropagation();

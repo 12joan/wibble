@@ -26,7 +26,7 @@ export const Overview = () => {
         <div className="lg:max-w-[16rem] w-full space-y-1">
           <label
             htmlFor="profile-select"
-            className="block text-sm font-medium pointer-events-none"
+            className="block text-sm font-medium pointer-events-none select-none"
           >
             Profile
           </label>
@@ -44,7 +44,7 @@ export const Overview = () => {
         <div className="lg:max-w-[16rem] w-full space-y-1">
           <label
             htmlFor="posting-as-input"
-            className="block text-sm font-medium"
+            className="block text-sm font-medium select-none"
           >
             Posting as
           </label>
