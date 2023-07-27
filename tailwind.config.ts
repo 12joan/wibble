@@ -37,7 +37,10 @@ const config: Config = {
   plugins: [
     tailwindAnimate,
     plugin(({ addVariant }) => {
-      addVariant('hocus', ['&:hover', '&:focus-visible']);
+      const huiActive = '&[data-headlessui-state*="active"]';
+      const huiSelected = '&[data-headlessui-state*="selected"]';
+
+      addVariant('hocus', ['&:hover', '&:focus-visible', huiActive]);
       addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
       addVariant('group-focus-visible', '.group:focus-visible &');
       addVariant('has-lifted-focus-ring', '&:has(.lift-focus-ring:focus-visible)');
@@ -45,6 +48,8 @@ const config: Config = {
       addVariant('selected', '&[aria-selected="true"]');
       addVariant('exiting', '.exiting &');
       addVariant('touch-device', '@media (hover: none) { & }');
+      addVariant('hui-active', huiActive);
+      addVariant('hui-selected', huiSelected);
     }),
   ],
 };
