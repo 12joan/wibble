@@ -4,11 +4,11 @@ import { Panel } from './panel/Panel';
 import { AppProvider } from './appContext';
 import { BottomSheet } from './BottomSheet';
 import { DiceRoller } from './DiceRoller';
+import { DisconnectedWarning } from './DisconnectedWarning';
 import { useEventEmitter } from './eventEmitter';
 import { useCurrentProfileStore, useProfilesStore } from './profilesStore';
 import { useBreakpoints } from './useBreakpoints';
 import { useSocket } from './useSocket';
-import { DisconnectedWarning } from './DisconnectedWarning';
 
 export const App = () => {
   const [diceRollResults, setDiceRollResults] = useState<TDiceRollResult[]>([]);
@@ -28,7 +28,6 @@ export const App = () => {
   };
 
   const {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isConnected,
     performDiceRoll: upstreamPerformDiceRoll,
     deleteDiceRoll,

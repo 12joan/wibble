@@ -6,7 +6,8 @@ import { DiceRollPartsContainer } from '../DiceRollPartsContainer';
 import { DiceRollRequestPart } from '../DiceRollRequestPart';
 
 export const FavouriteDiceRolls = () => {
-  const { currentProfileStore, postingAs, performDiceRoll, isConnected } = useAppContext();
+  const { currentProfileStore, postingAs, performDiceRoll, isConnected } =
+    useAppContext();
   const [currentProfile, setCurrentProfile] = currentProfileStore.use();
   const { favouriteDiceRolls } = currentProfile;
 

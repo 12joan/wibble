@@ -27,8 +27,13 @@ export interface UseDiceRollResultMenuOptions {
 export const useDiceRollResultMenu = ({
   result,
 }: UseDiceRollResultMenuOptions) => {
-  const { performDiceRoll, deleteDiceRoll, postingAs, currentProfileStore, isConnected } =
-    useAppContext();
+  const {
+    performDiceRoll,
+    deleteDiceRoll,
+    postingAs,
+    currentProfileStore,
+    isConnected,
+  } = useAppContext();
   const [, setCurrentProfile] = currentProfileStore.use();
   const [isOpen, setIsOpen] = useState(false);
 
