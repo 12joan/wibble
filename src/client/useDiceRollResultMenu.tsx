@@ -12,7 +12,6 @@ import { omit } from 'lodash';
 import { twMerge } from 'tailwind-merge';
 import { useAppContext } from './appContext';
 import { buttonVariants } from './Button';
-import { ExitAnimation } from './ExitAnimation';
 import { PieMenu } from './pie-menu';
 
 import { diceRollResultToRequest } from '~/core/dice/diceRollResultToRequest';
@@ -93,41 +92,39 @@ export const useDiceRollResultMenu = ({
     },
   ];
 
-  const menu = (
-    <ExitAnimation isOpen={isOpen}>
-      <div
-        ref={refs.setFloating}
-        style={floatingStyles}
-        {...getFloatingProps()}
-        className="z-40 pointer-events-none"
-      >
-        <PieMenu className="w-32 backdrop-blur-lg shadow-lg border animate-in zoom-in exiting:animate-out exiting:zoom-out pointer-events-auto">
-          {actions.map(({ label, icon: Icon, onClick, className }) => (
-            <PieMenu.Slice
-              key={label}
-              className={twMerge(
-                buttonVariants({ shape: 'custom', color: 'overlay' }),
-                'rounded-none no-focus-ring border-0 group'
-              )}
-              aria-label={label}
-              title={label}
-              onClick={() => {
-                onClick();
-                setIsOpen(false);
-              }}
-            >
-              <PieMenu.Slice.Content>
-                <span className="group-focus-visible:focus-ring -m-1 p-1 rounded-full">
-                  <Icon className={twMerge('text-primary', className)} />
-                </span>
-              </PieMenu.Slice.Content>
-            </PieMenu.Slice>
-          ))}
+  const menu = isOpen && (
+    <div
+      ref={refs.setFloating}
+      style={floatingStyles}
+      {...getFloatingProps()}
+      className="z-40 pointer-events-none"
+    >
+      <PieMenu className="w-32 backdrop-blur-lg shadow-lg border animate-in zoom-in pointer-events-auto">
+        {actions.map(({ label, icon: Icon, onClick, className }) => (
+          <PieMenu.Slice
+            key={label}
+            className={twMerge(
+              buttonVariants({ shape: 'custom', color: 'overlay' }),
+              'rounded-none no-focus-ring border-0 group'
+            )}
+            aria-label={label}
+            title={label}
+            onClick={() => {
+              onClick();
+              setIsOpen(false);
+            }}
+          >
+            <PieMenu.Slice.Content>
+              <div className="group-focus-visible:focus-ring -m-2 p-2 rounded-lg">
+                <Icon className={twMerge('text-primary', className)} />
+              </div>
+            </PieMenu.Slice.Content>
+          </PieMenu.Slice>
+        ))}
 
-          <PieMenu.Center className="w-6" />
-        </PieMenu>
-      </div>
-    </ExitAnimation>
+        <PieMenu.Center className="w-6" />
+      </PieMenu>
+    </div>
   );
 
   return {
