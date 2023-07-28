@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import * as Icons from 'react-bootstrap-icons';
 import { getDiceRollRequestPartsNotation } from '../core/dice/getDiceRollRequestPartsNotation';
 import { parseDiceNotation } from '../core/dice/parseDiceNotation';
@@ -18,18 +18,22 @@ export const DiceRollerNotationInput = () => {
 
   const diceNotationIsEmpty = diceNotation.trim().length === 0;
 
+  const parsedDiceNotation = useMemo(
+    () => parseDiceNotation(diceNotation),
+    [diceNotation]
+  );
+
+  const diceNotationIsValid = parsedDiceNotation !== null;
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (diceNotationIsEmpty) return;
-
-    const parts = parseDiceNotation(diceNotation);
-    if (!parts) throw new Error('Invalid dice notation');
+    if (diceNotationIsEmpty || !diceNotationIsValid) return;
 
     performDiceRoll({
-      label: getDiceRollRequestPartsNotation(parts),
+      label: getDiceRollRequestPartsNotation(parsedDiceNotation),
       postingAs,
-      parts,
+      parts: parsedDiceNotation,
     });
 
     setDiceNotationHistory((history) => {
@@ -88,8 +92,10 @@ export const DiceRollerNotationInput = () => {
           shape="icon"
           color="subtle"
           className="my-1 mr-1"
-          disabled={diceNotationIsEmpty || !isConnected}
+          disabled={diceNotationIsEmpty || !diceNotationIsValid || !isConnected}
           aria-label="Submit roll"
+          // TODO: Use a real tooltip
+          title={diceNotationIsValid ? undefined : 'Invalid notation'}
         >
           <Icons.SendFill aria-hidden className="w-6" />
         </Button>
