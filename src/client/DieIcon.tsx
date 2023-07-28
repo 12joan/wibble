@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { TDie } from '../core/types';
-import { getD100Values } from './getD100Values';
+import { getD10Label } from './getD10Label';
+import { getD100Labels } from './getD100Labels';
 
 type DieSVGProps = React.SVGProps<SVGSVGElement>;
 
@@ -105,6 +106,8 @@ const D10 = ({
   valueClassName,
   ...props
 }: SpecificDieIconProps) => {
+  const label = useMemo(() => getD10Label(value), [value]);
+
   return (
     <DieSVG {...props}>
       <path
@@ -118,7 +121,7 @@ const D10 = ({
         y={13}
         fontSize={8}
         className={valueClassName}
-        children={value}
+        children={label}
       />
     </DieSVG>
   );
@@ -178,7 +181,7 @@ const D100 = ({
   valueClassName,
   ...props
 }: SpecificDieIconProps) => {
-  const [value1, value2] = useMemo(() => getD100Values(value), [value]);
+  const [label1, label2] = useMemo(() => getD100Labels(value), [value]);
 
   return (
     <DieSVG {...props}>
@@ -198,7 +201,7 @@ const D100 = ({
         y={8.5}
         fontSize={6}
         className={valueClassName}
-        children={value1}
+        children={label1}
       />
 
       <text
@@ -207,7 +210,7 @@ const D100 = ({
         y="16.5"
         fontSize={6}
         className={valueClassName}
-        children={value2}
+        children={label2}
       />
     </DieSVG>
   );
