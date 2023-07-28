@@ -10,15 +10,24 @@ export const Unfocusable = ({
   children,
 }: UnfocusableProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const initialTabIndices = useRef<WeakMap<HTMLElement, number>>(new WeakMap());
+  const initialTabIndices = useRef<WeakMap<HTMLElement, number | null>>(
+    new WeakMap()
+  );
 
   const setTabIndex = (element: HTMLElement, tabIndex: number | 'initial') => {
-    const resolvedTabIndex: number =
+    const resolvedTabIndex: number | null | undefined =
       tabIndex === 'initial'
-        ? initialTabIndices.current.get(element) ?? -1
+        ? initialTabIndices.current.get(element)
         : tabIndex;
 
-    element.tabIndex = resolvedTabIndex;
+    // Do not override existing value when setting to initial
+    if (resolvedTabIndex === undefined) return;
+
+    if (resolvedTabIndex === null) {
+      element.removeAttribute('tabindex');
+    } else {
+      element.tabIndex = resolvedTabIndex;
+    }
   };
 
   const processElement = (element: HTMLElement) => {
@@ -29,7 +38,11 @@ export const Unfocusable = ({
         return;
       }
 
-      initialTabIndices.current.set(element, element.tabIndex);
+      initialTabIndices.current.set(
+        element,
+        element.hasAttribute('tabindex') ? element.tabIndex : null
+      );
+
       setTabIndex(element, -1);
     } else {
       setTabIndex(element, 'initial');

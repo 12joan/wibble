@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { twMerge } from 'tailwind-merge';
 import { useAppContext } from '../appContext';
+import { IsolateBottomSheet } from '../IsolateBottomSheet';
 import { KeepOnScreen } from '../KeepOnScreen';
 import { DicePicker } from './DicePicker';
 import { DicePickerProvider } from './dicePickerContext';
@@ -21,16 +22,7 @@ export const DicePickerPoppover = ({ children }: DicePickerPoppoverProps) => {
   }, []);
 
   return (
-    <div
-      className="contents"
-      // Drag
-      onPointerDown={(event) => isOpen && event.stopPropagation()}
-      onPointerMove={(event) => isOpen && event.stopPropagation()}
-      onPointerUp={(event) => isOpen && event.stopPropagation()}
-      onPointerCancel={(event) => isOpen && event.stopPropagation()}
-      // Tab
-      onKeyDownCapture={(event) => isOpen && event.stopPropagation()}
-    >
+    <IsolateBottomSheet isActive={isOpen}>
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger asChild>{children}</Popover.Trigger>
 
@@ -75,6 +67,6 @@ export const DicePickerPoppover = ({ children }: DicePickerPoppoverProps) => {
           </Popover.Arrow>
         </Popover.Content>
       </Popover.Root>
-    </div>
+    </IsolateBottomSheet>
   );
 };
