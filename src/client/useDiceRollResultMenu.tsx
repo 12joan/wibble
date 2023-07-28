@@ -27,7 +27,7 @@ export interface UseDiceRollResultMenuOptions {
 export const useDiceRollResultMenu = ({
   result,
 }: UseDiceRollResultMenuOptions) => {
-  const { performDiceRoll, deleteDiceRoll, postingAs, currentProfileStore } =
+  const { performDiceRoll, deleteDiceRoll, postingAs, currentProfileStore, isConnected } =
     useAppContext();
   const [, setCurrentProfile] = currentProfileStore.use();
   const [isOpen, setIsOpen] = useState(false);
@@ -113,6 +113,7 @@ export const useDiceRollResultMenu = ({
                     buttonVariants({ shape: 'custom', color: 'overlay' }),
                     'rounded-none no-focus-ring border-0 group'
                   )}
+                  disabled={!isConnected}
                   aria-label={label}
                   title={label}
                   onClick={() => {

@@ -6,7 +6,7 @@ import { DiceRollPartsContainer } from '../DiceRollPartsContainer';
 import { DiceRollRequestPart } from '../DiceRollRequestPart';
 
 export const FavouriteDiceRolls = () => {
-  const { currentProfileStore, postingAs, performDiceRoll } = useAppContext();
+  const { currentProfileStore, postingAs, performDiceRoll, isConnected } = useAppContext();
   const [currentProfile, setCurrentProfile] = currentProfileStore.use();
   const { favouriteDiceRolls } = currentProfile;
 
@@ -51,6 +51,7 @@ export const FavouriteDiceRolls = () => {
           <Button
             shape="custom"
             className="text-left p-3 pr-12 flex flex-col gap-2 w-full h-full"
+            disabled={!isConnected}
             onClick={() =>
               performDiceRoll({
                 ...diceRoll,

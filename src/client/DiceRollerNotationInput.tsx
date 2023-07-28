@@ -7,7 +7,7 @@ import { Button } from './Button';
 import { InputGroup } from './Input';
 
 export const DiceRollerNotationInput = () => {
-  const { performDiceRoll, postingAs } = useAppContext();
+  const { performDiceRoll, postingAs, isConnected } = useAppContext();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -88,7 +88,7 @@ export const DiceRollerNotationInput = () => {
           shape="icon"
           color="subtle"
           className="my-1 mr-1"
-          disabled={diceNotationIsEmpty}
+          disabled={diceNotationIsEmpty || !isConnected}
           aria-label="Submit roll"
         >
           <Icons.SendFill aria-hidden className="w-6" />

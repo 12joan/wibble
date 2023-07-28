@@ -29,7 +29,7 @@ import { PieMenuSliceProvider } from './pieMenuSliceContext';
 import { useRegisterSlice } from './sliceRegistry';
 
 export interface PieMenuSliceRootProps
-  extends React.HTMLAttributes<HTMLButtonElement> {
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
