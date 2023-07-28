@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { TDie } from '../core/types';
-import { useD100Values } from './useD100Values';
+import { getD100Values } from './getD100Values';
 
 type DieSVGProps = React.SVGProps<SVGSVGElement>;
 
@@ -178,7 +178,7 @@ const D100 = ({
   valueClassName,
   ...props
 }: SpecificDieIconProps) => {
-  const [value1, value2] = useD100Values(value);
+  const [value1, value2] = useMemo(() => getD100Values(value), [value]);
 
   return (
     <DieSVG {...props}>
