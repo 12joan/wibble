@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import * as Popover from '@radix-ui/react-popover';
+import { twMerge } from 'tailwind-merge';
 import { useAppContext } from '../appContext';
+import { IsolateBottomSheet } from '../IsolateBottomSheet';
 import { KeepOnScreen } from '../KeepOnScreen';
 import { DicePicker } from './DicePicker';
 import { DicePickerProvider } from './dicePickerContext';
@@ -21,23 +22,16 @@ export const DicePickerPoppover = ({ children }: DicePickerPoppoverProps) => {
   }, []);
 
   return (
-    <div
-      className="contents"
-      // Drag
-      onPointerDown={(event) => isOpen && event.stopPropagation()}
-      onPointerMove={(event) => isOpen && event.stopPropagation()}
-      onPointerUp={(event) => isOpen && event.stopPropagation()}
-      onPointerCancel={(event) => isOpen && event.stopPropagation()}
-      // Tab
-      onKeyDownCapture={(event) => isOpen && event.stopPropagation()}
-    >
+    <IsolateBottomSheet isActive={isOpen}>
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger asChild>{children}</Popover.Trigger>
 
         <Popover.Content
           className={twMerge(
             'border bg-background z-40 rounded-xl drop-shadow-xl no-focus-ring w-64 animate-in zoom-in-95 fade-in',
-            bottomSheetIsOpen ? 'origin-top-right slide-in-from-top-2' : 'origin-bottom-right md:origin-bottom slide-in-from-bottom-2'
+            bottomSheetIsOpen
+              ? 'origin-top-right slide-in-from-top-2'
+              : 'origin-bottom-right md:origin-bottom slide-in-from-bottom-2'
           )}
           collisionPadding={16}
           onKeyDown={(event) => {
@@ -73,6 +67,6 @@ export const DicePickerPoppover = ({ children }: DicePickerPoppoverProps) => {
           </Popover.Arrow>
         </Popover.Content>
       </Popover.Root>
-    </div>
+    </IsolateBottomSheet>
   );
 };

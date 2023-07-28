@@ -76,7 +76,7 @@ export const App = () => {
         </main>
 
         {isDesktop && (
-          <aside className="grow p-8 bg-foreground rounded-l-xl shadow-xl overflow-y-auto">
+          <aside className="grow p-8 bg-foreground rounded-l-xl shadow-xl overflow-y-auto relative">
             <Panel />
           </aside>
         )}
