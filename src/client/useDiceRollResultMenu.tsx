@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import * as Icons from 'react-bootstrap-icons';
 import {
+  FloatingFocusManager,
+  FloatingOverlay,
+  FloatingPortal,
   offset,
   shift,
   useClientPoint,
@@ -93,38 +96,44 @@ export const useDiceRollResultMenu = ({
   ];
 
   const menu = isOpen && (
-    <div
-      ref={refs.setFloating}
-      style={floatingStyles}
-      {...getFloatingProps()}
-      className="z-40 pointer-events-none"
-    >
-      <PieMenu className="w-32 backdrop-blur-lg shadow-lg border animate-in zoom-in pointer-events-auto">
-        {actions.map(({ label, icon: Icon, onClick, className }) => (
-          <PieMenu.Slice
-            key={label}
-            className={twMerge(
-              buttonVariants({ shape: 'custom', color: 'overlay' }),
-              'rounded-none no-focus-ring border-0 group'
-            )}
-            aria-label={label}
-            title={label}
-            onClick={() => {
-              onClick();
-              setIsOpen(false);
-            }}
+    <FloatingOverlay>
+      <FloatingPortal>
+        <FloatingFocusManager context={context}>
+          <div
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+            className="z-40 pointer-events-none"
           >
-            <PieMenu.Slice.Content>
-              <div className="group-focus-visible:focus-ring -m-2 p-2 rounded-lg">
-                <Icon className={twMerge('text-primary', className)} />
-              </div>
-            </PieMenu.Slice.Content>
-          </PieMenu.Slice>
-        ))}
+            <PieMenu className="w-32 backdrop-blur-lg shadow-lg border animate-in zoom-in pointer-events-auto">
+              {actions.map(({ label, icon: Icon, onClick, className }) => (
+                <PieMenu.Slice
+                  key={label}
+                  className={twMerge(
+                    buttonVariants({ shape: 'custom', color: 'overlay' }),
+                    'rounded-none no-focus-ring border-0 group'
+                  )}
+                  aria-label={label}
+                  title={label}
+                  onClick={() => {
+                    onClick();
+                    setIsOpen(false);
+                  }}
+                >
+                  <PieMenu.Slice.Content>
+                    <div className="group-focus-visible:focus-ring -m-2 p-2 rounded-lg">
+                      <Icon className={twMerge('text-primary', className)} />
+                    </div>
+                  </PieMenu.Slice.Content>
+                </PieMenu.Slice>
+              ))}
 
-        <PieMenu.Center className="w-6" />
-      </PieMenu>
-    </div>
+              <PieMenu.Center className="w-6" />
+            </PieMenu>
+          </div>
+        </FloatingFocusManager>
+      </FloatingPortal>
+    </FloatingOverlay>
   );
 
   return {
