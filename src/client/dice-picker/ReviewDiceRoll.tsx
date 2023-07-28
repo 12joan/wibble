@@ -21,7 +21,7 @@ const removeLastPart = (state: TDicePickerState): TDicePickerState => ({
 
 export const ReviewDiceRoll = () => {
   const navigate = useNavigateWithState();
-  const { performDiceRoll, postingAs } = useAppContext();
+  const { performDiceRoll, postingAs, isConnected } = useAppContext();
   const { close } = useDicePickerContext();
   const { diceRollRequestParts, label } = useDicePickerState();
   const hasOnePart = diceRollRequestParts.length === 1;
@@ -131,6 +131,7 @@ export const ReviewDiceRoll = () => {
       <div>
         <MenuItem
           className="text-primary"
+          disabled={!isConnected}
           onClick={handleConfirmRoll}
           children="Confirm roll"
         />

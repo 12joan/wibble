@@ -7,7 +7,7 @@ import { Button } from './Button';
 import { InputGroup } from './Input';
 
 export const DiceRollerNotationInput = () => {
-  const { performDiceRoll, postingAs } = useAppContext();
+  const { performDiceRoll, postingAs, isConnected } = useAppContext();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -92,7 +92,7 @@ export const DiceRollerNotationInput = () => {
           shape="icon"
           color="subtle"
           className="my-1 mr-1"
-          disabled={diceNotationIsEmpty || !diceNotationIsValid}
+          disabled={diceNotationIsEmpty || !diceNotationIsValid || !isConnected}
           aria-label="Submit roll"
           // TODO: Use a real tooltip
           title={diceNotationIsValid ? undefined : 'Invalid notation'}
