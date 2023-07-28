@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useAppContext } from '../appContext';
 import { InputGroup } from '../Input';
 import { useOverridable } from '../useOverridable';
@@ -23,10 +23,18 @@ export const ReviewDiceRoll = () => {
   const navigate = useNavigateWithState();
   const { performDiceRoll, postingAs } = useAppContext();
   const { close } = useDicePickerContext();
-  const { diceRollRequestParts } = useDicePickerState();
+  const { diceRollRequestParts, label } = useDicePickerState();
   const hasOnePart = diceRollRequestParts.length === 1;
 
-  const [label, setLabel] = useState('');
+  const setLabel = (label: string) => {
+    navigate('/review-dice-roll', {
+      transformState: (state) => ({
+        ...state,
+        label,
+      }),
+      replace: true,
+    });
+  };
 
   const notation = useMemo(
     () => getDiceRollRequestPartsNotation(diceRollRequestParts),

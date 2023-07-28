@@ -7,12 +7,14 @@ export type TDicePickerState = {
   isFirstPage: boolean;
   diceRollRequestParts: TDiceRollRequestPart[];
   composingDie: TDie | null;
+  label: string;
 };
 
 const initialState: TDicePickerState = {
   isFirstPage: true,
   diceRollRequestParts: [],
   composingDie: null,
+  label: '',
 };
 
 export const useDicePickerState = () => {
