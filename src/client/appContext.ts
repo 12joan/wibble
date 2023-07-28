@@ -6,6 +6,7 @@ import { useSocket } from './useSocket';
 import { TDiceRollResult, TPostingAs } from '~/core/types';
 
 type TAppContext = {
+  isConnected: boolean;
   profilesStore: TProfilesStore;
   currentProfileStore: TProfileStore;
   diceRollResults: TDiceRollResult[];

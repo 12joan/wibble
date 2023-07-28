@@ -5,7 +5,10 @@ import { TServer } from '../core/socket/types';
 import { randomDieRoll } from './randomDieRoll';
 
 export const mountSocket = (server: HTTPServer) => {
-  const io: TServer = new Server(server);
+  const io: TServer = new Server(server, {
+    pingInterval: 2000,
+    pingTimeout: 2000,
+  });
 
   io.on('connection', (socket) => {
     socket.on('diceRollRequest', async (request) => {

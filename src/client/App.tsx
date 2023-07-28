@@ -8,6 +8,7 @@ import { useEventEmitter } from './eventEmitter';
 import { useCurrentProfileStore, useProfilesStore } from './profilesStore';
 import { useBreakpoints } from './useBreakpoints';
 import { useSocket } from './useSocket';
+import { DisconnectedWarning } from './DisconnectedWarning';
 
 export const App = () => {
   const [diceRollResults, setDiceRollResults] = useState<TDiceRollResult[]>([]);
@@ -60,6 +61,7 @@ export const App = () => {
 
   return (
     <AppProvider
+      isConnected={isConnected}
       profilesStore={profilesStore}
       currentProfileStore={currentProfileStore}
       diceRollResults={diceRollResults}
@@ -81,6 +83,8 @@ export const App = () => {
           </aside>
         )}
       </div>
+
+      <DisconnectedWarning />
     </AppProvider>
   );
 };
