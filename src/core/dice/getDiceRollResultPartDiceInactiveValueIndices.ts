@@ -1,8 +1,8 @@
-import { TDiceRollResultPartDice } from '../types';
 import { chunk } from 'lodash';
+import { TDiceRollResultPartDice } from '../types';
 
 export const getDiceRollResultPartDiceInactiveValueIndices = (
-  part: TDiceRollResultPartDice,
+  part: TDiceRollResultPartDice
 ): number[] => {
   if (!['20A', '20D'].includes(part.die as string)) {
     return [];

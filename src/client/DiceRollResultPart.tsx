@@ -1,9 +1,13 @@
-/* eslint-disable no-case-declarations */
 import React, { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { TDiceRollResultPart, TDiceRollResultPartDice, TDiceRollResultPartModifier } from '~/core/types';
 import { DieIcon } from './DieIcon';
+
 import { getDiceRollResultPartDiceInactiveValueIndices } from '~/core/dice/getDiceRollResultPartDiceInactiveValueIndices';
+import {
+  TDiceRollResultPart,
+  TDiceRollResultPartDice,
+  TDiceRollResultPartModifier,
+} from '~/core/types';
 
 const textClassName = 'text-lg font-medium';
 
@@ -18,7 +22,9 @@ const Operator = ({ children }: OperatorProps) => (
   />
 );
 
-export interface DiceRollResultPartProps<T extends TDiceRollResultPart = TDiceRollResultPart> {
+export interface DiceRollResultPartProps<
+  T extends TDiceRollResultPart = TDiceRollResultPart
+> {
   part: T;
   isFirst: boolean;
 }
@@ -29,7 +35,7 @@ const DiceRollResultPartDice = ({
 }: DiceRollResultPartProps<TDiceRollResultPartDice>) => {
   const inactiveValueIndices = useMemo(
     () => getDiceRollResultPartDiceInactiveValueIndices(part),
-    [part],
+    [part]
   );
 
   return (
@@ -47,7 +53,9 @@ const DiceRollResultPartDice = ({
             value={value}
             pathClassName="fill-current"
             valueClassName="fill-white dark:fill-black"
-            aria-label={`d${part.die} rolled ${value}${isInactive ? ' (not used)' : ''}`}
+            aria-label={`d${part.die} rolled ${value}${
+              isInactive ? ' (not used)' : ''
+            }`}
             style={{
               opacity: isInactive ? 0.5 : 1,
             }}
