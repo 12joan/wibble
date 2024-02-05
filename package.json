@@ -2,7 +2,7 @@
   "name": "dice",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.23.7",
+    "@babel/core": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
     "@popperjs/core": "^2.11.8",
     "@rails/actioncable": "^6.1.7",
