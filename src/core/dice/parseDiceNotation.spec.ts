@@ -101,6 +101,18 @@ describe('parseDiceNotation', () => {
     ]);
   });
 
+  it('should parse 1D20', () => {
+    expect(parseDiceNotation('1D20')).toEqual([
+      { type: 'dice', die: 20, count: 1 },
+    ]);
+  });
+
+  it('should parse 1D20d', () => {
+    expect(parseDiceNotation('1D20d')).toEqual([
+      { type: 'dice', die: '20D', count: 1 },
+    ]);
+  });
+
   it('should return null for invalid notation', () => {
     expect(parseDiceNotation('x')).toBeNull();
   });

@@ -20,7 +20,7 @@ export const parseDiceNotation = (
       // Do nothing
     } else if (lexeme === '-') {
       sign *= -1;
-    } else if ((diceMatch = lexeme.match(/^(\d*)d(\d+|20[adAD])$/))) {
+    } else if ((diceMatch = lexeme.match(/^(\d*)[dD](\d+|20[adAD])$/))) {
       const [, countString, dieString] = diceMatch;
       const count = countString ? parseInt(countString, 10) : 1;
 
