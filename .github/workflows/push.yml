@@ -14,7 +14,7 @@ jobs:
 
   deploy_production:
     needs: test
-    if: ${{ github.ref == 'refs/heads/v2' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -26,4 +26,4 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
         repository: ${{ secrets.REGISTRY_REPO }}
         registry: ${{ secrets.REGISTRY_URL }}
-        tag: v2
+        tag: main
