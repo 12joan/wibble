@@ -152,7 +152,6 @@ describe('getDiceRollResultPartDiceInactiveValueIndices', () => {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const testCase of testCases) {
-      // eslint-disable-next-line no-loop-func
       describe(JSON.stringify(testCase), () => {
         const [firstPair, secondPair] = testCase;
 
