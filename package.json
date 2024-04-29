@@ -14,7 +14,7 @@
     "@12joan/react-spring-bottom-sheet": "^3.5.0",
     "@12joan/react-utils": "^1.0.0",
     "@floating-ui/react": "^0.24.8",
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^1.7.19",
     "@radix-ui/react-popover": "^1.0.7",
     "@tippyjs/react": "^4.2.6",
     "class-variance-authority": "^0.6.1",
