@@ -1228,10 +1228,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.1.tgz#e8a83f1aa8b649377bb1fb5d7bac5cb90e784dfe"
   integrity sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==
 
-"@types/node@^18.19.48":
-  version "18.19.48"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.48.tgz#3a1696f4a7298d8831ed9ce47db62bf4c62c8880"
-  integrity sha512-7WevbG4ekUcRQSZzOwxWgi5dZmTak7FaxXDoW7xVxPBmKx1rTzfmRLkeCgJzcbBnOV2dkhAPc8cCeT6agocpjg==
+"@types/node@^18.19.50":
+  version "18.19.50"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.50.tgz#8652b34ee7c0e7e2004b3f08192281808d41bf5a"
+  integrity sha512-xonK+NRrMBRtkL1hVCc3G+uXtjh1Al4opBLjqVmipe5ZAaBYWW6cNAiBVZ1BvmkBhep698rP3UM3aRAdSALuhg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2792,6 +2792,13 @@ expect@^29.0.0, expect@^29.7.0:
     jest-matcher-utils "^29.7.0"
     jest-message-util "^29.7.0"
     jest-util "^29.7.0"
+
+express-static-gzip@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/express-static-gzip/-/express-static-gzip-2.1.7.tgz#5904824a07950ba741ec3a23a21839dd04c63506"
+  integrity sha512-QOCZUC+lhPPCjIJKpQGu1Oa61Axg9Mq09Qvit8Of7kzpMuwDeMSqjjQteQS3OVw/GkENBoSBheuQDWPlngImvw==
+  dependencies:
+    serve-static "^1.14.1"
 
 express@^4.19.2:
   version "4.19.2"
@@ -4932,7 +4939,7 @@ send@0.18.0:
     range-parser "~1.2.1"
     statuses "2.0.1"
 
-serve-static@1.15.0:
+serve-static@1.15.0, serve-static@^1.14.1:
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/serve-static/-/serve-static-1.15.0.tgz#faaef08cffe0a1a62f60cad0c4e513cff0ac9540"
   integrity sha512-XGuRDNjXUijsUL0vl6nSD7cwURuzEgglbOaFuZM9g3kwDXOWVTck0jLzjPzGD+TazWbboZYu52/9/XPdUgne9g==
@@ -5597,10 +5604,11 @@ vary@^1, vary@~1.1.2:
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
 vite-express@*:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/vite-express/-/vite-express-0.18.0.tgz#9bfb159273b776f235b4bf75bb4aced5e110ecf0"
-  integrity sha512-sdBVDbI/U5wVCFSW8S02uNdt9u6n8sChi4b9wkZMMtFBk7MESnB9rGnXDCmCxGuaG3vX9BjlrJDAcErnethOyw==
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/vite-express/-/vite-express-0.19.0.tgz#84bf2f16c6939c8ef90c5e65384615583433ce9d"
+  integrity sha512-ktCeka2A2f9IlRkrqfg1oz1mdRRbev6dIXUQqTojDGf+d5QBZzkWLQMCqzNEv3AUN3wod62dG7sgyEcoaBTjjg==
   dependencies:
+    express-static-gzip "^2.1.7"
     picocolors "^1.0.0"
 
 vite@^4.5.3:
