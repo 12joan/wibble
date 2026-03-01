@@ -8,9 +8,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: docker compose -f docker-compose.test.yml up -d --build
+    # Run tests with dev dependencies
+    - run: docker compose -f docker-compose.test.yml up -d --build --wait
     - run: docker compose -f docker-compose.test.yml exec -T web yarn ci
     - run: docker compose -f docker-compose.test.yml down
+    # Smoke test production Dockerfile 
+    - run: docker compose -f docker-compose.production.yml up -d --build --wait
+    - run: curl -Is http://localhost:3000/
+    - run: docker compose -f docker-compose.production.yml down
 
   deploy:
     needs: test
