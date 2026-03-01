@@ -7,8 +7,9 @@ RUN yarn build
 
 FROM node:24-alpine
 RUN apk --no-cache add curl
+WORKDIR /app
 COPY --from=builder /app .
-RUN yarn install --frozen-lockfile --non-interactive --production
+RUN yarn install --frozen-lockfile --non-interactive --production && yarn cache clean
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOST=0.0.0.0
