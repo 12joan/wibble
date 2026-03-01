@@ -18,4 +18,4 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - uses: 12joan/build-and-push-image
+    - uses: 12joan/build-and-push-image@main
