@@ -6,6 +6,7 @@ COPY . .
 RUN yarn build
 
 FROM node:24-alpine
+RUN apk --no-cache add curl
 COPY --from=builder /app .
 RUN yarn install --frozen-lockfile --non-interactive --production
 ENV NODE_ENV=production
