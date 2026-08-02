@@ -12,7 +12,7 @@
   "dependencies": {
     "@12joan/react-spring-bottom-sheet": "^3.5.0",
     "@12joan/react-utils": "^1.0.0",
-    "@floating-ui/react": "^0.24.8",
+    "@floating-ui/react": "^0.27.20",
     "@headlessui/react": "^2.2.10",
     "@radix-ui/react-popover": "^1.1.23",
     "@tippyjs/react": "^4.2.6",
