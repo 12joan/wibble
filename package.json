@@ -58,7 +58,7 @@
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "jest": "^30.5.1",
     "nodemon": "^3.1.14",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "prettier": "^2.8.8",
     "tailwindcss-animate": "^1.0.7",
     "ts-jest": "^29.4.12",
