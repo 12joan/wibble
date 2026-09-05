@@ -59,7 +59,7 @@
     "jest": "^30.5.1",
     "nodemon": "^3.1.14",
     "postcss": "^8.5.28",
-    "prettier": "^2.8.8",
+    "prettier": "^3.9.6",
     "tailwindcss-animate": "^1.0.7",
     "ts-jest": "^29.4.12",
     "vite": "^8.2.2"
