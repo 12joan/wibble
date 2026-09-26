@@ -61,7 +61,7 @@
     "postcss": "^8.5.28",
     "prettier": "^2.8.8",
     "tailwindcss-animate": "^1.0.7",
-    "ts-jest": "^29.4.13",
+    "ts-jest": "^29.4.14",
     "vite": "^8.3.1"
   }
 }
