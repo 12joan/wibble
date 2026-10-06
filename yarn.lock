@@ -313,10 +313,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@csstools/selector-specificity@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-6.0.0.tgz#ef28e27c1ded1d8e5c54879a9399e7055aed1920"
-  integrity sha512-4sSgl78OtOXEX/2d++8A83zHNTgwCJMaR24FvsYL7Uf/VS8HZk9PTwR51elTbGqMuwH3szLvvOXEaVnqn0Z3zA==
+"@csstools/selector-specificity@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-6.0.1.tgz#7c5f0ef843e1bc8dd0c2438be134bd31bf298622"
+  integrity sha512-MBuqFIIvqk4S593MGAskTkPpEUUzZNvGzh8mMxEwl3oHwjQlXmqHEDxNbN3Y0Tsh+xjmem4GZjeg7I0qkwBivg==
 
 "@emnapi/core@1.10.0":
   version "1.10.0"
@@ -2314,12 +2314,12 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3, cross-spawn@^7.0.6:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-css-has-pseudo@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/css-has-pseudo/-/css-has-pseudo-8.0.1.tgz#a0a473988461660ae01e2289c06efdf4c3b9e268"
-  integrity sha512-rbAA5luesIpXfRwc88KfJtaLQ2TTFmoUAU1AnolV8GHr+Z796hICAErTZl/PLnif/X18UoteT8G8fnmol3e0rQ==
+css-has-pseudo@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/css-has-pseudo/-/css-has-pseudo-8.0.2.tgz#595355203dea7666fc41bca6076c4ad4bb1a52fe"
+  integrity sha512-QETMa6SoTlDAa8Xou5Rnmv/28c9QnuMYMCbk3yRO1Pl6fzerXNevZA+oFFoQgxtCjch5VAQkN+gyHFlJnkV77Q==
   dependencies:
-    "@csstools/selector-specificity" "^6.0.0"
+    "@csstools/selector-specificity" "^6.0.1"
     postcss-selector-parser "^7.1.1"
     postcss-value-parser "^4.2.0"
 
