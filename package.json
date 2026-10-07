@@ -14,7 +14,7 @@
     "@12joan/react-utils": "^1.0.0",
     "@floating-ui/react": "^0.27.20",
     "@headlessui/react": "^2.2.10",
-    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-popover": "^1.2.0",
     "@tippyjs/react": "^4.2.6",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
